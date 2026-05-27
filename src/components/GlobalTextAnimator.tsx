@@ -280,8 +280,8 @@ function scan(root: ParentNode) {
   normalizeBatchTiming(root);
 }
 
-function observePreparedElements() {
-  const prepared = Array.from(document.querySelectorAll<HTMLElement>(".typing-reveal, .shell-reveal"));
+function observePreparedElements(root: ParentNode) {
+  const prepared = Array.from(root.querySelectorAll<HTMLElement>(".typing-reveal, .shell-reveal"));
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -308,40 +308,61 @@ export function GlobalTextAnimator() {
     if (!motionEnabled) return;
 
     let cancelled = false;
-    let startTimer: number | null = null;
+    let startTimer: ReturnType<typeof setTimeout> | null = null;
+    let idleHandle: number | null = null;
     let visibilityObserver: IntersectionObserver | null = null;
     let mutationObserver: MutationObserver | null = null;
 
+    const scheduleWhenIdle = (callback: () => void) => {
+      const idleWindow = window as Window & {
+        requestIdleCallback?: (callback: IdleRequestCallback, options?: IdleRequestOptions) => number;
+        cancelIdleCallback?: (handle: number) => void;
+      };
+
+      if (idleWindow.requestIdleCallback) {
+        idleHandle = idleWindow.requestIdleCallback(callback, { timeout: 1600 });
+        return;
+      }
+
+      startTimer = globalThis.setTimeout(callback, 500);
+    };
+
     const start = () => {
-      startTimer = window.setTimeout(() => {
+      scheduleWhenIdle(() => {
         if (cancelled) return;
 
-        const root = document.body;
+        const root = document.querySelector("main") ?? document.body;
         scan(root);
-        visibilityObserver = observePreparedElements();
+        visibilityObserver = observePreparedElements(root);
 
         mutationObserver = new MutationObserver((mutations) => {
           const shouldRescan = mutations.some((mutation) => mutation.addedNodes.length > 0);
           if (!shouldRescan) return;
           scan(root);
           visibilityObserver?.disconnect();
-          visibilityObserver = observePreparedElements();
+          visibilityObserver = observePreparedElements(root);
         });
 
         mutationObserver.observe(root, { childList: true, subtree: true });
-      }, 250);
+      });
     };
 
-    if (document.readyState === "complete") {
-      window.requestAnimationFrame(() => window.requestAnimationFrame(start));
-    } else {
-      window.addEventListener("load", start, { once: true });
-    }
+    const startAfterAssets = () => {
+      void document.fonts.ready.then(() => {
+        if (cancelled) return;
+        window.requestAnimationFrame(() => window.requestAnimationFrame(start));
+      });
+    };
+
+    if (document.readyState === "complete") startAfterAssets();
+    else window.addEventListener("load", startAfterAssets, { once: true });
 
     return () => {
       cancelled = true;
-      window.removeEventListener("load", start);
+      window.removeEventListener("load", startAfterAssets);
       if (startTimer) window.clearTimeout(startTimer);
+      const idleWindow = window as Window & { cancelIdleCallback?: (handle: number) => void };
+      if (idleHandle && idleWindow.cancelIdleCallback) idleWindow.cancelIdleCallback(idleHandle);
       mutationObserver?.disconnect();
       visibilityObserver?.disconnect();
     };

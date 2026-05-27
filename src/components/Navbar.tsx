@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { SocialDropdown } from "./SocialLinks";
+import { heroRevealAfterName } from "./heroIntroTiming";
 
 const nav = [
   ["Home", "/"],
@@ -17,9 +19,26 @@ const nav = [
 
 export function Navbar() {
   const pathname = usePathname();
+  const [homeIntroReady, setHomeIntroReady] = useState(pathname !== "/");
+
+  useEffect(() => {
+    if (pathname !== "/") {
+      setHomeIntroReady(true);
+      return;
+    }
+
+    setHomeIntroReady(false);
+    const timer = window.setTimeout(() => setHomeIntroReady(true), heroRevealAfterName);
+    return () => window.clearTimeout(timer);
+  }, [pathname]);
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur-xl">
+    <header
+      data-no-type
+      className={`fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur-xl transition duration-700 ${
+        homeIntroReady ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-4 opacity-0"
+      }`}
+    >
       <div className="h-px w-full bg-gradient-to-r from-transparent via-teal-200/50 via-amber-100/35 to-transparent" />
       <nav className="container-page py-3">
         <div className="flex items-center justify-between gap-4">

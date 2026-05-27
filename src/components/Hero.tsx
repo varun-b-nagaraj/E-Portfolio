@@ -9,17 +9,11 @@ import { AnimatedCounter } from "./AnimatedCounter";
 import { BackgroundGrid } from "./BackgroundGrid";
 import { MagneticButton } from "./MagneticButton";
 import { useMotionEnabled } from "./ReducedMotionProvider";
-
-const nameLines = ["Varun", "Bhadurgatte", "Nagaraj"];
-const heroNameDelay = 260;
-const heroNameCharacterStep = 78;
-const heroBodyDelayAfterName = 250;
-const heroNameCharacterCount = nameLines.join("").length;
-const heroNameTypingEnd = heroNameDelay + heroNameCharacterCount * heroNameCharacterStep;
+import { heroBodyDelayAfterName, heroNameCharacterStep, heroNameDelay, heroNameLines, heroNameTypingEnd, heroRevealAfterName } from "./heroIntroTiming";
 
 function TypedHeroName() {
   const [visibleCharacters, setVisibleCharacters] = useState(0);
-  const totalCharacters = nameLines.join("").length;
+  const totalCharacters = heroNameLines.join("").length;
 
   useEffect(() => {
     const timers: number[] = [];
@@ -38,7 +32,7 @@ function TypedHeroName() {
       data-no-type
       className="accent-text max-w-full pb-2 text-[clamp(3.05rem,15vw,4.7rem)] font-semibold leading-[1.04] md:text-8xl lg:text-[clamp(4.9rem,5.35vw,6.15rem)] xl:text-[clamp(5.4rem,5.55vw,6.5rem)]"
     >
-      {nameLines.map((line) => {
+      {heroNameLines.map((line) => {
         const lineVisibleCharacters = Math.max(0, Math.min(line.length, visibleCharacters - consumed));
         const text = line.slice(0, lineVisibleCharacters);
         const showCaret = visibleCharacters < totalCharacters && visibleCharacters >= consumed && visibleCharacters <= consumed + line.length;
@@ -108,11 +102,26 @@ function TypedRoleCarousel() {
 
 export function Hero() {
   const motionEnabled = useMotionEnabled();
+  const [introRevealed, setIntroRevealed] = useState(false);
   const x = useSpring(useMotionValue(0), { stiffness: 70, damping: 22 });
   const y = useSpring(useMotionValue(0), { stiffness: 70, damping: 22 });
   const scrollToNextSection = () => {
     document.getElementById("builder-profile")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
+  useEffect(() => {
+    if (!motionEnabled) {
+      setIntroRevealed(true);
+      return;
+    }
+
+    const timer = window.setTimeout(() => setIntroRevealed(true), heroRevealAfterName);
+    return () => window.clearTimeout(timer);
+  }, [motionEnabled]);
+
+  const revealEase = [0.22, 1, 0.36, 1] as const;
+  const revealInitial = motionEnabled ? { opacity: 0, y: 18 } : false;
+  const revealAnimate = motionEnabled ? (introRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }) : undefined;
 
   return (
     <section
@@ -128,10 +137,11 @@ export function Hero() {
       <div className="container-page relative z-10 grid items-center gap-12 py-12 md:py-16 lg:grid-cols-[minmax(0,1.18fr)_minmax(360px,0.82fr)]">
         <div className="min-w-0">
           <motion.p
+            data-no-type
             className="section-kicker text-xs uppercase tracking-[0.24em] md:text-sm md:tracking-[0.32em]"
-            initial={motionEnabled ? { opacity: 0, y: 22 } : false}
-            animate={motionEnabled ? { opacity: 1, y: 0 } : undefined}
-            transition={{ duration: 0.6 }}
+            initial={revealInitial}
+            animate={revealAnimate}
+            transition={{ duration: 0.55, ease: revealEase }}
           >
             AI / robotics / simulation / research
           </motion.p>
@@ -147,15 +157,36 @@ export function Hero() {
             </motion.div>
           </div>
           <TypedRoleCarousel />
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted md:mt-7 md:text-xl">{profile.intro}</p>
-          <div className="mt-7 flex flex-wrap gap-3 md:mt-9">
+          <motion.p
+            data-no-type
+            className="mt-6 max-w-2xl text-base leading-relaxed text-muted md:mt-7 md:text-xl"
+            initial={revealInitial}
+            animate={revealAnimate}
+            transition={{ duration: 0.55, ease: revealEase }}
+          >
+            {profile.intro}
+          </motion.p>
+          <motion.div
+            data-no-type
+            className="mt-7 flex flex-wrap gap-3 md:mt-9"
+            initial={revealInitial}
+            animate={revealAnimate}
+            transition={{ duration: 0.55, ease: revealEase }}
+          >
             <MagneticButton href="/projects">View systems</MagneticButton>
             <MagneticButton href="/resume">
               View resume
             </MagneticButton>
-          </div>
+          </motion.div>
         </div>
-        <motion.div className="relative mx-auto mb-10 w-full max-w-[360px] md:max-w-[460px] lg:mb-0" style={motionEnabled ? { x, y } : undefined}>
+        <motion.div
+          data-no-type
+          className="relative mx-auto mb-10 w-full max-w-[360px] md:max-w-[460px] lg:mb-0"
+          style={motionEnabled ? { x, y } : undefined}
+          initial={motionEnabled ? { opacity: 0 } : false}
+          animate={motionEnabled ? (introRevealed ? { opacity: 1 } : { opacity: 0 }) : undefined}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        >
           <div className="absolute -inset-6 rounded-[2rem] border border-teal-100/15 bg-[linear-gradient(135deg,rgba(141,223,213,0.08),rgba(240,195,106,0.04),rgba(134,168,255,0.07))] blur-xl" />
           <div className="surface-glow relative overflow-hidden rounded-lg border border-white/12 bg-white/[0.04] shadow-glass">
             <div className="accent-rule absolute inset-x-0 top-0 z-10 h-px" />
@@ -184,7 +215,9 @@ export function Hero() {
         data-no-type
         type="button"
         onClick={scrollToNextSection}
-        className="absolute bottom-5 left-1/2 z-10 hidden -translate-x-1/2 rounded-full border border-teal-100/35 bg-black/25 p-3 text-muted shadow-[0_0_24px_rgba(141,223,213,0.12)] transition hover:-translate-y-0.5 hover:border-teal-100/55 hover:text-bone focus:outline-none focus:ring-2 focus:ring-teal-100/45 md:block"
+        className={`absolute bottom-5 left-1/2 z-10 hidden -translate-x-1/2 rounded-full border border-teal-100/35 bg-black/25 p-3 text-muted shadow-[0_0_24px_rgba(141,223,213,0.12)] transition duration-500 hover:-translate-y-0.5 hover:border-teal-100/55 hover:text-bone focus:outline-none focus:ring-2 focus:ring-teal-100/45 md:block ${
+          introRevealed ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
         aria-label="Scroll to builder profile"
       >
         <ArrowDown className="h-5 w-5 animate-pulse" />
