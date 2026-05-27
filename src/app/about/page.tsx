@@ -1,5 +1,4 @@
 import { AboutSystemsMap } from "@/components/AboutSystemsMap";
-import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { MagneticButton } from "@/components/MagneticButton";
 import { ParallaxLayer } from "@/components/ParallaxLayer";
 import { SectionIntro } from "@/components/SectionIntro";
@@ -57,12 +56,10 @@ export default function AboutPage() {
         </div>
       </section>
       <section className="container-page grid gap-4 pb-24 sm:grid-cols-2 lg:grid-cols-3">
-        {profile.metrics.map((metric) => (
-          <div key={metric.label} className="surface-glow rounded-lg border border-white/12 bg-panel/80 p-6">
-            <p className="text-4xl font-semibold text-bone">
-              <AnimatedCounter value={metric.value} suffix={metric.suffix} />
-            </p>
-            <p className="mt-2 text-sm text-muted">{metric.label}</p>
+        {profile.aboutTraits.map((trait) => (
+          <div key={trait.label} className="surface-glow rounded-lg border border-white/12 bg-panel/80 p-6">
+            <p className="text-xs uppercase tracking-[0.24em] text-teal-100/70">{trait.label}</p>
+            <p className="mt-4 text-sm leading-relaxed text-muted">{trait.body}</p>
           </div>
         ))}
       </section>

@@ -64,6 +64,32 @@ export const profile = {
     { label: "Product listings rebuilt", value: 400, suffix: "+" },
     { label: "Survey research sample", value: 600, suffix: "+" }
   ],
+  aboutTraits: [
+    {
+      label: "Systems",
+      body: "I think through the data, permissions, UI, and user flow together when I build."
+    },
+    {
+      label: "Research",
+      body: "I like projects where the process is clear, the results can be checked, and the assumptions are written down."
+    },
+    {
+      label: "Follow-through",
+      body: "I care about docs, debugging, handoff, and whether the tool still works after the first version."
+    },
+    {
+      label: "Range",
+      body: "I work across robotics, AI tools, web apps, business operations, and research."
+    },
+    {
+      label: "Team-aware",
+      body: "I try to account for what students, mentors, admins, teammates, and nontechnical users actually need."
+    },
+    {
+      label: "Practical",
+      body: "I prefer tools that make a real task easier, faster, clearer, or easier to repeat."
+    }
+  ],
   highlights: [
     {
       title: "AI Systems",
