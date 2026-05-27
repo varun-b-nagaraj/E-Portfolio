@@ -11,9 +11,7 @@ export function Footer() {
         </div>
         <div className="flex flex-wrap gap-4">
           <Link href={`mailto:${profile.email}`}>Email</Link>
-          <Link href={profile.resume} download>
-            Resume
-          </Link>
+          <Link href="/resume">Resume</Link>
           <Link href="/projects">Projects</Link>
           <Link href="/education">Research</Link>
         </div>

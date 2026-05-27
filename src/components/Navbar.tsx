@@ -11,6 +11,7 @@ const nav = [
   ["Projects", "/projects"],
   ["Education", "/education"],
   ["Leadership", "/leadership"],
+  ["Resume", "/resume"],
   ["Contact", "/contact"]
 ];
 
