@@ -112,20 +112,21 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
 
   return (
     <section ref={containerRef} className="container-page py-20 md:py-0" style={{ minHeight: `${sections.length * 100}vh` }}>
-      <div className="sticky top-0 h-screen">
-        <div className="grid h-full gap-10 lg:grid-cols-[0.3fr_0.7fr]">
+      <div className="sticky top-0 h-screen flex items-center">
+        <div className="grid h-auto gap-10 lg:grid-cols-[0.3fr_0.7fr] w-full">
           <div className="hidden md:block">
-            <div className="relative h-full overflow-hidden">
-              <div className="absolute left-0 top-0 h-full w-px bg-white/15" />
+            <div className="relative">
+              <div className="absolute left-0 top-0 bottom-0 w-px bg-white/15" />
               <motion.div
                 className="absolute left-[-3px] h-14 w-1 rounded-full bg-white"
                 style={{ y: indicatorY }}
               />
-              <div className="relative space-y-6 pl-6 pt-0">
+              <div className="relative space-y-6 pl-6">
                 {sections.map((section, index) => (
                   <div
                     key={section.title}
                     data-index={index}
+                    className="h-14 flex items-center"
                   >
                     <p
                       className={`text-base transition ${
