@@ -6,16 +6,44 @@ import { Project } from "@/data/projects";
 import { ProjectCard } from "./ProjectCard";
 import { useMotionEnabled } from "./ReducedMotionProvider";
 
+const slideGap = 24;
+
+function getContentWeight(project: Project) {
+  return [
+    project.title,
+    project.summary,
+    project.narrative,
+    project.problem,
+    project.solution,
+    project.impact,
+    ...project.stack.interface,
+    ...project.stack.backend,
+    ...project.stack.systems,
+    ...project.metrics
+  ].join(" ").length;
+}
+
+function getSlideWidth(project: Project, viewportWidth: number) {
+  const contentWeight = getContentWeight(project);
+  const contentExtra = Math.min(240, Math.max(0, contentWeight - 660) * 0.36);
+  const maxWidth = 980 + contentExtra;
+  const viewportLimit = viewportWidth < 768 ? viewportWidth * 0.92 : viewportWidth * 0.88;
+
+  return Math.round(Math.min(viewportLimit, maxWidth));
+}
+
 function GallerySlide({
   project,
   index,
   total,
-  scrollYProgress
+  scrollYProgress,
+  width
 }: {
   project: Project;
   index: number;
   total: number;
   scrollYProgress: MotionValue<number>;
+  width: number;
 }) {
   const last = Math.max(total - 1, 1);
   const center = index / last;
@@ -26,16 +54,13 @@ function GallerySlide({
       : index === last
         ? [1 - focusWindow, 1]
         : [center - focusWindow, center, center + focusWindow];
-  const scaleOutput = index === 0 ? [1.04, 0.93] : index === last ? [0.93, 1.04] : [0.93, 1.04, 0.93];
+  const scaleOutput = index === 0 ? [1.025, 0.94] : index === last ? [0.94, 1.025] : [0.94, 1.025, 0.94];
   const opacityOutput = index === 0 ? [1, 0.72] : index === last ? [0.72, 1] : [0.72, 1, 0.72];
   const scale = useTransform(scrollYProgress, focusInput, scaleOutput);
   const opacity = useTransform(scrollYProgress, focusInput, opacityOutput);
 
   return (
-    <motion.div
-      className="h-[clamp(540px,60vh,620px)] w-[82vw] max-w-[980px] shrink-0 origin-center"
-      style={{ scale, opacity }}
-    >
+    <motion.div className="shrink-0 origin-center" style={{ scale, opacity, width }}>
       <ProjectCard project={project} featured />
     </motion.div>
   );
@@ -44,14 +69,24 @@ function GallerySlide({
 export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const motionEnabled = useMotionEnabled();
-  const [step, setStep] = useState(0);
+  const [slideWidths, setSlideWidths] = useState<number[]>(() => projects.map(() => 980));
+  const offsets = useMemo(
+    () =>
+      slideWidths.reduce<number[]>((acc, width, index) => {
+        acc.push(index === 0 ? 0 : acc[index - 1] + slideWidths[index - 1] + slideGap);
+        return acc;
+      }, []),
+    [slideWidths]
+  );
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   const points = useMemo(() => {
     const last = Math.max(projects.length - 1, 1);
     const input: number[] = [0];
     const output: number[] = [0];
     const slowWindow = Math.min(0.055, 0.22 / last);
-    const drift = step * 0.08;
+    const averageStep =
+      slideWidths.length > 0 ? slideWidths.reduce((total, width) => total + width, 0) / slideWidths.length + slideGap : 1000;
+    const drift = averageStep * 0.075;
 
     const addPoint = (progress: number, position: number) => {
       const clampedProgress = Math.min(1, Math.max(0, progress));
@@ -67,7 +102,7 @@ export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
 
     for (let index = 0; index < projects.length; index += 1) {
       const center = index / last;
-      const position = -index * step;
+      const position = -(offsets[index] ?? 0);
 
       if (index === 0) {
         addPoint(slowWindow, position - drift);
@@ -82,17 +117,17 @@ export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
     }
 
     return { input, output };
-  }, [projects.length, step]);
+  }, [offsets, projects.length, slideWidths]);
   const x = useTransform(scrollYProgress, points.input, points.output);
   const lineX = useTransform(scrollYProgress, [0, 1], [0, -180]);
   const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   useEffect(() => {
-    const updateStep = () => setStep(Math.min(window.innerWidth * 0.82, 980) + 24);
-    updateStep();
-    window.addEventListener("resize", updateStep);
-    return () => window.removeEventListener("resize", updateStep);
-  }, []);
+    const updateWidths = () => setSlideWidths(projects.map((project) => getSlideWidth(project, window.innerWidth)));
+    updateWidths();
+    window.addEventListener("resize", updateWidths);
+    return () => window.removeEventListener("resize", updateWidths);
+  }, [projects]);
 
   if (!motionEnabled) {
     return (
@@ -106,7 +141,7 @@ export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
 
   return (
     <section ref={ref} className="relative h-[760vh]">
-      <div className="sticky top-0 h-screen overflow-hidden border-y border-white/10 bg-black">
+      <div className="sticky top-0 h-screen overflow-x-hidden border-y border-white/10 bg-black">
         <motion.div className="pointer-events-none absolute inset-0 grid-bg opacity-30" style={{ x: lineX }} />
         <div className="container-page absolute left-1/2 top-20 z-10 -translate-x-1/2">
           <p className="text-sm uppercase tracking-[0.28em] text-muted">Featured systems</p>
@@ -117,9 +152,16 @@ export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
             <motion.div className="h-full origin-left bg-white/35" style={{ width: progressWidth }} />
           </div>
         </div>
-        <motion.div className="flex items-center gap-6 pb-16 pl-[max(16px,calc((100vw-1180px)/2))] pt-[clamp(14rem,30vh,18rem)]" style={{ x }}>
+        <motion.div className="flex items-start gap-6 pb-20 pl-[max(16px,calc((100vw-1180px)/2))] pt-[clamp(12.5rem,26vh,15.5rem)]" style={{ x }}>
           {projects.map((project, index) => (
-            <GallerySlide key={project.slug} project={project} index={index} total={projects.length} scrollYProgress={scrollYProgress} />
+            <GallerySlide
+              key={project.slug}
+              project={project}
+              index={index}
+              total={projects.length}
+              scrollYProgress={scrollYProgress}
+              width={slideWidths[index] ?? 980}
+            />
           ))}
         </motion.div>
       </div>

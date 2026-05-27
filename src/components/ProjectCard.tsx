@@ -14,7 +14,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
   return (
     <article
       className={`group relative overflow-hidden rounded-lg border border-white/12 bg-panel/90 shadow-glass backdrop-blur-xl transition-all duration-700 ease-out hover:border-teal-200/40 hover:shadow-[0_30px_110px_rgba(20,184,166,0.16),0_18px_70px_rgba(251,191,36,0.08),0_0_0_1px_rgba(255,255,255,0.10)] ${
-        featured ? "flex h-full flex-col p-6 md:p-8" : "p-6"
+        featured ? "flex min-h-[clamp(500px,56vh,620px)] flex-col p-6 md:p-8" : "p-6"
       }`}
     >
       <div className="absolute inset-0 opacity-0 transition-opacity duration-1000 ease-out group-hover:opacity-100">
@@ -68,7 +68,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
             </div>
           ))}
         </div>
-        <div className={`grid gap-3 sm:grid-cols-3 ${featured ? "mt-auto pt-5" : "mt-6"}`}>
+        <div className="mt-6 grid gap-3 sm:grid-cols-3">
           {project.metrics.map((metric) => (
             <div key={metric} className="rounded-md border border-amber-100/15 bg-amber-200/[0.045] p-4 text-sm text-bone">
               {metric}
