@@ -1,8 +1,7 @@
 "use client";
 
-import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { useMotionEnabled } from "./ReducedMotionProvider";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 export type StackCard = {
   title: string;
@@ -10,114 +9,61 @@ export type StackCard = {
   body: string;
 };
 
-const cardDetails: Record<string, { points: string[]; metrics: string[] }> = {
+type SectionData = {
+  title: string;
+  eyebrow: string;
+  description: string;
+  bullets: string[];
+  tags: string[];
+  stat: string;
+};
+
+const sectionDetails: Record<string, { bullets: string[]; tags: string[] }> = {
   "AI Systems": {
-    points: ["Tenant-safe CRM architecture", "Streaming agent planning", "Deterministic task execution"],
-    metrics: ["RLS", "Edge Functions", "Agent workflows"]
+    bullets: ["Tenant-safe CRM architecture", "Streaming agent planning", "Deterministic task execution"],
+    tags: ["RLS", "Edge Functions", "Agent workflows"]
   },
   Robotics: {
-    points: ["Autonomous routines", "Sensor fusion and odometry", "AprilTag localization"],
-    metrics: ["FTC", "VEX", "90%+ autonomy"]
+    bullets: ["Autonomous routines", "Sensor fusion and odometry", "AprilTag localization"],
+    tags: ["FTC", "VEX", "90%+ autonomy"]
   },
   Simulation: {
-    points: ["CAD libraries", "SDK abstractions", "Transpilation and telemetry"],
-    metrics: ["50,000+ users", "VEX expansion", "Team tooling"]
+    bullets: ["CAD libraries", "SDK abstractions", "Transpilation and telemetry"],
+    tags: ["50,000+ users", "VEX expansion", "Team tooling"]
   },
   "Full-Stack Engineering": {
-    points: ["School-facing products", "Mobile and web workflows", "Reliable backend systems"],
-    metrics: ["React", "Flask", "Supabase"]
+    bullets: ["School-facing products", "Mobile and web workflows", "Reliable backend systems"],
+    tags: ["React", "Flask", "Supabase"]
   },
   Leadership: {
-    points: ["Student-run operations", "Inclusive fulfillment", "Technical mentorship"],
-    metrics: ["250+ members", "15,000+ views", "Co-Op"]
+    bullets: ["Student-run operations", "Inclusive fulfillment", "Technical mentorship"],
+    tags: ["250+ members", "15,000+ views", "Co-Op"]
   },
   Research: {
-    points: ["IBM Quantum experiments", "SEM analysis pipelines", "Reproducible notes"],
-    metrics: ["8,192 shots", "600+ sample", "Qiskit + R"]
+    bullets: ["IBM Quantum experiments", "SEM analysis pipelines", "Reproducible notes"],
+    tags: ["8,192 shots", "600+ sample", "Qiskit + R"]
   }
 };
 
-function StackedCard({
-  card,
-  index,
-  total,
-  progress
-}: {
-  card: StackCard;
-  index: number;
-  total: number;
-  progress: MotionValue<number>;
-}) {
-  const motionEnabled = useMotionEnabled();
-  const last = Math.max(total - 1, 1);
-  const enter = index / last;
-  const exit = index === last ? 1 : (index + 0.9) / last;
-  const opacity = useTransform(progress, [Math.max(0, enter - 0.1), enter, exit, Math.min(1, exit + 0.05)], [0, 1, 1, 0]);
-  const y = useTransform(progress, [Math.max(0, enter - 0.1), enter, exit], [24, 0, -14]);
-  const scale = useTransform(progress, [enter, exit], [1, 0.98]);
-  const details = cardDetails[card.title] ?? { points: [card.body], metrics: [card.kicker] };
-
+function MobileTile({ section, index }: { section: SectionData; index: number }) {
   return (
-    <motion.article
-      className="surface-glow absolute inset-0 overflow-hidden rounded-[2rem] border border-white/12 bg-carbon/95 shadow-glass"
-      style={motionEnabled ? { zIndex: index + 1, opacity, y, scale } : { zIndex: index + 1 }}
-    >
-      <div className="accent-rule absolute inset-x-0 top-0 h-px" />
-      <div className="absolute inset-0 grid-bg opacity-14" />
-      <div className="absolute right-8 top-8 text-[10rem] font-semibold leading-none text-white/[0.026] md:text-[13rem]">
-        0{index + 1}
-      </div>
-      <div className="relative h-full p-8 md:p-10">
-        <div className="flex h-full flex-col justify-between gap-8">
-          <div>
-            <p className="section-kicker text-xs uppercase tracking-[0.28em] text-teal-100/80">{card.kicker}</p>
-            <h3 className="mt-4 text-4xl font-semibold leading-tight text-bone md:text-5xl xl:text-6xl">{card.title}</h3>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-silver xl:text-lg">{card.body}</p>
-          </div>
-          <div className="grid gap-4 lg:grid-cols-3">
-            {details.points.map((point) => (
-              <div key={point} className="rounded-3xl border border-white/10 bg-white/5 p-4 text-sm leading-relaxed text-muted">
-                {point}
-              </div>
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {details.metrics.map((metric) => (
-              <span key={metric} className="accent-chip rounded-full px-3 py-1 text-xs text-muted">
-                {metric}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </motion.article>
-  );
-}
-
-function MobileStackCard({ card, index }: { card: StackCard; index: number }) {
-  const details = cardDetails[card.title] ?? { points: [card.body], metrics: [card.kicker] };
-
-  return (
-    <article className="surface-glow relative overflow-hidden rounded-3xl border border-white/12 bg-carbon/95 p-6 shadow-glass">
-      <div className="accent-rule absolute inset-x-0 top-0 h-px" />
-      <div className="absolute inset-0 grid-bg opacity-14" />
-      <div className="absolute right-4 top-4 text-5xl font-semibold leading-none text-white/[0.03]">0{index + 1}</div>
+    <article className="surface-glow overflow-hidden rounded-[1.75rem] border border-white/10 bg-carbon/95 p-6 shadow-glass">
       <div className="relative">
-        <p className="section-kicker text-xs uppercase tracking-[0.24em] text-teal-100/80">{card.kicker}</p>
-        <h3 className="mt-3 text-3xl font-semibold leading-tight text-bone">{card.title}</h3>
-        <div className="accent-rule my-5 h-px w-full" />
-        <p className="text-base leading-relaxed text-silver">{card.body}</p>
-        <div className="mt-5 grid gap-3">
-          {details.points.map((point) => (
-            <div key={point} className="rounded-3xl border border-white/10 bg-black/25 p-3 text-sm leading-relaxed text-muted">
-              {point}
+        <div className="absolute right-6 top-6 text-7xl font-semibold leading-none text-white/[0.04]">{section.stat}</div>
+        <p className="text-xs uppercase tracking-[0.28em] text-teal-100/70">{section.eyebrow}</p>
+        <h3 className="mt-4 text-2xl font-semibold text-white">{section.title}</h3>
+        <p className="mt-4 text-sm leading-relaxed text-slate-300">{section.description}</p>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          {section.bullets.map((bullet) => (
+            <div key={bullet} className="rounded-3xl border border-white/10 bg-white/5 p-3 text-sm text-slate-300">
+              {bullet}
             </div>
           ))}
         </div>
-        <div className="mt-5 flex flex-wrap gap-2">
-          {details.metrics.map((metric) => (
-            <span key={metric} className="accent-chip rounded-full px-3 py-1 text-xs text-muted">
-              {metric}
+        <div className="mt-4 flex flex-wrap gap-2 text-xs text-slate-400">
+          {section.tags.map((tag) => (
+            <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+              {tag}
             </span>
           ))}
         </div>
@@ -127,70 +73,142 @@ function MobileStackCard({ card, index }: { card: StackCard; index: number }) {
 }
 
 export function StackingSection({ cards }: { cards: StackCard[] }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const last = Math.max(cards.length - 1, 1);
-  const itemSpacing = 80;
-  const highlightTop = useTransform(
-    scrollYProgress,
-    cards.map((_, index) => index / last),
-    cards.map((_, index) => index * itemSpacing)
-  );
+  const headingRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const sections: SectionData[] = cards.map((card, index) => {
+    const details = sectionDetails[card.title] ?? { bullets: [card.body], tags: [card.kicker] };
+    return {
+      title: card.title,
+      eyebrow: card.kicker,
+      description: card.body,
+      bullets: details.bullets,
+      tags: details.tags,
+      stat: `0${index + 1}`
+    };
+  });
+
+  const indicatorHeight = 64;
+
+  useEffect(() => {
+    const nodes = headingRefs.current.filter(Boolean) as HTMLElement[];
+    if (!nodes.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting);
+        if (!visible.length) return;
+        const closest = visible.reduce((best, entry) => {
+          return entry.boundingClientRect.top < best.boundingClientRect.top ? entry : best;
+        }, visible[0]!);
+        const index = Number(closest.target.getAttribute("data-index")) || 0;
+        setActiveIndex(index);
+      },
+      {
+        root: null,
+        rootMargin: "-40% 0px -40% 0px",
+        threshold: 0.5
+      }
+    );
+
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, [cards.length]);
 
   return (
     <section className="container-page py-20 md:py-0">
-      <div className="grid gap-10 lg:grid-cols-[0.44fr_0.56fr]">
-        <div className="relative hidden md:block">
-          <div className="sticky top-24 space-y-8">
-            <div>
-              <p className="section-kicker text-sm uppercase tracking-[0.28em]">Builder profile</p>
-              <h2 className="mt-4 max-w-3xl text-4xl font-semibold leading-tight text-bone xl:text-5xl">
-                A technical exhibit, built from shipped systems.
-              </h2>
-              <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted xl:text-lg">
-                Scroll to change which card appears on the right.
-              </p>
-            </div>
-            <div className="relative rounded-[2rem] border border-white/10 bg-black/30 p-5">
-              <div className="absolute left-5 top-5 bottom-5 w-px bg-white/10" />
-              <motion.div
-                className="absolute left-3 h-16 w-1 rounded-full bg-teal-300"
-                style={{ top: highlightTop }}
-              />
-              <div className="relative space-y-4 pl-8">
-                {cards.map((card) => (
-                  <div key={card.title} className="group h-16 rounded-3xl border border-white/10 bg-transparent px-3 py-4 transition duration-300 hover:bg-white/5 hover:text-white">
-                    <h3 className="text-base font-semibold text-white transition-colors duration-200 group-hover:text-teal-100">
-                      {card.title}
-                    </h3>
-                  </div>
-                ))}
-              </div>
+      <div className="grid gap-10 lg:grid-cols-[0.3fr_0.7fr]">
+        <div className="hidden md:block">
+          <div className="relative">
+            <div className="absolute left-0 top-0 h-full w-px bg-white/15" />
+            <motion.div
+              className="absolute left-[-3px] h-14 w-1 rounded-full bg-white"
+              animate={{ y: activeIndex * indicatorHeight }}
+              transition={{ type: "spring", stiffness: 210, damping: 26 }}
+            />
+            <div className="relative space-y-6 pl-6">
+              {sections.map((section, index) => (
+                <div
+                  key={section.title}
+                  ref={(el) => {
+                    headingRefs.current[index] = el;
+                  }}
+                  data-index={index}
+                >
+                  <p
+                    className={`text-base transition ${
+                      activeIndex === index
+                        ? "text-white font-semibold opacity-100"
+                        : "text-slate-500 opacity-70"
+                    }`}
+                  >
+                    {section.title}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
         <div className="md:hidden">
-          <div className="mb-12">
-            <p className="section-kicker text-sm uppercase tracking-[0.28em]">Builder profile</p>
-            <h2 className="mt-4 text-4xl font-semibold text-bone">A technical exhibit, built from shipped systems.</h2>
-            <p className="mt-5 text-lg leading-relaxed text-muted">
-              Each layer locks into place as the next one arrives, forming a readable stack of the systems behind the work.
-            </p>
+          <div className="space-y-4">
+            <p className="section-kicker text-sm uppercase tracking-[0.28em] text-teal-100/70">Builder profile</p>
+            <h2 className="text-4xl font-semibold text-white">A technical exhibit, built from shipped systems.</h2>
           </div>
-          <div className="space-y-5">
-            {cards.map((card, index) => (
-              <MobileStackCard key={card.title} card={card} index={index} />
+          <div className="mt-8 space-y-3 border-l border-white/10 pl-4">
+            {sections.map((section) => (
+              <p key={section.title} className="text-sm font-semibold text-white/90">
+                {section.title}
+              </p>
+            ))}
+          </div>
+          <div className="mt-10 space-y-6">
+            {sections.map((section, index) => (
+              <MobileTile key={section.title} section={section} index={index} />
             ))}
           </div>
         </div>
 
-        <div ref={ref} className="relative hidden md:block" style={{ height: `${cards.length * 96}vh` }}>
-          <div className="sticky top-0 flex h-screen items-center justify-center overflow-visible pt-20">
-            <div className="relative w-full max-w-4xl px-2">
-              {cards.map((card, index) => (
-                <StackedCard key={card.title} card={card} index={index} total={cards.length} progress={scrollYProgress} />
-              ))}
+        <div className="relative hidden md:block" style={{ minHeight: `${sections.length * 80}vh` }}>
+          <div className="sticky top-24 h-screen">
+            <div className="relative mx-auto h-[680px] max-w-4xl overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  className="absolute inset-0"
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -24 }}
+                  transition={{ duration: 0.45, ease: "easeOut" }}
+                >
+                  <div className="relative h-full overflow-hidden rounded-[2rem] border border-white/10 bg-black/80 p-9 shadow-[0_40px_120px_rgba(0,0,0,0.32)]">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(56,189,248,0.14),_transparent_28%)]" />
+                    <div className="relative z-10 flex h-full flex-col justify-between gap-8">
+                      <div>
+                        <p className="text-xs uppercase tracking-[0.3em] text-teal-200/80">{sections[activeIndex].eyebrow}</p>
+                        <h3 className="mt-4 text-5xl font-semibold leading-tight text-white">{sections[activeIndex].title}</h3>
+                        <p className="mt-5 max-w-3xl text-base leading-relaxed text-slate-300">
+                          {sections[activeIndex].description}
+                        </p>
+                      </div>
+                      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                        {sections[activeIndex].bullets.map((bullet) => (
+                          <div key={bullet} className="rounded-3xl border border-white/10 bg-white/5 p-4 text-sm text-slate-300">
+                            {bullet}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="flex flex-wrap gap-2 text-xs text-slate-400">
+                        {sections[activeIndex].tags.map((tag) => (
+                          <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
           </div>
         </div>
