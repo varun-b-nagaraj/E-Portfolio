@@ -16,32 +16,39 @@ type SectionData = {
   bullets: string[];
   tags: string[];
   stat: string;
+  metrics?: string[];
 };
 
-const sectionDetails: Record<string, { bullets: string[]; tags: string[] }> = {
+const sectionDetails: Record<string, { bullets: string[]; tags: string[]; metrics?: string[] }> = {
   "AI Systems": {
     bullets: ["Tenant-safe CRM architecture", "Streaming agent planning", "Deterministic task execution"],
-    tags: ["RLS", "Edge Functions", "Agent workflows"]
+    tags: ["RLS", "Edge Functions", "Agent workflows"],
+    metrics: ["Multi-tenant CRM", "Live agent planning", "Deterministic execution"]
   },
   Robotics: {
     bullets: ["Autonomous routines", "Sensor fusion and odometry", "AprilTag localization"],
-    tags: ["FTC", "VEX", "90%+ autonomy"]
+    tags: ["FTC", "VEX", "90%+ autonomy"],
+    metrics: ["Computer vision systems", "Real-time localization", "Autonomous navigation"]
   },
   Simulation: {
     bullets: ["CAD libraries", "SDK abstractions", "Transpilation and telemetry"],
-    tags: ["50,000+ users", "VEX expansion", "Team tooling"]
+    tags: ["50,000+ users", "VEX expansion", "Team tooling"],
+    metrics: ["50,000+ monthly users", "Java-to-JavaScript transpilation", "Cross-platform testing"]
   },
   "Full-Stack Engineering": {
     bullets: ["School-facing products", "Mobile and web workflows", "Reliable backend systems"],
-    tags: ["React", "Flask", "Supabase"]
+    tags: ["React", "Flask", "Supabase"],
+    metrics: ["Real-time database sync", "JWT authentication", "Responsive design"]
   },
   Leadership: {
     bullets: ["Student-run operations", "Inclusive fulfillment", "Technical mentorship"],
-    tags: ["250+ members", "15,000+ views", "Co-Op"]
+    tags: ["250+ members", "15,000+ views", "Co-Op"],
+    metrics: ["250+ active members", "15,000+ monthly views", "Inclusive fulfillment"]
   },
   Research: {
     bullets: ["IBM Quantum experiments", "SEM analysis pipelines", "Reproducible notes"],
-    tags: ["8,192 shots", "600+ sample", "Qiskit + R"]
+    tags: ["8,192 shots", "600+ sample", "Qiskit + R"],
+    metrics: ["8,192-shot configurations", "600+ sample size", "Zero-noise extrapolation"]
   }
 };
 
@@ -88,6 +95,7 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
       description: card.body,
       bullets: details.bullets,
       tags: details.tags,
+      metrics: details.metrics,
       stat: `0${index + 1}`
     };
   });
@@ -112,8 +120,8 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
 
   return (
     <section ref={containerRef} className="container-page py-20 md:py-0" style={{ minHeight: `${sections.length * 100}vh` }}>
-      <div className="sticky top-0 h-[88vh] flex items-center">
-        <div className="grid h-auto gap-10 lg:grid-cols-[0.3fr_0.7fr] w-full">
+      <div className="sticky top-0 h-[88vh] flex items-center justify-center">
+        <div className="grid h-full gap-10 lg:grid-cols-[0.3fr_0.7fr] w-full items-center">
           <div className="hidden md:flex md:items-center">
             <div className="relative">
               <div className="absolute left-0 top-0 bottom-0 w-px bg-white/15" />
@@ -164,13 +172,28 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
                           {sections[activeIndex].description}
                         </p>
                       </div>
-                      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                        {sections[activeIndex].bullets.map((bullet) => (
-                          <div key={bullet} className="rounded-3xl border border-white/10 bg-white/5 p-4 text-sm text-slate-300">
-                            {bullet}
-                          </div>
-                        ))}
+                      <div>
+                        <p className="mb-4 text-xs uppercase tracking-widest text-slate-400">Core focus areas</p>
+                        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                          {sections[activeIndex].bullets.map((bullet) => (
+                            <div key={bullet} className="rounded-3xl border border-white/10 bg-white/5 p-4 text-sm text-slate-300">
+                              {bullet}
+                            </div>
+                          ))}
+                        </div>
                       </div>
+                      {sections[activeIndex].metrics && sections[activeIndex].metrics!.length > 0 && (
+                        <div>
+                          <p className="mb-4 text-xs uppercase tracking-widest text-slate-400">Key dimensions</p>
+                          <div className="grid gap-3 sm:grid-cols-3">
+                            {sections[activeIndex].metrics!.map((metric) => (
+                              <div key={metric} className="rounded-lg border border-white/[0.08] bg-white/[0.02] p-3 text-sm text-slate-200">
+                                {metric}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                       <div className="flex flex-wrap gap-2 text-xs text-slate-400">
                         {sections[activeIndex].tags.map((tag) => (
                           <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
