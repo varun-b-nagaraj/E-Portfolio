@@ -1,73 +1,165 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { useMotionEnabled } from "./ReducedMotionProvider";
 
 const routeOrder = ["/", "/about", "/experience", "/projects", "/education", "/leadership", "/resume", "/contact"];
-const pageVariants = {
-  initial: (direction: number) => ({
-    x: direction > 0 ? 42 : -42,
-    opacity: 0,
-    scale: 0.992
-  }),
-  animate: {
-    x: 0,
-    opacity: 1,
-    scale: 1
-  },
-  exit: (direction: number) => ({
-    x: direction > 0 ? -36 : 36,
-    opacity: 0,
-    scale: 0.992
-  })
+const transitionEase = [0.22, 1, 0.36, 1] as const;
+const curtainDuration = 0.78;
+const revealDelay = 180;
+
+type CurtainPhase = "idle" | "covering" | "covered" | "revealing";
+
+const routeLabels: Record<string, string> = {
+  "/": "Home",
+  "/about": "About",
+  "/experience": "Experience",
+  "/projects": "Projects",
+  "/education": "Academia",
+  "/leadership": "Leadership",
+  "/resume": "Resume",
+  "/contact": "Contact"
 };
 
-function getRouteIndex(pathname: string) {
-  const exactIndex = routeOrder.indexOf(pathname);
-  if (exactIndex >= 0) return exactIndex;
+function getRouteLabel(pathname: string) {
+  const exactLabel = routeLabels[pathname];
+  if (exactLabel) return exactLabel;
 
-  const parentIndex = routeOrder.findIndex((route) => route !== "/" && pathname.startsWith(`${route}/`));
-  return parentIndex >= 0 ? parentIndex : routeOrder.length;
+  const parentPath = routeOrder.find((route) => route !== "/" && pathname.startsWith(`${route}/`));
+  return parentPath ? routeLabels[parentPath] : "Next page";
+}
+
+function getInternalHref(anchor: HTMLAnchorElement) {
+  if (anchor.target && anchor.target !== "_self") return null;
+  if (anchor.hasAttribute("download")) return null;
+
+  const url = new URL(anchor.href);
+  if (url.origin !== window.location.origin) return null;
+  if (url.pathname === window.location.pathname && url.search === window.location.search) return null;
+
+  return `${url.pathname}${url.search}${url.hash}`;
+}
+
+function Curtain({ phase, label }: { phase: CurtainPhase; label: string }) {
+  const x =
+    phase === "covering"
+      ? "0%"
+      : phase === "revealing"
+        ? "100%"
+        : phase === "covered"
+          ? "0%"
+          : "-100%";
+
+  if (phase === "idle") return null;
+
+  return (
+    <motion.div
+      aria-hidden
+      className="pointer-events-none fixed inset-0 z-[72] overflow-hidden bg-[#050808]"
+      initial={{ x: phase === "revealing" ? "0%" : "-100%", opacity: 1 }}
+      animate={{ x, opacity: 1 }}
+      transition={{ duration: phase === "covered" ? 0 : curtainDuration, ease: transitionEase }}
+    >
+      <div className="absolute inset-0 bg-[linear-gradient(110deg,#050808,#081010_48%,#050808)]" />
+      <motion.div
+        className="absolute inset-y-0 right-0 w-px bg-teal-100/38 shadow-[0_0_18px_rgba(141,223,213,0.14)]"
+        initial={{ opacity: 0.8 }}
+        animate={{ opacity: phase === "covered" ? 0.45 : 0.8 }}
+        transition={{ duration: phase === "covered" ? 0 : curtainDuration, ease: transitionEase }}
+      />
+      <div className="absolute inset-0 grid place-items-center px-6">
+        <motion.div
+          className="w-[min(520px,100%)] text-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: phase === "revealing" ? 0 : 1 }}
+          transition={{ duration: 0.28, ease: "easeOut" }}
+        >
+          <p className="text-xs uppercase tracking-[0.32em] text-teal-100/65">Transitioning to</p>
+          <p className="mt-3 text-3xl font-semibold text-bone md:text-5xl">{label}</p>
+          <div className="mx-auto mt-6 h-px w-56 bg-gradient-to-r from-transparent via-teal-100/45 to-transparent shadow-[0_0_18px_rgba(141,223,213,0.16)]" />
+        </motion.div>
+      </div>
+    </motion.div>
+  );
 }
 
 export function PageTransition({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
   const pathname = usePathname();
   const motionEnabled = useMotionEnabled();
-  const previousIndex = useRef(getRouteIndex(pathname));
-  const currentIndex = getRouteIndex(pathname);
-  const direction = currentIndex >= previousIndex.current ? 1 : -1;
+  const [phase, setPhase] = useState<CurtainPhase>("idle");
+  const [label, setLabel] = useState("Next page");
+  const pendingHref = useRef<string | null>(null);
+  const pendingPathname = useRef<string | null>(null);
+  const coverTimer = useRef<number | null>(null);
+  const revealTimer = useRef<number | null>(null);
 
   useEffect(() => {
-    previousIndex.current = currentIndex;
-  }, [currentIndex]);
+    if (!motionEnabled) return;
+
+    const handleClick = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+      if (phase !== "idle") {
+        event.preventDefault();
+        return;
+      }
+
+      const anchor = (event.target as Element | null)?.closest("a");
+      if (!anchor) return;
+
+      const href = getInternalHref(anchor as HTMLAnchorElement);
+      if (!href) return;
+
+      event.preventDefault();
+      const nextPathname = new URL(href, window.location.origin).pathname;
+
+      pendingHref.current = href;
+      pendingPathname.current = nextPathname;
+      setLabel(getRouteLabel(nextPathname));
+      setPhase("covering");
+
+      coverTimer.current = window.setTimeout(() => {
+        setPhase("covered");
+        router.push(href);
+      }, curtainDuration * 1000);
+    };
+
+    document.addEventListener("click", handleClick, true);
+    return () => document.removeEventListener("click", handleClick, true);
+  }, [motionEnabled, pathname, phase, router]);
+
+  useEffect(() => {
+    if (pendingHref.current && pendingPathname.current === pathname && phase === "covered") {
+      pendingHref.current = null;
+      pendingPathname.current = null;
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          revealTimer.current = window.setTimeout(() => {
+            setPhase("revealing");
+            revealTimer.current = window.setTimeout(() => {
+              setPhase("idle");
+            }, curtainDuration * 1000);
+          }, revealDelay);
+        });
+      });
+    }
+  }, [pathname, phase]);
+
+  useEffect(() => {
+    return () => {
+      if (coverTimer.current) window.clearTimeout(coverTimer.current);
+      if (revealTimer.current) window.clearTimeout(revealTimer.current);
+    };
+  }, []);
 
   if (!motionEnabled) return <>{children}</>;
 
   return (
-    <AnimatePresence initial={false} custom={direction} mode="popLayout">
-      <motion.div
-        key={`${pathname}-veil`}
-        aria-hidden
-        className="pointer-events-none fixed inset-0 z-[72] bg-[linear-gradient(90deg,rgba(0,0,0,0.12),transparent_28%,transparent_72%,rgba(0,0,0,0.12))]"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 1, 0] }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.42, ease: "easeOut" }}
-      />
-      <motion.main
-        key={pathname}
-        custom={direction}
-        className="relative z-10 origin-center will-change-transform"
-        variants={pageVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-      >
-        {children}
-      </motion.main>
-    </AnimatePresence>
+    <>
+      <main className="relative z-10">{children}</main>
+      <Curtain phase={phase} label={label} />
+    </>
   );
 }
