@@ -8,8 +8,8 @@ export default function ProjectsPage() {
     <>
       <SectionIntro
         eyebrow="Projects"
-        title="Product-shaped engineering across schools, robotics, AI, and research."
-        body="The page starts with a pinned horizontal showcase, then opens into the full project index for deeper case studies."
+        title="Eight builds, one through-line: turn messy workflows into usable systems."
+        body="Each project is organized by the same story: what was hard, what I built, what tradeoffs shaped it, and what I would improve next."
       />
       <HorizontalScrollGallery projects={featuredProjects} />
       <section className="container-page grid gap-5 py-24 lg:grid-cols-2">

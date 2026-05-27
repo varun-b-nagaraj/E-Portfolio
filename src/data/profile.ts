@@ -14,11 +14,26 @@ export const profile = {
   philosophy:
     "Build systems that make complex work visible, auditable, and usable by the people closest to the problem.",
   focusAreas: [
-    "AI-native workflow systems",
-    "Robotics simulation and control",
-    "Multi-tenant full-stack products",
-    "Quantum and sustainability research",
-    "Student-led operations and community technology"
+    {
+      label: "Start with the workflow",
+      body: "Hall passes, inventory counts, robot testing, and CRM actions all begin with a real person trying to finish a task."
+    },
+    {
+      label: "Make the system inspectable",
+      body: "Logs, telemetry, permissions, experiment notes, and dashboards make the work easier to debug and easier to trust."
+    },
+    {
+      label: "Ship where people already are",
+      body: "Chrome extensions, mobile scanning, Google Sites, React Admin, and school e-commerce fit the environment instead of forcing a new ritual."
+    },
+    {
+      label: "Turn research into tooling",
+      body: "Quantum experiments, sustainability analysis, and robotics tuning all become clearer when the process is measurable."
+    },
+    {
+      label: "Leave better handoffs",
+      body: "Documentation, reusable subsystems, student mentoring, and cleaner operations help the next person keep moving."
+    }
   ],
   metrics: [
     { label: "Monthly VRS users", value: 50000, suffix: "+" },

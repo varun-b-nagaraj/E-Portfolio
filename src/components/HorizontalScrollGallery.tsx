@@ -53,7 +53,7 @@ export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
         <div className="container-page absolute left-1/2 top-20 z-10 -translate-x-1/2">
           <p className="text-sm uppercase tracking-[0.28em] text-muted">Featured systems</p>
           <h2 className="mt-4 max-w-4xl text-4xl font-semibold leading-tight text-bone md:text-6xl">
-            Projects as product-grade case studies.
+            Follow the build path: problem, system, tradeoff, next pass.
           </h2>
           <div className="mt-5 h-px max-w-xs overflow-hidden bg-white/[0.06]">
             <motion.div className="h-full origin-left bg-white/35" style={{ width: progressWidth }} />
