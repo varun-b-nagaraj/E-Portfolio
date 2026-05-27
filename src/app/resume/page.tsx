@@ -74,7 +74,7 @@ export default function ResumePage() {
               <a
                 href={profile.resume}
                 download
-                className="inline-flex items-center gap-2 rounded-full border border-teal-100/25 bg-white/[0.06] px-4 py-2 text-sm text-bone transition hover:border-teal-100/45 hover:bg-white/[0.1]"
+                className="inline-flex items-center gap-2 rounded-full border border-teal-100/20 bg-white/[0.05] px-4 py-2 text-sm text-bone transition-all duration-500 hover:-translate-y-0.5 hover:border-teal-200/24 hover:bg-white/[0.08] hover:shadow-[0_22px_70px_rgba(20,184,166,0.07),0_0_0_1px_rgba(255,255,255,0.06)]"
               >
                 Download PDF
                 <Download className="h-4 w-4 text-teal-100/85" />
@@ -83,10 +83,10 @@ export default function ResumePage() {
                 href={profile.resume}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.05] px-4 py-2 text-sm text-bone transition hover:border-amber-100/35 hover:bg-white/[0.09]"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.05] px-4 py-2 text-sm text-bone transition-all duration-500 hover:-translate-y-0.5 hover:border-teal-200/24 hover:bg-white/[0.08] hover:shadow-[0_22px_70px_rgba(20,184,166,0.07),0_0_0_1px_rgba(255,255,255,0.06)]"
               >
                 Open PDF
-                <ExternalLink className="h-4 w-4 text-amber-100/80" />
+                <ExternalLink className="h-4 w-4 text-teal-100/85" />
               </a>
             </div>
           </div>

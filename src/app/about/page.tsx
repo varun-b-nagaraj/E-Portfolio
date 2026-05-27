@@ -17,7 +17,7 @@ export default function AboutPage() {
     <>
       <SectionIntro eyebrow="About" title="A technical builder shaped by real systems, not demos." body={profile.bio} />
       <section className="container-page relative grid gap-10 py-20 lg:grid-cols-[0.9fr_1.1fr]">
-        <ParallaxLayer className="absolute right-0 top-12 h-72 w-72 rounded-full bg-teal-300/12 blur-3xl" speed={50} />
+        <ParallaxLayer className="absolute right-0 top-12 h-72 w-72 rounded-full bg-teal-300/[0.045] blur-3xl" speed={50} />
         <AboutSystemsMap />
         <div className="space-y-8">
           <div className="glass rounded-lg p-8 ring-1 ring-teal-200/10">
@@ -26,7 +26,7 @@ export default function AboutPage() {
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             {profile.focusAreas.map((area) => (
-              <div key={area.label} className="surface-glow rounded-lg border border-white/12 bg-panel/80 p-5 transition-all duration-700 ease-out hover:-translate-y-1 hover:border-amber-100/30 hover:bg-white/[0.07] hover:shadow-[0_22px_70px_rgba(251,191,36,0.10),0_0_0_1px_rgba(255,255,255,0.08)]">
+              <div key={area.label} className="surface-glow rounded-lg border border-white/12 bg-panel/80 p-5 transition-all duration-700 ease-out hover:-translate-y-0.5 hover:border-teal-200/24 hover:bg-white/[0.055] hover:shadow-[0_22px_70px_rgba(20,184,166,0.07),0_0_0_1px_rgba(255,255,255,0.06)]">
                 <p className="text-xs uppercase tracking-[0.22em] text-teal-100/70">{area.label}</p>
                 <p className="mt-3 text-sm leading-relaxed text-silver">{area.body}</p>
               </div>

@@ -95,7 +95,7 @@ export default function EducationPage() {
                         href={certification.credentialUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full border border-teal-100/20 bg-white/[0.05] px-3 py-2 text-xs text-bone transition-all duration-500 hover:-translate-y-0.5 hover:border-amber-100/35 hover:bg-white/[0.09]"
+                        className="inline-flex items-center gap-2 rounded-full border border-teal-100/20 bg-white/[0.05] px-3 py-2 text-xs text-bone transition-all duration-500 hover:-translate-y-0.5 hover:border-teal-200/24 hover:bg-white/[0.08] hover:shadow-[0_22px_70px_rgba(20,184,166,0.07),0_0_0_1px_rgba(255,255,255,0.06)]"
                       >
                         Validate credential
                         <ArrowUpRight className="h-3.5 w-3.5" />
@@ -152,7 +152,7 @@ export default function EducationPage() {
                     href={item.paper.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-teal-100/20 bg-white/[0.05] px-4 py-2 text-sm text-bone transition-all duration-500 hover:-translate-y-0.5 hover:border-amber-100/35 hover:bg-white/[0.09] hover:shadow-[0_14px_44px_rgba(141,223,213,0.12)]"
+                    className="inline-flex items-center gap-2 rounded-full border border-teal-100/20 bg-white/[0.05] px-4 py-2 text-sm text-bone transition-all duration-500 hover:-translate-y-0.5 hover:border-teal-200/24 hover:bg-white/[0.08] hover:shadow-[0_22px_70px_rgba(20,184,166,0.07),0_0_0_1px_rgba(255,255,255,0.06)]"
                   >
                     {item.paper.label}
                     <ArrowUpRight className="h-4 w-4" />

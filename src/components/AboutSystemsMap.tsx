@@ -31,8 +31,8 @@ export function AboutSystemsMap() {
     <section className="surface-glow relative min-h-[640px] overflow-hidden rounded-lg border border-white/12 bg-panel/80 p-6 shadow-glass">
       <div className="accent-rule absolute inset-x-0 top-0 h-px" />
       <div className="absolute inset-0 grid-bg opacity-25" />
-      <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-teal-300/20 blur-3xl" />
-      <div className="absolute -bottom-24 left-0 h-72 w-72 rounded-full bg-amber-300/14 blur-3xl" />
+      <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-teal-300/[0.055] blur-3xl" />
+      <div className="absolute -bottom-24 left-0 h-72 w-72 rounded-full bg-amber-300/[0.04] blur-3xl" />
       <div className="relative">
         <p className="section-kicker text-xs uppercase tracking-[0.26em]">Personal map</p>
         <h2 className="mt-3 max-w-md text-4xl font-semibold leading-tight text-bone">The same pattern shows up across the work.</h2>
@@ -48,7 +48,7 @@ export function AboutSystemsMap() {
           return (
             <motion.article
               key={node.title}
-              className="surface-glow group min-h-[160px] rounded-lg border border-white/12 bg-black/25 p-5 transition-all duration-700 ease-out hover:-translate-y-1 hover:border-teal-100/35 hover:bg-white/[0.06] hover:shadow-[0_22px_70px_rgba(20,184,166,0.12),0_0_0_1px_rgba(255,255,255,0.08)]"
+              className="surface-glow group min-h-[160px] rounded-lg border border-white/12 bg-black/25 p-5 transition-all duration-700 ease-out hover:-translate-y-0.5 hover:border-teal-200/24 hover:bg-white/[0.055] hover:shadow-[0_22px_70px_rgba(20,184,166,0.07),0_0_0_1px_rgba(255,255,255,0.06)]"
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}

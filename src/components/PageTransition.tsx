@@ -50,7 +50,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
       <motion.div
         key={`${pathname}-veil`}
         aria-hidden
-        className="pointer-events-none fixed inset-0 z-[72] bg-[radial-gradient(circle_at_50%_0%,rgba(141,223,213,0.08),transparent_34rem),linear-gradient(90deg,rgba(0,0,0,0.16),transparent_28%,transparent_72%,rgba(0,0,0,0.16))]"
+        className="pointer-events-none fixed inset-0 z-[72] bg-[linear-gradient(90deg,rgba(0,0,0,0.12),transparent_28%,transparent_72%,rgba(0,0,0,0.12))]"
         initial={{ opacity: 0 }}
         animate={{ opacity: [0, 1, 0] }}
         exit={{ opacity: 0 }}

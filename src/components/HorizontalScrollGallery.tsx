@@ -152,7 +152,7 @@ export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
 
   return (
     <section ref={ref} className="relative h-[760vh]">
-      <div className="sticky top-0 h-screen overflow-hidden border-y border-white/10 bg-black">
+      <div className="sticky top-0 h-screen overflow-hidden border-y border-white/10 bg-[#070909]/95">
         <motion.div className="pointer-events-none absolute inset-0 grid-bg opacity-30" style={{ x: lineX }} />
         <div className="container-page absolute left-1/2 top-24 z-10 -translate-x-1/2">
           <p className="text-sm uppercase tracking-[0.28em] text-muted">Featured systems</p>

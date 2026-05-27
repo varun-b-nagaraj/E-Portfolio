@@ -13,15 +13,15 @@ const stackGroups = [
 export function ProjectCard({ project, featured = false }: { project: Project; featured?: boolean }) {
   return (
     <article
-      className={`surface-glow group relative overflow-hidden rounded-lg border border-white/12 bg-panel/90 shadow-glass backdrop-blur-xl transition-all duration-700 ease-out hover:border-teal-200/40 hover:shadow-[0_30px_110px_rgba(20,184,166,0.16),0_18px_70px_rgba(251,191,36,0.08),0_0_0_1px_rgba(255,255,255,0.10)] ${
+      className={`surface-glow group relative overflow-hidden rounded-lg border border-white/12 bg-panel/90 shadow-glass backdrop-blur-xl transition-all duration-700 ease-out hover:border-teal-200/24 hover:shadow-[0_22px_70px_rgba(20,184,166,0.07),0_0_0_1px_rgba(255,255,255,0.06)] ${
         featured ? "flex min-h-[clamp(430px,50vh,560px)] flex-col p-5 md:p-7" : "p-6"
       }`}
     >
       <div className="accent-rule absolute inset-x-0 top-0 h-px opacity-70" />
-      <div className="absolute inset-0 opacity-0 transition-opacity duration-1000 ease-out group-hover:opacity-100">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal-200/80 via-amber-200/70 to-transparent" />
-        <div className="absolute bottom-0 right-0 h-56 w-56 rounded-full bg-teal-400/12 blur-3xl" />
-        <div className="absolute left-0 top-12 h-40 w-40 rounded-full bg-amber-300/10 blur-3xl" />
+      <div className="absolute inset-0 opacity-0 transition-opacity duration-1000 ease-out group-hover:opacity-60">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal-200/45 via-amber-200/30 to-transparent" />
+        <div className="absolute bottom-0 right-0 h-48 w-48 rounded-full bg-teal-400/[0.045] blur-3xl" />
+        <div className="absolute left-0 top-12 h-36 w-36 rounded-full bg-amber-300/[0.035] blur-3xl" />
       </div>
       <div className="relative flex h-full flex-col">
         <div className="flex flex-wrap items-start justify-between gap-4">
@@ -33,7 +33,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
           </div>
           <Link
             href={`/projects/${project.slug}`}
-            className="rounded-full border border-teal-100/20 bg-white/[0.035] p-3 text-teal-100 transition-all duration-500 ease-out hover:border-amber-100/35 hover:bg-white/10 hover:text-amber-100 hover:shadow-[0_12px_36px_rgba(141,223,213,0.14)]"
+            className="rounded-full border border-teal-100/20 bg-white/[0.035] p-3 text-teal-100 transition-all duration-500 ease-out hover:border-teal-200/24 hover:bg-white/[0.08] hover:text-bone hover:shadow-[0_22px_70px_rgba(20,184,166,0.07),0_0_0_1px_rgba(255,255,255,0.06)]"
             aria-label={`Open ${project.title}`}
           >
             <ArrowUpRight className="h-5 w-5" />

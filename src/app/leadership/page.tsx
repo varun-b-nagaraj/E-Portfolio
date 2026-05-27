@@ -24,7 +24,7 @@ export default function LeadershipPage() {
       />
       <section className="container-page grid gap-5 py-16 md:grid-cols-2">
         {leadership.map((item) => (
-          <article key={item.title} className="surface-glow group rounded-lg border border-white/12 bg-panel/80 p-6 transition-all duration-700 ease-out hover:-translate-y-1 hover:border-white/25 hover:shadow-[0_22px_70px_rgba(141,223,213,0.10),0_0_0_1px_rgba(255,255,255,0.08)]">
+          <article key={item.title} className="surface-glow group rounded-lg border border-white/12 bg-panel/80 p-6 transition-all duration-700 ease-out hover:-translate-y-0.5 hover:border-teal-200/24 hover:shadow-[0_22px_70px_rgba(20,184,166,0.07),0_0_0_1px_rgba(255,255,255,0.06)]">
             <div className="accent-rule -mx-6 -mt-6 mb-6 h-px" />
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div>
