@@ -16,14 +16,11 @@ export const education = {
   ],
   certifications: [
     {
-      title: "NOCTI Business Management and Administration",
-      issuer: "NOCTI",
-      issued: "Apr 2025"
-    },
-    {
       title: "OSHA 10-Hour General Industry",
       issuer: "OSHA",
-      issued: "Nov 2025"
+      issued: "Nov 2025",
+      skills: ["Workplace safety", "General industry"],
+      certificatePdf: "/certificates/osha-10-hour-general-industry.jpeg"
     },
     {
       title: "Autodesk Certified User: Inventor",
