@@ -307,23 +307,43 @@ export function GlobalTextAnimator() {
   useEffect(() => {
     if (!motionEnabled) return;
 
-    const root = document.body;
-    scan(root);
-    let visibilityObserver = observePreparedElements();
+    let cancelled = false;
+    let startTimer: number | null = null;
+    let visibilityObserver: IntersectionObserver | null = null;
+    let mutationObserver: MutationObserver | null = null;
 
-    const mutationObserver = new MutationObserver((mutations) => {
-      const shouldRescan = mutations.some((mutation) => mutation.addedNodes.length > 0);
-      if (!shouldRescan) return;
-      scan(root);
-      visibilityObserver.disconnect();
-      visibilityObserver = observePreparedElements();
-    });
+    const start = () => {
+      startTimer = window.setTimeout(() => {
+        if (cancelled) return;
 
-    mutationObserver.observe(root, { childList: true, subtree: true });
+        const root = document.body;
+        scan(root);
+        visibilityObserver = observePreparedElements();
+
+        mutationObserver = new MutationObserver((mutations) => {
+          const shouldRescan = mutations.some((mutation) => mutation.addedNodes.length > 0);
+          if (!shouldRescan) return;
+          scan(root);
+          visibilityObserver?.disconnect();
+          visibilityObserver = observePreparedElements();
+        });
+
+        mutationObserver.observe(root, { childList: true, subtree: true });
+      }, 250);
+    };
+
+    if (document.readyState === "complete") {
+      window.requestAnimationFrame(() => window.requestAnimationFrame(start));
+    } else {
+      window.addEventListener("load", start, { once: true });
+    }
 
     return () => {
-      mutationObserver.disconnect();
-      visibilityObserver.disconnect();
+      cancelled = true;
+      window.removeEventListener("load", start);
+      if (startTimer) window.clearTimeout(startTimer);
+      mutationObserver?.disconnect();
+      visibilityObserver?.disconnect();
     };
   }, [motionEnabled, pathname]);
 

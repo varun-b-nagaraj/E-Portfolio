@@ -38,8 +38,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ReducedMotionProvider>
           <ScrollProgress />
           <Navbar />
-          <GlobalTextAnimator />
           <PageTransition>{children}</PageTransition>
+          <GlobalTextAnimator />
           <Footer />
           <div className="noise" />
         </ReducedMotionProvider>
