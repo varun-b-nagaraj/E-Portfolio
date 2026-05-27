@@ -54,9 +54,9 @@ function StackedCard({
   const focus = index / last;
   const collapseStart = index === last ? 1 : Math.min(1, (index + 0.42) / last);
   const collapseEnd = index === last ? 1 : Math.min(1, (index + 0.78) / last);
-  const rowTop = index * 56;
-  const expandedHeight = index >= total - 1 ? 500 : 520;
-  const compactHeight = 104;
+  const rowTop = index * 44;
+  const expandedHeight = index >= total - 1 ? 390 : 430;
+  const compactHeight = 84;
   const opacity = useTransform(progress, [enter, focus], [0, 1]);
   const y = useTransform(progress, [enter, focus], [92, 0]);
   const height =
@@ -84,24 +84,24 @@ function StackedCard({
       </div>
 
       <motion.div
-        className="absolute inset-0 grid gap-10 p-8 md:grid-cols-[0.72fr_1.28fr] md:items-end md:p-12"
+        className="absolute inset-0 grid gap-8 p-7 md:grid-cols-[0.72fr_1.28fr] md:items-end md:p-9"
         style={motionEnabled ? { opacity: largeOpacity } : undefined}
       >
         <div className="min-w-0 self-start md:self-end">
-          <p className="section-kicker text-xs uppercase tracking-[0.28em] md:text-sm">{card.kicker}</p>
-          <h3 className="mt-4 text-5xl font-semibold leading-tight text-bone md:text-7xl">{card.title}</h3>
+          <p className="section-kicker text-xs uppercase tracking-[0.28em]">{card.kicker}</p>
+          <h3 className="mt-4 text-4xl font-semibold leading-tight text-bone md:text-5xl xl:text-6xl">{card.title}</h3>
         </div>
         <div className="min-w-0">
-          <div className="accent-rule mb-7 h-px w-full" />
-          <p className="max-w-2xl text-xl leading-relaxed text-silver">{card.body}</p>
-          <div className="mt-8 grid gap-3 md:grid-cols-3">
+          <div className="accent-rule mb-5 h-px w-full" />
+          <p className="max-w-2xl text-base leading-relaxed text-silver xl:text-lg">{card.body}</p>
+          <div className="mt-5 grid gap-3 md:grid-cols-3">
             {details.points.map((point) => (
-              <div key={point} className="rounded-md border border-white/10 bg-black/25 p-4 text-sm leading-relaxed text-muted">
+              <div key={point} className="rounded-md border border-white/10 bg-black/25 p-3 text-sm leading-relaxed text-muted">
                 {point}
               </div>
             ))}
           </div>
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="mt-4 flex flex-wrap gap-2">
             {details.metrics.map((metric) => (
               <span key={metric} className="accent-chip rounded-full px-3 py-1 text-xs text-muted">
                 {metric}
@@ -112,16 +112,16 @@ function StackedCard({
       </motion.div>
 
       <motion.div
-        className="absolute inset-0 grid gap-5 p-5 md:grid-cols-[0.36fr_0.64fr] md:items-center md:p-6"
+        className="absolute inset-0 grid gap-4 p-4 md:grid-cols-[0.34fr_0.66fr] md:items-center md:p-5"
         style={motionEnabled ? { opacity: compactOpacity } : { opacity: 0 }}
       >
         <div className="min-w-0">
-          <p className="section-kicker text-xs uppercase tracking-[0.28em]">{card.kicker}</p>
-          <h3 className="mt-2 text-3xl font-semibold leading-tight text-bone md:text-4xl">{card.title}</h3>
+          <p className="section-kicker text-[10px] uppercase tracking-[0.24em]">{card.kicker}</p>
+          <h3 className="mt-1 text-2xl font-semibold leading-tight text-bone md:text-3xl">{card.title}</h3>
         </div>
         <div className="min-w-0">
-          <div className="accent-rule mb-4 h-px w-full" />
-          <p className="line-clamp-2 max-w-2xl text-base leading-relaxed text-silver md:text-lg">{card.body}</p>
+          <div className="accent-rule mb-3 h-px w-full" />
+          <p className="line-clamp-2 max-w-2xl text-sm leading-relaxed text-silver md:text-base">{card.body}</p>
         </div>
       </motion.div>
     </motion.article>
@@ -162,11 +162,11 @@ function MobileStackCard({ card, index }: { card: StackCard; index: number }) {
 
 export function StackingSection({ cards }: { cards: StackCard[] }) {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 72%", "end 86%"] });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
 
   return (
-    <section className="container-page py-24">
-      <div className="mb-12 max-w-3xl">
+    <section className="container-page py-20 md:py-0">
+      <div className="mb-12 max-w-3xl md:hidden">
         <p className="section-kicker text-sm uppercase tracking-[0.28em]">Builder profile</p>
         <h2 className="mt-4 text-4xl font-semibold text-bone md:text-6xl">A technical exhibit, built from shipped systems.</h2>
         <p className="mt-5 text-lg leading-relaxed text-muted">
@@ -178,11 +178,22 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
           <MobileStackCard key={card.title} card={card} index={index} />
         ))}
       </div>
-      <div ref={ref} className="relative hidden md:block" style={{ height: `${cards.length * 88}vh` }}>
-        <div className="sticky top-24 h-[calc(100vh-6rem)] min-h-[780px]">
+      <div ref={ref} className="relative hidden md:block" style={{ height: `${cards.length * 92}vh` }}>
+        <div className="sticky top-0 flex h-screen flex-col overflow-hidden pt-20">
+          <div className="shrink-0 pb-6">
+            <p className="section-kicker text-sm uppercase tracking-[0.28em]">Builder profile</p>
+            <h2 className="mt-4 max-w-4xl text-4xl font-semibold leading-tight text-bone md:text-5xl xl:text-6xl">
+              A technical exhibit, built from shipped systems.
+            </h2>
+            <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted xl:text-lg">
+              Each layer pins into a compact row at the top while the current system expands below it.
+            </p>
+          </div>
+          <div className="relative min-h-0 flex-1">
           {cards.map((card, index) => (
             <StackedCard key={card.title} card={card} index={index} total={cards.length} progress={scrollYProgress} />
           ))}
+          </div>
         </div>
       </div>
     </section>
