@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { MagneticButton } from "@/components/MagneticButton";
 import { projects } from "@/data/projects";
 
@@ -13,6 +14,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
   return (
     <article className="container-page py-32">
+      <Breadcrumbs className="mb-8" />
       <p className="text-sm uppercase tracking-[0.28em] text-muted">Project case study</p>
       <h1 className="mt-5 max-w-5xl text-5xl font-semibold leading-tight text-bone md:text-7xl">{project.title}</h1>
       <p className="mt-7 max-w-3xl text-xl leading-relaxed text-muted">{project.summary}</p>

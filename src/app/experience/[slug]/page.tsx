@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { MagneticButton } from "@/components/MagneticButton";
 import { experiences } from "@/data/experience";
 
@@ -13,6 +14,7 @@ export default async function ExperienceDetailPage({ params }: { params: Promise
 
   return (
     <article className="container-page py-32">
+      <Breadcrumbs className="mb-8" />
       <p className="text-sm uppercase tracking-[0.28em] text-muted">Experience detail</p>
       <div className="mt-5 grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
         <div>
