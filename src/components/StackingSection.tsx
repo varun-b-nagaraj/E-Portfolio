@@ -120,7 +120,7 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
 
   return (
     <section ref={containerRef} className="container-page py-20 md:py-0" style={{ minHeight: `${sections.length * 100}vh` }}>
-      <div className="sticky top-0 h-[88vh] flex items-center justify-center">
+      <div className="sticky top-0 h-screen flex items-center justify-center">
         <div className="grid h-full gap-10 lg:grid-cols-[0.3fr_0.7fr] w-full items-center">
           <div className="hidden md:flex md:items-center">
             <div className="relative">
@@ -152,7 +152,7 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
           </div>
 
           <div className="relative hidden md:block overflow-hidden">
-            <div className="relative mx-auto h-[680px] max-w-4xl overflow-hidden">
+            <div className="relative mx-auto h-[560px] max-w-4xl overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex}

@@ -1,6 +1,7 @@
 export type Experience = {
   slug: string;
   company: string;
+  website?: string;
   role: string;
   period: string;
   location: string;
@@ -24,6 +25,7 @@ export const experiences: Experience[] = [
   {
     slug: "virtual-robot-simulator",
     company: "Virtual Robot Simulator",
+    website: "https://vrobotsim.com/",
     role: "Project Team Lead",
     period: "Jun 2025 - Present",
     location: "Remote",
@@ -83,6 +85,7 @@ export const experiences: Experience[] = [
   {
     slug: "hallhop",
     company: "HallHop",
+    website: "https://hallhop.com/",
     role: "Founder and Lead Developer",
     period: "Nov 2024 - Present",
     location: "Self-employed",
@@ -118,6 +121,7 @@ export const experiences: Experience[] = [
   {
     slug: "round-rock-co-op",
     company: "Round Rock High School Co-Op",
+    website: "https://rrhscoop.roundrockisd.org/",
     role: "Chief Executive Officer / LightSpeed IT Director",
     period: "Mar 2025 - Present",
     location: "Round Rock, Texas",
@@ -177,6 +181,7 @@ export const experiences: Experience[] = [
   {
     slug: "transforze",
     company: "Transforze",
+    website: "https://transforze.com/",
     role: "Software Engineer / Co-Founder",
     period: "Aug 2025 - Present",
     location: "Remote",
@@ -212,6 +217,7 @@ export const experiences: Experience[] = [
   {
     slug: "lone-star-ridgebacks",
     company: "Lone Star Ridgebacks",
+    website: "https://www.lonestarridgebacks.com/",
     role: "Website Manager",
     period: "Jun 2025 - Dec 2025",
     location: "Remote",
@@ -238,6 +244,7 @@ export const experiences: Experience[] = [
   {
     slug: "lpl-financial",
     company: "LPL Financial",
+    website: "https://www.lpl.com/",
     role: "Machine Learning Intern",
     period: "Jun 2024 - Sep 2024",
     location: "Remote, Austin",
@@ -263,6 +270,7 @@ export const experiences: Experience[] = [
   {
     slug: "best-brains",
     company: "Best Brains",
+    website: "https://bestbrains.com/",
     role: "Academic Tutor",
     period: "Oct 2022 - Jan 2023",
     location: "Austin, Texas",

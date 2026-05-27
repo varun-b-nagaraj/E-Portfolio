@@ -154,7 +154,7 @@ export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
     <section ref={ref} className="relative h-[760vh]">
       <div className="sticky top-0 h-screen overflow-hidden border-y border-white/10 bg-black">
         <motion.div className="pointer-events-none absolute inset-0 grid-bg opacity-30" style={{ x: lineX }} />
-        <div className="container-page absolute left-1/2 top-14 z-10 -translate-x-1/2">
+        <div className="container-page absolute left-1/2 top-24 z-10 -translate-x-1/2">
           <p className="text-sm uppercase tracking-[0.28em] text-muted">Featured systems</p>
           <h2 className="mt-4 max-w-4xl text-4xl font-semibold leading-tight text-bone md:text-5xl xl:text-6xl">
             Follow the build path: problem, system, tradeoff, next pass.
@@ -163,7 +163,7 @@ export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
             <motion.div className="h-full origin-left bg-white/35" style={{ width: progressWidth }} />
           </div>
         </div>
-        <motion.div className="flex items-start gap-6 pb-20 pl-[max(16px,calc((100vw-1180px)/2))] pt-[clamp(8rem,15vh,10rem)]" style={{ x }}>
+        <motion.div className="flex items-start gap-6 pb-20 pl-[max(16px,calc((100vw-1180px)/2))] pt-[clamp(16.25rem,31vh,19.25rem)]" style={{ x }}>
           {projects.map((project, index) => (
             <GallerySlide
               key={project.slug}

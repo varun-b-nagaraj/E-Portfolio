@@ -11,7 +11,9 @@ export default function ProjectsPage() {
         title="Contained builds and research, separate from long-term roles."
         body="Projects here are focused case studies: smaller tools, research modules, and scoped improvements. Larger company, founder, and long-running organizational work lives in Experience."
       />
-      <HorizontalScrollGallery projects={featuredProjects} />
+      <div className="mt-16 md:mt-20">
+        <HorizontalScrollGallery projects={featuredProjects} />
+      </div>
       <section className="container-page grid gap-5 py-24 lg:grid-cols-2">
         {projects.map((project) => (
           <ProjectCard key={project.slug} project={project} />

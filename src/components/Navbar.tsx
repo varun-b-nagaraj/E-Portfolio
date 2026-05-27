@@ -9,7 +9,7 @@ const nav = [
   ["About", "/about"],
   ["Experience", "/experience"],
   ["Projects", "/projects"],
-  ["Education", "/education"],
+  ["Academia", "/education"],
   ["Leadership", "/leadership"],
   ["Resume", "/resume"],
   ["Contact", "/contact"]

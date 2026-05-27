@@ -61,15 +61,29 @@ function TimelineItem({ item, index, detailBasePath }: { item: Experience; index
             </span>
           ))}
         </motion.div>
-        {detailBasePath && (
-          <Link
-            href={`${detailBasePath}/${item.slug}`}
-            className="mt-7 inline-flex items-center gap-2 rounded-full border border-teal-100/20 bg-white/[0.05] px-4 py-2 text-sm text-bone transition-all duration-500 hover:-translate-y-0.5 hover:border-amber-100/35 hover:bg-white/[0.09] hover:shadow-[0_14px_44px_rgba(141,223,213,0.12)]"
-          >
-            Open full role history
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        )}
+        <div className="mt-7 flex flex-wrap gap-3">
+          {detailBasePath && (
+            <Link
+              href={`${detailBasePath}/${item.slug}`}
+              className="inline-flex items-center gap-2 rounded-full border border-teal-100/20 bg-white/[0.05] px-4 py-2 text-sm text-bone transition-all duration-500 hover:-translate-y-0.5 hover:border-amber-100/35 hover:bg-white/[0.09] hover:shadow-[0_14px_44px_rgba(141,223,213,0.12)]"
+            >
+              Open full role history
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          )}
+          {item.website && (
+            <a
+              href={item.website}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-black/25 px-4 py-2 text-sm text-silver transition-all duration-500 hover:-translate-y-0.5 hover:border-teal-100/30 hover:bg-white/[0.07] hover:text-bone"
+              aria-label={`Visit ${item.company} website`}
+            >
+              Visit website
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          )}
+        </div>
       </motion.article>
     </div>
   );

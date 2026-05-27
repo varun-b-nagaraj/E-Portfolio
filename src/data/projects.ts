@@ -12,6 +12,10 @@ export type Project = {
     systems: string[];
   };
   metrics: string[];
+  paper?: {
+    label: string;
+    href: string;
+  };
   detail: string[];
   narrative: string;
   decisions: string[];
@@ -63,6 +67,10 @@ export const projects: Project[] = [
       systems: ["Mermin-Peres game", "ZNE", "Gate folding", "Noise modeling"]
     },
     metrics: ["8,192 shots", "9 configurations", "0.753 to 0.805 fidelity"],
+    paper: {
+      label: "Read AP Research paper",
+      href: "/research/quantum-error-mitigation-paper.pdf"
+    },
     detail: [
       "Compared contextuality-preserving and non-contextual circuits under real hardware noise.",
       "Modeled noisy superconducting qubit behavior through controlled circuit variants.",
@@ -92,6 +100,10 @@ export const projects: Project[] = [
       systems: ["Survey design", "Data cleaning", "Behavior predictors", "Reproducibility"]
     },
     metrics: ["600+ survey sample", "SEM pipeline", "Co-authored manuscript"],
+    paper: {
+      label: "Read SEM paper",
+      href: "/research/sustainability-behavior-research-paper.pdf"
+    },
     detail: [
       "Analyzed composting behavior using Theory of Planned Behavior constructs.",
       "Assisted with statistical preprocessing, dataset cleaning, and missing-data handling.",

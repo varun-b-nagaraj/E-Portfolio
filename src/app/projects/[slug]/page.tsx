@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { MagneticButton } from "@/components/MagneticButton";
 import { projects } from "@/data/projects";
+import { ArrowUpRight } from "lucide-react";
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -18,6 +19,17 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
       <p className="text-sm uppercase tracking-[0.28em] text-muted">Project case study</p>
       <h1 className="mt-5 max-w-5xl text-5xl font-semibold leading-tight text-bone md:text-7xl">{project.title}</h1>
       <p className="mt-7 max-w-3xl text-xl leading-relaxed text-muted">{project.summary}</p>
+      {project.paper && (
+        <a
+          href={project.paper.href}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-7 inline-flex items-center gap-2 rounded-full border border-teal-100/20 bg-white/[0.05] px-4 py-2 text-sm text-bone transition-all duration-500 hover:-translate-y-0.5 hover:border-amber-100/35 hover:bg-white/[0.09] hover:shadow-[0_14px_44px_rgba(141,223,213,0.12)]"
+        >
+          {project.paper.label}
+          <ArrowUpRight className="h-4 w-4" />
+        </a>
+      )}
       <section className="mt-10 rounded-lg border border-teal-100/15 bg-teal-300/[0.045] p-7 md:p-9">
         <p className="text-xs uppercase tracking-[0.24em] text-teal-100/70">{project.eyebrow}</p>
         <p className="mt-4 max-w-5xl text-2xl font-medium leading-relaxed text-bone">{project.narrative}</p>

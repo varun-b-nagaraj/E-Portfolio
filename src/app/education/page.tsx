@@ -1,12 +1,13 @@
 import { PinnedPanel } from "@/components/PinnedPanel";
 import { SectionIntro } from "@/components/SectionIntro";
 import { education } from "@/data/education";
+import { ArrowUpRight } from "lucide-react";
 
 export default function EducationPage() {
   return (
     <>
       <SectionIntro
-        eyebrow="Education"
+        eyebrow="Academia"
         title="Academic foundation, certifications, and research in one technical track."
         body="Research is treated as part of the academic system: experimental design, data methods, reproducibility, and measurement."
       />
@@ -43,7 +44,20 @@ export default function EducationPage() {
           {education.research.map((item) => (
             <PinnedPanel key={item.title} eyebrow={item.institution} title={item.title}>
               <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-                <p className="text-lg leading-relaxed text-silver">{item.summary}</p>
+                <div>
+                  <p className="text-lg leading-relaxed text-silver">{item.summary}</p>
+                  {item.paper && (
+                    <a
+                      href={item.paper.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-6 inline-flex items-center gap-2 rounded-full border border-teal-100/20 bg-white/[0.05] px-4 py-2 text-sm text-bone transition-all duration-500 hover:-translate-y-0.5 hover:border-amber-100/35 hover:bg-white/[0.09] hover:shadow-[0_14px_44px_rgba(141,223,213,0.12)]"
+                    >
+                      {item.paper.label}
+                      <ArrowUpRight className="h-4 w-4" />
+                    </a>
+                  )}
+                </div>
                 <div>
                   <div className="mb-4 h-28 rounded-md border border-white/10 bg-black/30 p-4">
                     <div className="h-full w-full rounded border border-white/10 bg-[linear-gradient(135deg,transparent_0_20%,rgba(255,255,255,.18)_20%_21%,transparent_21%_46%,rgba(255,255,255,.12)_46%_47%,transparent_47%)]" />

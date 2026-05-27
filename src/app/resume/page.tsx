@@ -111,7 +111,7 @@ export default function ResumePage() {
                 </div>
               </SectionBlock>
 
-              <SectionBlock title="Education">
+              <SectionBlock title="Academia">
                 <div className="text-sm leading-relaxed text-muted">
                   <h3 className="font-semibold text-bone">{education.school}</h3>
                   <p>{education.academy}</p>

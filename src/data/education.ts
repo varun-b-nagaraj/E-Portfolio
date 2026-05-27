@@ -26,6 +26,10 @@ export const education = {
       institution: "AP Research / IBM Quantum",
       summary:
         "Evaluating contextuality as an error mitigation resource in the Mermin-Peres Magic Square game using Qiskit and IBM Quantum hardware.",
+      paper: {
+        label: "Read AP Research paper",
+        href: "/research/quantum-error-mitigation-paper.pdf"
+      },
       methods: ["Qiskit", "IBM Quantum", "Zero-noise extrapolation", "Gate folding", "Richardson extrapolation"],
       metrics: ["8,192 shots", "9 configurations", "0.753 to 0.805 fidelity"]
     },
@@ -34,6 +38,10 @@ export const education = {
       institution: "Texas State University / Texas Tech collaboration",
       summary:
         "Built analysis workflows for a 600+ student composting behavior study using the Theory of Planned Behavior.",
+      paper: {
+        label: "Read SEM paper",
+        href: "/research/sustainability-behavior-research-paper.pdf"
+      },
       methods: ["R", "Structural Equation Modeling", "Multiple imputation", "Dataset cleaning", "Survey analysis"],
       metrics: ["600+ students", "SEM pipeline", "Co-authored manuscript"]
     }

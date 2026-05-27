@@ -7,7 +7,7 @@ export default function ExperiencePage() {
     <>
       <SectionIntro
         eyebrow="Experience"
-        title="Roles, responsibilities, and progression across real organizations."
+        title="Roles, responsibilities, and progression across impactful organizations."
         body="This page is intentionally not a project gallery. It tracks positions held, scope owned, teams supported, and how each role changed the way I operate."
       />
       <section className="container-page grid gap-4 pt-14 md:grid-cols-3">
