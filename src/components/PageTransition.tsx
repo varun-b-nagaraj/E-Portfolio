@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useMotionEnabled } from "./ReducedMotionProvider";
+import { projects } from "@/data/projects";
+import { experiences } from "@/data/experience";
 
 const routeOrder = ["/", "/about", "/experience", "/projects", "/education", "/leadership", "/resume", "/contact"];
 const transitionEase = [0.22, 1, 0.36, 1] as const;
@@ -31,6 +33,32 @@ function getRouteLabel(pathname: string) {
   return parentPath ? routeLabels[parentPath] : "Next page";
 }
 
+function getTransitionMeta(pathname: string) {
+  const segments = pathname.split("/").filter(Boolean);
+  const label = getRouteLabel(pathname);
+
+  if (segments[0] === "projects" && segments[1]) {
+    const project = projects.find((item) => item.slug === segments[1]);
+    return {
+      label,
+      subheading: project ? project.title : "Project detail"
+    };
+  }
+
+  if (segments[0] === "experience" && segments[1]) {
+    const experience = experiences.find((item) => item.slug === segments[1]);
+    return {
+      label,
+      subheading: experience ? `${experience.company} · ${experience.role}` : "Experience detail"
+    };
+  }
+
+  return {
+    label,
+    subheading: null as string | null
+  };
+}
+
 function getInternalHref(anchor: HTMLAnchorElement) {
   if (anchor.target && anchor.target !== "_self") return null;
   if (anchor.hasAttribute("download")) return null;
@@ -42,7 +70,7 @@ function getInternalHref(anchor: HTMLAnchorElement) {
   return `${url.pathname}${url.search}${url.hash}`;
 }
 
-function Curtain({ phase, label }: { phase: CurtainPhase; label: string }) {
+function Curtain({ phase, label, subheading }: { phase: CurtainPhase; label: string; subheading: string | null }) {
   const x =
     phase === "covering"
       ? "0%"
@@ -78,6 +106,7 @@ function Curtain({ phase, label }: { phase: CurtainPhase; label: string }) {
         >
           <p className="text-xs uppercase tracking-[0.32em] text-teal-100/65">Transitioning to</p>
           <p className="mt-3 text-3xl font-semibold text-bone md:text-5xl">{label}</p>
+          {subheading && <p className="mt-2 text-sm text-silver md:text-base">{subheading}</p>}
           <div className="mx-auto mt-6 h-px w-56 bg-gradient-to-r from-transparent via-teal-100/45 to-transparent shadow-[0_0_18px_rgba(141,223,213,0.16)]" />
         </motion.div>
       </div>
@@ -91,6 +120,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
   const motionEnabled = useMotionEnabled();
   const [phase, setPhase] = useState<CurtainPhase>("idle");
   const [label, setLabel] = useState("Next page");
+  const [subheading, setSubheading] = useState<string | null>(null);
   const pendingHref = useRef<string | null>(null);
   const pendingPathname = useRef<string | null>(null);
   const coverTimer = useRef<number | null>(null);
@@ -114,10 +144,12 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
 
       event.preventDefault();
       const nextPathname = new URL(href, window.location.origin).pathname;
+      const transitionMeta = getTransitionMeta(nextPathname);
 
       pendingHref.current = href;
       pendingPathname.current = nextPathname;
-      setLabel(getRouteLabel(nextPathname));
+      setLabel(transitionMeta.label);
+      setSubheading(transitionMeta.subheading);
       setPhase("covering");
 
       coverTimer.current = window.setTimeout(() => {
@@ -159,7 +191,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
   return (
     <>
       <main className="relative z-10">{children}</main>
-      <Curtain phase={phase} label={label} />
+      <Curtain phase={phase} label={label} subheading={subheading} />
     </>
   );
 }

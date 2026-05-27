@@ -91,7 +91,7 @@ export default function ResumePage() {
             </div>
           </div>
 
-          <div className="grid gap-6 p-5 md:p-8 lg:grid-cols-[0.38fr_0.62fr]">
+          <div className="grid gap-6 p-5 md:p-8 lg:grid-cols-[0.44fr_0.56fr]">
             <aside className="space-y-5">
               <SectionBlock title="Contact">
                 <div className="space-y-3 text-sm text-silver">
@@ -160,6 +160,14 @@ export default function ResumePage() {
                   ))}
                 </ul>
               </SectionBlock>
+
+              <SectionBlock title="Additional Experience">
+                <div className="space-y-5">
+                  {additionalExperience.map((item) => (
+                    <ResumeRole key={item.slug} item={item} />
+                  ))}
+                </div>
+              </SectionBlock>
             </aside>
 
             <main className="space-y-5">
@@ -186,14 +194,6 @@ export default function ResumePage() {
                         ))}
                       </div>
                     </article>
-                  ))}
-                </div>
-              </SectionBlock>
-
-              <SectionBlock title="Additional Experience">
-                <div className="space-y-5">
-                  {additionalExperience.map((item) => (
-                    <ResumeRole key={item.slug} item={item} />
                   ))}
                 </div>
               </SectionBlock>
