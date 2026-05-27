@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ReducedMotionProvider } from "@/components/ReducedMotionProvider";
 import { PageTransition } from "@/components/PageTransition";
+import { GlobalTextAnimator } from "@/components/GlobalTextAnimator";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ReducedMotionProvider>
           <ScrollProgress />
           <Navbar />
+          <GlobalTextAnimator />
           <PageTransition>{children}</PageTransition>
           <Footer />
           <div className="noise" />

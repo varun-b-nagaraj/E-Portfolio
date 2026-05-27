@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useScroll } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 export type StackCard = {
@@ -62,15 +62,15 @@ function MobileTile({ section, index }: { section: SectionData; index: number })
         <p className="mt-4 text-sm leading-relaxed text-slate-300">{section.description}</p>
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
           {section.bullets.map((bullet) => (
-            <div key={bullet} className="rounded-3xl border border-white/10 bg-white/5 p-3 text-sm text-slate-300">
-              {bullet}
+            <div key={bullet} className="flex min-h-12 items-center rounded-3xl border border-white/10 bg-white/5 p-3 text-sm text-slate-300">
+              <span>{bullet}</span>
             </div>
           ))}
         </div>
         <div className="mt-4 flex flex-wrap gap-2 text-xs text-slate-400">
           {section.tags.map((tag) => (
-            <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
-              {tag}
+            <span key={tag} className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1">
+              <span>{tag}</span>
             </span>
           ))}
         </div>
@@ -102,32 +102,44 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
 
   const indicatorHeight = 80; // h-14 (56px) + space-y-6 (24px)
   const last = Math.max(sections.length - 1, 1);
-  
-  // Map scroll progress to indicator position
-  const indicatorY = useTransform(
-    scrollYProgress,
-    sections.map((_, index) => index / last),
-    sections.map((_, index) => index * indicatorHeight)
-  );
+  const scrollToSection = (index: number) => {
+    const container = containerRef.current;
+    if (!container) return;
 
-  // Update active index based on scroll progress
+    const rect = container.getBoundingClientRect();
+    const scrollableDistance = container.offsetHeight - window.innerHeight;
+    const targetProgress = last === 0 ? 0 : index / last;
+    const targetTop = window.scrollY + rect.top + scrollableDistance * targetProgress;
+
+    window.scrollTo({ top: targetTop, behavior: "smooth" });
+  };
+
+  // Hold on the active heading, then snap quickly to the next stop.
   useEffect(() => {
     return scrollYProgress.onChange((progress) => {
       const index = Math.round(progress * last);
-      setActiveIndex(Math.min(index, last));
+      const nextIndex = Math.min(index, last);
+      setActiveIndex(nextIndex);
     });
   }, [scrollYProgress, last]);
 
   return (
-    <section ref={containerRef} className="container-page py-20 md:py-0" style={{ minHeight: `${sections.length * 100}vh` }}>
+    <section id="builder-profile" ref={containerRef} className="container-page py-20 md:py-0" style={{ minHeight: `${sections.length * 100}vh` }}>
       <div className="sticky top-0 h-screen flex items-center justify-center">
         <div className="grid h-full gap-10 lg:grid-cols-[0.3fr_0.7fr] w-full items-center">
           <div className="hidden md:flex md:items-center">
             <div className="relative">
               <div className="absolute left-0 top-0 bottom-0 w-px bg-white/15" />
               <motion.div
+                data-no-type
                 className="absolute left-[-3px] h-14 w-1 rounded-full bg-white"
-                style={{ y: indicatorY }}
+                animate={{ y: activeIndex * indicatorHeight }}
+                transition={{
+                  type: "spring",
+                  stiffness: 640,
+                  damping: 42,
+                  mass: 0.48
+                }}
               />
               <div className="relative space-y-6 pl-6">
                 {sections.map((section, index) => (
@@ -136,15 +148,18 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
                     data-index={index}
                     className="h-14 flex items-center"
                   >
-                    <p
-                      className={`text-base transition ${
+                    <button
+                      type="button"
+                      onClick={() => scrollToSection(index)}
+                      className={`text-left text-base transition hover:text-white focus:outline-none focus:ring-2 focus:ring-teal-100/35 focus:ring-offset-4 focus:ring-offset-transparent ${
                         activeIndex === index
                           ? "text-white font-semibold opacity-100"
                           : "text-slate-500 opacity-70"
                       }`}
+                      aria-current={activeIndex === index ? "true" : undefined}
                     >
                       {section.title}
-                    </p>
+                    </button>
                   </div>
                 ))}
               </div>
@@ -176,8 +191,8 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
                         <p className="mb-4 text-xs uppercase tracking-widest text-slate-400">Core focus areas</p>
                         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                           {sections[activeIndex].bullets.map((bullet) => (
-                            <div key={bullet} className="rounded-3xl border border-white/10 bg-white/5 p-4 text-sm text-slate-300">
-                              {bullet}
+                            <div key={bullet} className="flex min-h-[54px] items-center rounded-3xl border border-white/10 bg-white/5 p-4 text-sm text-slate-300">
+                              <span>{bullet}</span>
                             </div>
                           ))}
                         </div>
@@ -187,8 +202,8 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
                           <p className="mb-4 text-xs uppercase tracking-widest text-slate-400">Key dimensions</p>
                           <div className="grid gap-3 sm:grid-cols-3">
                             {sections[activeIndex].metrics!.map((metric) => (
-                              <div key={metric} className="rounded-lg border border-white/[0.08] bg-white/[0.02] p-3 text-sm text-slate-200">
-                                {metric}
+                              <div key={metric} className="flex min-h-[66px] items-center rounded-lg border border-white/[0.08] bg-white/[0.02] p-3 text-sm text-slate-200">
+                                <span>{metric}</span>
                               </div>
                             ))}
                           </div>
@@ -196,8 +211,8 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
                       )}
                       <div className="flex flex-wrap gap-2 text-xs text-slate-400">
                         {sections[activeIndex].tags.map((tag) => (
-                          <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
-                            {tag}
+                          <span key={tag} className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1">
+                            <span>{tag}</span>
                           </span>
                         ))}
                       </div>

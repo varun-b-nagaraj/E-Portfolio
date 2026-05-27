@@ -37,13 +37,15 @@ function GallerySlide({
   index,
   total,
   scrollYProgress,
-  width
+  width,
+  revealContent
 }: {
   project: Project;
   index: number;
   total: number;
   scrollYProgress: MotionValue<number>;
   width: number;
+  revealContent: boolean;
 }) {
   const last = Math.max(total - 1, 1);
   const center = index / last;
@@ -61,7 +63,7 @@ function GallerySlide({
 
   return (
     <motion.div className="shrink-0 origin-center" style={{ scale, opacity, width }}>
-      <ProjectCard project={project} featured />
+      <ProjectCard project={project} featured revealContent={revealContent} />
     </motion.div>
   );
 }
@@ -70,6 +72,7 @@ export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const motionEnabled = useMotionEnabled();
   const [isCompact, setIsCompact] = useState(false);
+  const [revealedSlides, setRevealedSlides] = useState<Set<number>>(() => new Set([0]));
   const [slideWidths, setSlideWidths] = useState<number[]>(() => projects.map(() => 980));
   const offsets = useMemo(
     () =>
@@ -124,6 +127,20 @@ export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
   const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   useEffect(() => {
+    const last = Math.max(projects.length - 1, 1);
+
+    return scrollYProgress.onChange((progress) => {
+      const nextIndex = Math.min(last, Math.max(0, Math.round(progress * last)));
+      setRevealedSlides((current) => {
+        if (current.has(nextIndex)) return current;
+        const next = new Set(current);
+        next.add(nextIndex);
+        return next;
+      });
+    });
+  }, [projects.length, scrollYProgress]);
+
+  useEffect(() => {
     const updateWidths = () => {
       setIsCompact(window.innerWidth < 768);
       setSlideWidths(projects.map((project) => getSlideWidth(project, window.innerWidth)));
@@ -172,6 +189,7 @@ export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
               total={projects.length}
               scrollYProgress={scrollYProgress}
               width={slideWidths[index] ?? 980}
+              revealContent={revealedSlides.has(index)}
             />
           ))}
         </motion.div>
