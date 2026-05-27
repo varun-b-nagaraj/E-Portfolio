@@ -140,7 +140,23 @@ export default function ResumePage() {
               <SectionBlock title="Certifications">
                 <ul className="space-y-2 text-sm leading-relaxed text-muted">
                   {education.certifications.map((certification) => (
-                    <li key={certification}>{certification}</li>
+                    <li key={certification.title}>
+                      {certification.credentialUrl ? (
+                        <a
+                          href={certification.credentialUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1.5 text-silver transition hover:text-bone"
+                        >
+                          {certification.title} - {certification.issued}
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      ) : (
+                        <span>
+                          {certification.title} - {certification.issued}
+                        </span>
+                      )}
+                    </li>
                   ))}
                 </ul>
               </SectionBlock>
