@@ -8,8 +8,8 @@ export default function ProjectsPage() {
     <>
       <SectionIntro
         eyebrow="Projects"
-        title="Eight builds, one through-line: turn messy workflows into usable systems."
-        body="Each project is organized by the same story: what was hard, what I built, what tradeoffs shaped it, and what I would improve next."
+        title="Contained builds and research, separate from long-term roles."
+        body="Projects here are focused case studies: smaller tools, research modules, and scoped improvements. Larger company, founder, and long-running organizational work lives in Experience."
       />
       <HorizontalScrollGallery projects={featuredProjects} />
       <section className="container-page grid gap-5 py-24 lg:grid-cols-2">
