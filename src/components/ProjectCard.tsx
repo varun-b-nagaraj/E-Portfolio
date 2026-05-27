@@ -14,7 +14,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
   return (
     <article
       className={`group relative overflow-hidden rounded-lg border border-white/12 bg-panel/90 shadow-glass backdrop-blur-xl transition duration-300 hover:border-teal-200/35 ${
-        featured ? "min-h-[640px] p-8 md:p-10" : "p-6"
+        featured ? "min-h-[clamp(520px,58vh,600px)] p-6 md:p-8" : "p-6"
       }`}
     >
       <div className="absolute inset-0 opacity-0 transition duration-700 group-hover:opacity-100">
@@ -26,7 +26,9 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-[0.28em] text-amber-100/70">{project.eyebrow}</p>
-            <h3 className="mt-3 text-3xl font-semibold text-bone md:text-5xl">{project.title}</h3>
+            <h3 className={`mt-3 font-semibold text-bone ${featured ? "text-3xl md:text-4xl" : "text-3xl md:text-5xl"}`}>
+              {project.title}
+            </h3>
           </div>
           <Link
             href={`/projects/${project.slug}`}
@@ -36,9 +38,9 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
             <ArrowUpRight className="h-5 w-5" />
           </Link>
         </div>
-        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-silver">{project.summary}</p>
-        {featured && <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted">{project.narrative}</p>}
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
+        <p className={`max-w-2xl leading-relaxed text-silver ${featured ? "mt-4 text-base" : "mt-5 text-lg"}`}>{project.summary}</p>
+        {featured && <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">{project.narrative}</p>}
+        <div className={`grid md:grid-cols-3 ${featured ? "mt-6 gap-4" : "mt-8 gap-5"}`}>
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-muted">Problem</p>
             <p className="mt-2 text-sm leading-relaxed text-silver">{project.problem}</p>
@@ -52,7 +54,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
             <p className="mt-2 text-sm leading-relaxed text-silver">{project.impact}</p>
           </div>
         </div>
-        <div className="mt-8 grid gap-3 md:grid-cols-3">
+        <div className={`grid gap-3 md:grid-cols-3 ${featured ? "mt-6" : "mt-8"}`}>
           {stackGroups.map(([label, key]) => (
             <div key={key} className="rounded-md border border-white/10 bg-black/20 p-4">
               <p className="text-[10px] uppercase tracking-[0.22em] text-teal-100/65">{label}</p>
@@ -66,7 +68,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
             </div>
           ))}
         </div>
-        <div className="mt-6 grid gap-3 sm:grid-cols-3">
+        <div className={`grid gap-3 sm:grid-cols-3 ${featured ? "mt-5" : "mt-6"}`}>
           {project.metrics.map((metric) => (
             <div key={metric} className="rounded-md border border-amber-100/15 bg-amber-200/[0.045] p-4 text-sm text-bone">
               {metric}
