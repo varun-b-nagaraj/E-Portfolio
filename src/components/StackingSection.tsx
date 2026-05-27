@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 export type StackCard = {
@@ -73,8 +73,12 @@ function MobileTile({ section, index }: { section: SectionData; index: number })
 }
 
 export function StackingSection({ cards }: { cards: StackCard[] }) {
-  const headingRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
 
   const sections: SectionData[] = cards.map((card, index) => {
     const details = sectionDetails[card.title] ?? { bullets: [card.body], tags: [card.kicker] };
@@ -89,88 +93,56 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
   });
 
   const indicatorHeight = 64;
+  const last = Math.max(sections.length - 1, 1);
+  
+  // Map scroll progress to indicator position
+  const indicatorY = useTransform(
+    scrollYProgress,
+    sections.map((_, index) => index / last),
+    sections.map((_, index) => index * indicatorHeight)
+  );
 
+  // Update active index based on scroll progress
   useEffect(() => {
-    const nodes = headingRefs.current.filter(Boolean) as HTMLElement[];
-    if (!nodes.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting);
-        if (!visible.length) return;
-        const closest = visible.reduce((best, entry) => {
-          return entry.boundingClientRect.top < best.boundingClientRect.top ? entry : best;
-        }, visible[0]!);
-        const index = Number(closest.target.getAttribute("data-index")) || 0;
-        setActiveIndex(index);
-      },
-      {
-        root: null,
-        rootMargin: "-40% 0px -40% 0px",
-        threshold: 0.5
-      }
-    );
-
-    nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
-  }, [cards.length]);
+    return scrollYProgress.onChange((progress) => {
+      const index = Math.round(progress * last);
+      setActiveIndex(Math.min(index, last));
+    });
+  }, [scrollYProgress, last]);
 
   return (
-    <section className="container-page py-20 md:py-0">
-      <div className="grid gap-10 lg:grid-cols-[0.3fr_0.7fr]">
-        <div className="hidden md:block">
-          <div className="relative">
-            <div className="absolute left-0 top-0 h-full w-px bg-white/15" />
-            <motion.div
-              className="absolute left-[-3px] h-14 w-1 rounded-full bg-white"
-              animate={{ y: activeIndex * indicatorHeight }}
-              transition={{ type: "spring", stiffness: 210, damping: 26 }}
-            />
-            <div className="relative space-y-6 pl-6">
-              {sections.map((section, index) => (
-                <div
-                  key={section.title}
-                  ref={(el) => {
-                    headingRefs.current[index] = el;
-                  }}
-                  data-index={index}
-                >
-                  <p
-                    className={`text-base transition ${
-                      activeIndex === index
-                        ? "text-white font-semibold opacity-100"
-                        : "text-slate-500 opacity-70"
-                    }`}
+    <section ref={containerRef} className="container-page py-20 md:py-0" style={{ minHeight: `${sections.length * 100}vh` }}>
+      <div className="sticky top-0 h-screen">
+        <div className="grid h-full gap-10 lg:grid-cols-[0.3fr_0.7fr]">
+          <div className="hidden md:block">
+            <div className="relative h-full overflow-hidden">
+              <div className="absolute left-0 top-0 h-full w-px bg-white/15" />
+              <motion.div
+                className="absolute left-[-3px] h-14 w-1 rounded-full bg-white"
+                style={{ y: indicatorY }}
+              />
+              <div className="relative space-y-6 pl-6 pt-0">
+                {sections.map((section, index) => (
+                  <div
+                    key={section.title}
+                    data-index={index}
                   >
-                    {section.title}
-                  </p>
-                </div>
-              ))}
+                    <p
+                      className={`text-base transition ${
+                        activeIndex === index
+                          ? "text-white font-semibold opacity-100"
+                          : "text-slate-500 opacity-70"
+                      }`}
+                    >
+                      {section.title}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="md:hidden">
-          <div className="space-y-4">
-            <p className="section-kicker text-sm uppercase tracking-[0.28em] text-teal-100/70">Builder profile</p>
-            <h2 className="text-4xl font-semibold text-white">A technical exhibit, built from shipped systems.</h2>
-          </div>
-          <div className="mt-8 space-y-3 border-l border-white/10 pl-4">
-            {sections.map((section) => (
-              <p key={section.title} className="text-sm font-semibold text-white/90">
-                {section.title}
-              </p>
-            ))}
-          </div>
-          <div className="mt-10 space-y-6">
-            {sections.map((section, index) => (
-              <MobileTile key={section.title} section={section} index={index} />
-            ))}
-          </div>
-        </div>
-
-        <div className="relative hidden md:block" style={{ minHeight: `${sections.length * 80}vh` }}>
-          <div className="sticky top-24 h-screen">
+          <div className="relative hidden md:block overflow-hidden">
             <div className="relative mx-auto h-[680px] max-w-4xl overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -211,6 +183,25 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
               </AnimatePresence>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="md:hidden">
+        <div className="space-y-4">
+          <p className="section-kicker text-sm uppercase tracking-[0.28em] text-teal-100/70">Builder profile</p>
+          <h2 className="text-4xl font-semibold text-white">A technical exhibit, built from shipped systems.</h2>
+        </div>
+        <div className="mt-8 space-y-3 border-l border-white/10 pl-4">
+          {sections.map((section) => (
+            <p key={section.title} className="text-sm font-semibold text-white/90">
+              {section.title}
+            </p>
+          ))}
+        </div>
+        <div className="mt-10 space-y-6">
+          {sections.map((section, index) => (
+            <MobileTile key={section.title} section={section} index={index} />
+          ))}
         </div>
       </div>
     </section>
