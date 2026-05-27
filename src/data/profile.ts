@@ -37,22 +37,22 @@ export const profile = {
   ],
   workingNotes: [
     {
-      icon: "🧭",
+      icon: "route",
       title: "Start with the route",
       body: "Before building, I map who touches the system: student, admin, teammate, mentor, or researcher. That keeps features tied to a real path."
     },
     {
-      icon: "🧪",
+      icon: "test",
       title: "Test where it breaks",
       body: "Robots drift, school APIs lag, inventory data gets messy, and quantum hardware is noisy. I try to design around those failure points early."
     },
     {
-      icon: "🧰",
+      icon: "tools",
       title: "Keep tools explainable",
       body: "I like systems with logs, telemetry, clear permissions, and docs. If someone cannot debug it, they eventually stop trusting it."
     },
     {
-      icon: "🤝",
+      icon: "handoff",
       title: "Build for handoff",
       body: "A project is stronger when another student, team, or staff member can keep using it after the initial push."
     }

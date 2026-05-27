@@ -4,6 +4,14 @@ import { MagneticButton } from "@/components/MagneticButton";
 import { ParallaxLayer } from "@/components/ParallaxLayer";
 import { SectionIntro } from "@/components/SectionIntro";
 import { profile } from "@/data/profile";
+import { FlaskConical, Handshake, Route, Wrench } from "lucide-react";
+
+const workingNoteIcons = {
+  handoff: Handshake,
+  route: Route,
+  test: FlaskConical,
+  tools: Wrench
+};
 
 export default function AboutPage() {
   return (
@@ -33,13 +41,19 @@ export default function AboutPage() {
           <h2 className="mt-4 text-4xl font-semibold leading-tight text-bone">A few habits that make the projects less random.</h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          {profile.workingNotes.map((note) => (
-            <div key={note.title} className="rounded-lg border border-white/12 bg-panel/80 p-5">
-              <p className="text-2xl">{note.icon}</p>
-              <h3 className="mt-3 text-xl font-semibold text-bone">{note.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{note.body}</p>
-            </div>
-          ))}
+          {profile.workingNotes.map((note) => {
+            const Icon = workingNoteIcons[note.icon as keyof typeof workingNoteIcons];
+
+            return (
+              <div key={note.title} className="rounded-lg border border-white/12 bg-panel/80 p-5">
+                <span className="grid h-10 w-10 place-items-center rounded-md border border-white/12 bg-white/[0.05] text-teal-100/80">
+                  <Icon className="h-5 w-5" aria-hidden="true" strokeWidth={1.8} />
+                </span>
+                <h3 className="mt-3 text-xl font-semibold text-bone">{note.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted">{note.body}</p>
+              </div>
+            );
+          })}
         </div>
       </section>
       <section className="container-page grid gap-4 pb-24 sm:grid-cols-2 lg:grid-cols-3">
