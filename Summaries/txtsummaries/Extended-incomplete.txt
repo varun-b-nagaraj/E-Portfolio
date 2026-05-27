@@ -1,0 +1,147 @@
+VARUN BHADURGATTE NAGARAJ
+   AUSTIN,TX|(512)212-6269|VARUNNAGARAJ2009@GMAIL.COM
+
+
+
+
+EDUCATION                            PROFESSIONAL OVERVIEW
+
+11th Grade Student                   Aspiring software engineer and robotics developer with
+Round Rock High School — 23-27       experience in full-stack systems, AI applications, and simulation
+STEM & Business Industry             platforms. Led projects scaled to 50,000+ users and built
+Coursework: AP Calculus BC, AP       production-ready tools using React, Flask, and Supabase. Strong
+Computer Science A, AP Research,     in systems design, real-time data, and performance optimization,
+Digital Electronics, AP Physics I,   with a focus on scalable, user-centric solutions.
+Advanced Computer Science I
+                                     WORK EXPERIENCE
+SKILLS
+                                     Project Team Lead
+Programming                          Virtual Robotics Simulator | June 2025 – Present
+Python, HTML, CSS, Java, C/C++,
+   JavaScript                           •   Led development of a full-stack robotics simulation
+                                            platform, replacing legacy VEX tooling with integrated
+                                            CAD, transpiler, compiler, and real-time simulation.
+Frameworks & Tools
+                                        •   Built detailed CAD models of competition fields and
+Flask, React, Supabase, Selenium,
+                                            environments, enabling accurate physics-based simulation
+    Tailwind CSS, Git, Requests,
+                                            and testing.
+    JSON, Beautifulsoup
+                                        •   Developed system for importing custom VEX robot
+                                            designs into the simulator, supporting modular
+Robotics Platforms
+                                            configurations and realistic interaction.
+VEX V5 (PROS, LemLib), FTC SDK
+                                        •   Architected a custom transpiler converting high-level code
+   (Java)
+                                            (FTC Java, VEXcode) into VEX-compatible commands for
+                                            cross-platform execution.
+CERTIFICATIONS
+                                        •   Scaled platform to 50,000+ monthly users through
+Autodesk Certified User: Inventor           documentation, feature iteration, and community
+                                            outreach.
+Certiport
+                                        •   Managed cross-functional teams across software,
+2024
+                                            firmware, and UX, driving system architecture and product
+                                            direction.
+Microsoft Office Specialist: Word,
+Excel, PowerPoint                    Summer Intern
+Certiport
+                                     Virtual Robotics Simulator | May – April 2025
+2023
+                                        •   Debugged and optimized robotics simulation codebases
+NOCTI Business Management &                 and assisted with CAD design and mechanical modeling.
+Administration                          •   Led internal testing and documentation while mentoring
+Certiport                                   FTC teams in autonomous programming and control
+2025                                        systems.
+                                        •   Developed React Native web and mobile interfaces for
+                                            simulator access and telemetry review.
+WORK EXPERIENCE CONT.
+
+Founder & Lead Developer
+HallHop | November 2024 – Present
+   •   Founded and led development of a full-stack Chrome Extension and Flask-based platform replacing
+       paper hall passes with real-time student tracking across campuses.
+   •   Architected secure backend with Supabase, JWT authentication, AES-encrypted credential storage,
+       Redis session management, and FERPA-conscious row-level security.
+   •   Engineered high-performance data ingestion pipeline by replacing Selenium with
+       Requests/BeautifulSoup, improving API response speed by 7×.
+   •   Built automated outreach system that researched school districts, generated targeted contact lists,
+       and deployed personalized email campaigns to drive adoption.
+   •   Scaled product to 4,000+ student users, designing for multi-school deployment and 10,000+ user
+       scalability.
+   •   Led a team of 4 developers, coordinating backend, frontend, and product decisions while
+       collaborating with school administrators and IT staff for deployment.
+   •   Developed real-time logging and analytics system for student check-in/out events, enabling
+       operational visibility for school staff.
+
+Lightspeed/IT Director
+Round Rock High School CO-OP | March 2025 – Present
+   •   Directed a 35-member student IT organization across development, QA, and outreach, driving
+       technical strategy and operational improvements for the school’s e-commerce platform.
+   •   Engineered and deployed a custom iOS inventory management app with barcode scanning and real-
+       time database sync, significantly improving stock accuracy and reducing manual errors.
+   •   Managed and extended an Ecwid-based storefront integration (Vercel + serverless APIs),
+       implementing custom checkout logic, pricing rules, and scheduling constraints.
+   •   Built client-side and serverless features including dynamic checkout validation, automated surcharge
+       calculation, and runtime UI customization for improved user experience.
+   •   Operated and scaled an e-commerce platform with 15,000+ monthly users and consistent revenue
+       generation, optimizing workflows and system reliability.
+   •   Led cross-functional coordination with school administrators and principal to deploy technical
+       solutions aligned with operational and accessibility needs.
+   •   Organized technical outreach events and promotions, leveraging automation and web tooling to drive
+       engagement and adoption.
+
+Lightspeed/IT Director
+Round Rock High School CO-OP | January 2025 – March 2025
+   •   Developed automation workflows to rebuild 400+ product listings with updated photography,
+       formatting, and descriptions, improving catalog accuracy.
+   •   Integrated Stripe checkout with Apple Pay and Google Pay, improving payment accessibility.
+   •   Enhanced frontend UX with CSS animations to improve interaction and flow.
+   •   Collaborated with administrators, CTE coordinators, and special education staff to support a delivery-
+       based ordering system, reducing disruptions and increasing inclusivity.
+   •   Assisted with backend inventory verification, product organization, and workflow improvements to
+       enhance efficiency.
+   •
+WORK EXPERIENCE CONT.
+
+Software Engineer & Shareholder
+Transforze | August 2025 – Present
+   •   Designing an AI-native, multi-tenant CRM using React, TypeScript, Expo, Supabase, and SQL with real-
+       time SSE streaming.
+   •   Building agent-driven workflows with deterministic, auditable behavior using RLS, Supabase Edge
+       Functions, and MCP-based AI agents.
+   •   Integrated local LLMs via Ollama and implemented vector database–backed memory for persistent
+       agent context.
+   •   Developed MCP server integrations for Google services (Gmail, Calendar, Drive, Docs) enabling
+       autonomous agent actions.
+   •   Contributing to native CRM features including company creation, user management, and scalable
+       multi-tenant architecture.
+
+Machine Learning Intern
+LPL Financials | March 2025 – Present
+   •   Developed a conversational AI chatbot for financial client interactions, improving accessibility and
+       response efficiency.
+   •   Assisted in model design, training, testing, and performance evaluation for NLP-based systems.
+   •   Collaborated with project managers and engineering teams, gaining experience in software
+       development workflows and quality control processes.
+   •   Participated in team meetings and product discussions to understand real-world deployment of AI
+       systems in a financial environment.
+
+CLUBS & ORGANIZATIONS
+
+Software Engineer & Shareholder
+Transforze | August 2025 – Present
+   •   Designing an AI-native, multi-tenant CRM using React, TypeScript, Expo, Supabase, and SQL with real-
+       time SSE streaming.
+   •   Building agent-driven workflows with deterministic, auditable behavior using RLS, Supabase Edge
+       Functions, and MCP-based AI agents.
+   •   Integrated local LLMs via Ollama and implemented vector database–backed memory for persistent
+       agent context.
+   •   Developed MCP server integrations for Google services (Gmail, Calendar, Drive, Docs) enabling
+       autonomous agent actions.
+   •   Contributing to native CRM features including company creation, user management, and scalable
+       multi-tenant architecture.
+

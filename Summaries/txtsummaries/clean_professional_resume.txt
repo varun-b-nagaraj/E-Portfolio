@@ -1,0 +1,172 @@
+                     Professional Experience & Education
+
+Experience
+Virtual Robot Simulator
+Project Team Lead (Part-time)
+Jun 2025 – Present · Remote · Cedar Park, Texas
+
+•   Contributed to development of a VEX-focused robotics simulation platform expanding the original
+    FTC-based VRS system.
+
+•   Developed full-stack simulation and tooling features for virtual robot testing and debugging workflows.
+
+•   Worked on modular CAD libraries and simulation infrastructure supporting efficient robot prototyping.
+
+•   Collaborated with software, UX, and firmware teams to improve usability and platform performance.
+
+•   Supported platform growth through feature development, documentation, and user feedback integration.
+
+•   Contributed to a platform serving 50,000+ monthly users within the robotics community.
+
+Skills: Technical Project Leadership, React Native, Simulation Infrastructure, CAD Libraries, Full-Stack
+Development
+
+
+
+
+Virtual Robot Simulator
+Summer Intern
+May 2025 – Jun 2025 · Remote
+
+•   Contributed across software, CAD, testing, and documentation workflows within a robotics development
+    team.
+
+•   Debugged and optimized robotics codebases to improve simulator reliability and performance.
+
+•   Assisted with CAD modeling and virtual robot design for competitive robotics applications.
+
+•   Mentored FTC robotics teams on autonomous programming and competition strategy.
+
+•   Helped develop a React Native-based interface for telemetry visualization and collaboration.
+
+Skills: HTML/CSS, SDKs, Robotics Simulation, CAD Modeling, React Native
+Round Rock High School Co-Op
+Chief Executive Officer
+May 2026 – Present · On-site
+
+•   Lead a student-run organization focused on business, technology, and engineering initiatives.
+
+•   Oversee operations, branding, and cross-functional collaboration across technical projects.
+
+•   Spearheading autonomous delivery initiatives integrating robotics and software systems.
+
+•   Working with school leadership to expand the organization into an accredited CTE-aligned program.
+
+•   Mentor students in leadership, software development, and engineering problem-solving.
+
+Skills: Team Leadership, Project Management, Entrepreneurship
+
+
+
+
+Round Rock High School
+LightSpeed(IT) Director
+Mar 2025 – Present · Round Rock, Texas
+
+•   Led a student team improving school e-commerce and digital store operations.
+
+•   Designed and deployed a custom iOS inventory management app with barcode scanning.
+
+•   Mentored members on inventory systems and operational workflows.
+
+•   Oversaw technical improvements supporting scaling operations and workflow efficiency.
+
+Skills: iOS Development, Barcode Systems, Inventory Management, Team Leadership
+
+
+
+
+HallHop
+Founder
+Nov 2024 – Present · Self-employed
+
+•   Built a full-stack Chrome extension and Flask REST API for digital hall pass management.
+
+•   Optimized Home Access Center scraping infrastructure with ~7× performance improvements.
+
+•   Integrated Supabase with row-level security and JWT authentication.
+
+•   Supported onboarding for 4,000+ students with scaling plans for 10,000+ users.
+
+•   Collaborated with administrators and IT staff to improve operational workflows.
+
+Skills: Flask, REST APIs, Supabase, JWT Authentication, Web Development
+Transforze
+Software Engineer (Part-time)
+Nov 2025 – Present · Remote · Cedar Park, Texas
+
+•   Developing an AI-native multi-tenant CRM platform focused on workflow automation.
+
+•   Building backend infrastructure using Supabase, PostgreSQL, and RLS.
+
+•   Developing streaming AI pipelines for business plan generation and task management.
+
+•   Architecting scalable frontend systems with React Admin and TypeScript.
+
+Skills: PostgreSQL, Supabase, React Admin, TypeScript, AI Infrastructure
+
+
+
+
+Lone Star Ridgebacks
+Website Manager
+Jun 2025 – Dec 2025 · Remote · Cedar Park, Texas
+
+•   Redesigned and modernized the company website to improve UX and SEO performance.
+
+•   Implemented animations, image galleries, and structured data markup.
+
+•   Developed secure Wix-hosted document preview systems.
+
+•   Optimized frontend performance, accessibility, and maintainability.
+
+Skills: HTML/CSS, SEO, Frontend Development, Wix
+
+
+
+
+LPL Financial
+Machine Learning Intern
+Jun 2024 – Sep 2024 · Remote · Austin, Texas
+
+•   Contributed to development of an AI-powered chatbot for financial services.
+
+•   Assisted with conversational AI model testing and optimization.
+
+•   Worked on prompt refinement and workflow optimization.
+
+•   Gained hands-on experience with enterprise AI integration.
+
+Skills: Machine Learning, Python, Conversational AI
+Best Brains
+Academic Tutor
+Oct 2022 – Jan 2023 · Austin, Texas
+
+•   Tutored elementary and middle school students in mathematics, reading, and writing.
+
+•   Adapted teaching strategies for diverse learning styles and disabilities.
+
+•   Collaborated with instructional staff to support student progress.
+
+Skills: Mentoring, Inclusive Education, Communication
+
+
+
+
+Education
+
+Round Rock High School
+Aug 2023 – Mar 2027
+Grade: Senior
+
+Activities & Societies:
+DECA • Mu Alpha Theta • Round Rock High School CO-OP • Cross Country • Student Council • National
+Spanish Honor Society • VEX Robotics
+
+Academy:
+Science, Technology, Engineering & Mathematics (STEM) and Business & Industry Academy
+
+Relevant Coursework:
+Advanced Computer Science I • AP Precalculus • Introduction to Engineering Design • Principles of
+Engineering • AP Seminar • TAG Advanced English II
+

@@ -1,0 +1,86 @@
+                       VARUN BHADURGATTE NAGARAJ
+                           Austin, Texas | (512)-212-6269 | varunnagaraj2009@gmail.com
+
+
+EDUCATION                                    CTE INVOLVEMENT
+ROUND ROCK HIGH SCHOOL,                      ROBOTICS - VEX ROBOTICS                              Engineer & Lead-Programmer | March 2023 – Present
+ROUND ROCK, TX                                   Built program using Python and later transitioned to C++ to utilize enhanced motor control
+EXPECTED GRADUATION: MAY 2027                    Developed a custom PID controller (5× consistency boost), real-time localization system through
+Academy: Science, Technology,                    sensor integration(90%+ autonomous success), and exponential joystick scaling.
+Engineering and Mathematics (STEM)
+                                                 Led programming using PROS and LemLib, demonstrating adaptability, technical leadership, and
+and Business Industry Academy
+Relevant Coursework: Advanced                    contributing to the team’s State Championship qualification.
+Computer Science I, AP Precalculus,          HALLHOP – DIGITAL PASS SYSTEM FOR SCHOOLS                   Founder & Lead Developer | Jan 2025 – Present
+Introduction to Engineering Design,              Built Chrome Extension with Flask based REST API to replace paper passes, enabling real-time
+Principles of Engineering, AP Seminar,
+                                                 tracking to reduce class skipping and vaping; implemented dynamic schedule detection (A/B days,
+TAG Adv English II
+Honors: Top 10%, 1400 PSAT 10,
+                                                 lunch periods), and UI animations.
+                                                 Developed and optimized a HAC data scraping API by replacing Selenium with faster Requests
+SCHOOL CLUBS & ACTIVITIES
+                                                 and BeautifulSoup, significantly improving performance and reducing loading times by over 7x.
+DECA – Competed in the HRM 24
+                                                 Integrated Supabase for automated logging, duration tracking, multi-student management, and
+Emotional Intelligence event; gained
+experience in business strategy, presentation,   session recovery; ensured scalability and security through a CORS-enabled, cloud-deployable API
+and leadership under                             architecture.
+timed case study conditions.                     Currently prototyping a real-time indoor positioning system using Aruba’s Location Scanning API,
+Mu Alpha Theta (Math Honor Society) –            aiming for 2–4 meter accuracy to support emergency response and live student mapping through
+Active member; volunteer math tutor              Wi-Fi infrastructure during school shootings or other critical events
+supporting underclassmen with algebra and
+geometry concepts.                             ROBOTICS - FIRST TECH CHALLENGE                                    Team Member | Jan 2025 – Present
+Cross Country (2023 Season) – Committed to        Programmed autonomous and teleop routines in Java using the FTC SDK (LinearOpMode,
+daily training and                                OpMode, Telemetry, HardwareMap); developed feed-back functions & autonomous navigation
+improved 5K time from 35 minutes to 23
+                                                  logic.
+minutes (a 33% gain) through focused
+                                                  Integrated AprilTag computer vision for marker-based decision-making; gaining real-world
+conditioning and endurance work.
+VEX V5 Robotics – Lead programmer                 experience in Java and FTC SDK libraries.
+for competitive robotics team; developed          Contributed to drivetrain assembly, wiring, and hardware testing to ensure full system readiness for
+autonomous routines, custom PID                   matches.
+controllers, and real-time localization
+                                               ROUND ROCK HS CO-OP STORE – E-COMMERCE WEBSITE Lightspeed/IT Team | Jan 2025 – Present
+systems to qualify for the VEX State
+Championship.                                    Re-photographed, reformatted, and rewrote listings for 400+ items; verified inventory for catalog
+                                                accuracy.
+SKILLS
+                                                Integrated Stripe to enable Google Pay and Apple Pay at checkout; improved UX with interactive
+Programming Languages: Python,
+                                                CSS animations.
+JavaScript, Java, C++, HTML, CSS
+                                                Collaborated with the principal, district CTEs, and staff to streamline operations, reduce class-
+Tools & Frameworks: Flask, Wix Velo,
+                                                skipping through delivery-based ordering, and expand roles for FAC and disabled students via
+Requests, BeautifulSoup, JSON, Selenium,
+                                                inclusive fulfillment.
+JavaScript, HTML, CSS, Tailwind CSS,
+Bootstrap, Supabase, GitHub, Render,
+Python, YAML, Canva, Google Sites, Git
+                                             VOLUNTEERING
+Bash.                                        Boy Scouts of America | Life Scout | 2023 – Present
+Robotics Platforms: VEX V5 (PROS,            Led younger scouts at summer camp, managing safety, scheduling, and mentorship. Held troop
+LemLib, VEXcode), FTC SDK (Java)             leadership roles focused on conflict resolution and morale; currently two months from achieving Eagle
+Languages Spoken: English, Kannada,          Scout rank.
+Hindi, Spanish                               Coding & Career Opportunities for Orphans | Co-Founder | Nov 2024 – Present
+                                             Launched an initiative to teach Python and career skills to orphaned youth in India with limited tech
+CERTIFICATIONS
+                                             access. Partnered with a local orphanage and Steel City Codes to adapt curriculum; working with
+BUSINESS INFORMATION MANAGEMENT
+                                             Hack Club Bank to obtain 501(c)(3) status.
+   Microsoft Office Specialist (Word,
+                                             Austin Kannada Sangha (AKS) | Event & Technical Volunteer | 2020 – Present
+   Excel, PowerPoint) - May 2023
+                                             Supported AV setup, mic testing, speaker coordination, and online ticketing for events with 1,000+
+INTRO TO ENGINEERING DESIGN
+                                             attendees. Helped manage guest check-in, food service, and backstage logistics; emceed a live cultural
+- 2024
+    Autodesk Inventor Certified - April 2,
+                                             program.
+    2024                                     ATX2 Project – Meals for Students | SEWA LEAD Volunteer | 2024 – Present
+BUSINESS MANAGEMENT                          Researched food insecurity and partnered with Texas Baptist Children’s Home. Launched a Google
+    NOCTI Business Management and            Sites platform connecting students to food programs; designed outreach using Canva and social media.
+    Administration - April 22, 2025
+

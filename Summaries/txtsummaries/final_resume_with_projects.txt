@@ -1,0 +1,90 @@
+           Professional Experience, Projects, Education &
+                           Certifications
+
+Projects & Research
+FTC Illinois Mentorship
+Jun 2025 – Present
+
+Associated with Virtual Robot Simulator
+
+•   Provided technical mentorship and programming guidance to multiple FTC robotics teams.
+
+•   Assisted with debugging, hardware integration, sensor calibration, and FTC SDK implementation.
+
+•   Supported computer vision and AprilTag detection workflows for autonomous navigation.
+
+•   Helped optimize robot performance, match strategy, and code reliability through iterative testing.
+
+•   Simplified advanced robotics concepts to strengthen technical confidence among student team members.
+
+Skills: Mentoring, FTC SDK, Java, Computer Vision
+
+
+
+
+Research Project @ Texas State University
+Jun 2025 – Present
+
+•   Contributed to a behavioral research project analyzing composting practices among 600+ college
+    students.
+
+•   Assisted with statistical preprocessing and dataset cleaning workflows.
+
+•   Applied Structural Equation Modeling (SEM) techniques to evaluate sustainability behavior predictors.
+
+•   Implemented multiple imputation methods for handling missing data.
+
+•   Co-authored a research manuscript focused on sustainability-related decision-making.
+
+Skills: R, Structural Equation Modeling, Data Cleaning, Qualitative Research
+Round Rock High School E-Commerce
+Feb 2025 – Present
+
+Associated with Round Rock High School Co-Op
+
+•   Contributed to modernization of the school store’s e-commerce platform.
+
+•   Updated and reformatted 400+ product listings to improve accessibility and navigation.
+
+•   Assisted with Stripe integration supporting Apple Pay and Google Pay.
+
+•   Developed CSS animations and frontend layout enhancements.
+
+•   Collaborated with staff and special education teams to support inclusive ordering workflows.
+
+Skills: E-Commerce Optimization, UI/UX, Stripe, Frontend Development
+
+
+
+
+Meals for Students
+Mar 2024 – Nov 2024
+
+•   Researched food insecurity affecting students across Central Texas.
+
+•   Designed and launched a Google Sites platform connecting students with meal assistance resources.
+
+•   Created outreach materials using Canva and social media platforms.
+
+•   Contributed to initiatives focused on reducing stigma around food insecurity.
+
+Skills: Python, JavaScript, Canva, Community Outreach
+
+
+
+
+Inventory Counter iOS App
+Mar 2024 – May 2024
+
+Associated with Round Rock High School Co-Op
+
+•   Designed and developed a custom inventory management mobile app using React Native.
+
+•   Implemented barcode scanning and real-time database synchronization.
+
+•   Built workflows supporting manual and automated inventory counting modes.
+
+•   Improved operational efficiency and audit speed through mobile-first tooling.
+
+Skills: React Native, Mobile Development, Barcode Systems, UI/UX
+

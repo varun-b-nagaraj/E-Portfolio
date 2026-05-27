@@ -1,0 +1,77 @@
+             VARUN BHADURGATTE NAGARAJ
+                                      Cedar Park, TX · (512) 212-6269 · varunnagaraj2009@gmail.com
+EDUCATION                                       WORK EXPERIENCE
+Round Rock High School                          Round Rock High School Co-Op                                                            Mar 2025 – Present
+Cedar Park, TX · Graduation: May 2027           Chief Executive Officer
+STEM & Business Industry Academy                 • Directed a 250+ member, multi-department enterprise; set OKRs, led cross-functional execution, and
+4.0 GPA · SAT: 1490 | Math: 780, English:          secured district approval to formalize CO-OP as a credited CTE program.
+710                                              • Scaled e-commerce operations to 15,000+ monthly views; partnered with district staff and educators to
+Coursework                                         design and implement inclusive fulfillment workflows, establishing procedures that expanded roles for
+AP Calculus BC, AP CS A, AP Physics I, AP          FAC and disabled students.
+Research, Digital Electronics, AP Seminar        • Modernized processes through automation and applied ML: scheduling, demand forecasting,
+TECHNICAL SKILLS                                   performance analytics, and computer vision–based inventory tracking.
+Languages                                       HallHop – Digital Pass System                                                            Nov 2024 – Present
+Python,     Java,     C/C++,      JavaScript,   Founder & Lead Developer
+TypeScript, HTML/CSS, R, SQL                     • Built and deployed a full-stack digital hall pass platform (Chrome extension/web app + backend) replacing
+Web Development                                    paper workflows.
+React, React Native, Flask, Supabase             • Developed custom data integration and REST API syncing with district grade systems (HAC); adopted by
+(Postgres), Redis, Vercel, Qiskit                  partner student organizations, handling 4,000+ external requests per month.
+                                                 • Engineered FERPA-compliant, high-performance infrastructure with multi-tenant data isolation and
+AI Development
+                                                   optimized asynchronous pipelines, achieving 7× performance improvement.
+ML/NLP, LLM Integration, MCP Agents,
+                                                 • Developing indoor positioning system using Wi-Fi–based triangulation for real-time student tracking and
+Vector Databases, RAG, Ollama, Inference
+                                                   emergency response (2–4m accuracy).
+Optimization
+Quantum Mechanics                               Virtual Robot Simulator (VRS)                                                           May 2025 – Present
+Qiskit, IBM Quantum, AerSimulator,              Project Team Lead
+Contextual Circuits, ZNE, Noise Modeling         • Led VEX integration for a cross-platform robotics simulation system, extending tooling originally built for
+                                                   FTC to support additional hardware and control workflows.
+Robotics
+PROS, LemLib, AprilTag Vision, Arduino,          • Led development of an in-house FTC control SDK, designing motor control abstractions and enabling
+Autodesk Inventor, Java, PID Control,              simulation integration; contributed to scaling the platform to 32,000+ monthly users.
+VEXcode, AutoCAD, Auto-Pathing                   • Improved Java to JavaScript transpilation pipeline for FTC SDK code, increasing performance and
+                                                   correctness of Unity-based robot simulation.
+CERTIFICATIONS
+                                                 • Mentored FTC teams in autonomous systems and computer vision, focusing on Java control systems and
+Business Management & Administration               AprilTag-based localization.
+NOCTI · Apr 2025                                Transforze                                                                          Aug 2025 – Present
+Autodesk Certified: Inventor                    Software Engineer
+Certiport · Apr 2024                             • Developed a multi-tenant CRM platform with real-time agent workflows and secure data isolation across
+MOS: Word, Excel, PowerPoint                       workspaces.
+Certiport · May 2023 · Office 2019               • Built agent-driven automation systems integrating with productivity tools (Gmail, Calendar, Drive),
+Leadership & Activities                            enabling task execution through conversational interfaces.
+Boy Scouts of America                            • Implemented end-to-end ML pipeline for conversational AI features, including dataset curation, intent
+Life Scout · 2020 – Present                        taxonomy design, model training, and evaluation (relevance, accuracy, latency).
+ • Built and deployed a web app for trail       RESEARCH
+    signage (QR-accessed) that identifies
+    species from user-submitted images
+                                                AP Research · Round Rock HS                                                        Aug 2025 – May 2026
+                                                Evaluating Quantum Contextuality as an Error Mitigation Resource in the Mermin–Peres Magic Square
+    using an AI model and provides habitat
+                                                Game
+    information (Eagle Scout project).
+                                                 • Designed and executed experiments on IBM Quantum hardware (8,192 shots × 9 configurations) to
+ • Engineered an embedded flood
+                                                   evaluate superconducting qubit performance.
+    detection system (Arduino, ultrasonic
+    sensing) for low-lying bridges, enabling     • Implemented zero-noise extrapolation (gate folding, Richardson extrapolation), improving fidelity from
+    real-time alerts to improve local safety.      0.753 to 0.805.
+ • Led and mentored scouts in                   Texas State University                                                              May 2025 – Jan 2026
+    advancement, first aid, and emergency       Research Contributor
+    preparedness.                                • Co-authored and built R-based analysis pipeline using SEM and multiple imputation on a 600+ student
+Austin Kannada Sangha (AKS)                        survey to study composting behavior (Theory of Planned Behavior).
+Tech Volunteer · 2020 – Present                 ROBOTICS
+ • Volunteer for 2,000+ attendee
+                                                VEX Robotics Competition (VRC)                                                             Oct 2024 – Present
+    festivals: supported ticketing,
+                                                Lead Programmer — Virus VRC | State Championship Qualifier
+    payments, website updates, and
+    backstage logistics.                         • Designed and tuned a Ziegler–Nichols PID controller; implemented odometry via IMU, tracking wheel, and
+SEWA – Meals for Students                          encoder fusion; achieving 5× improvement in autonomous consistency with a 90%+ success rate.
+Volunteer · 2024                                First Tech Challenge (FTC) Robotics                                                      Jan 2023 – Dec 2024
+National Honor Society                          Hardware Team Lead
+Member · Oct 2025 – Present                      • Designed and integrated competition drivetrain and full robot system; developed Java-based autonomous
+                                                   and teleop control with AprilTag vision, ensuring reliability and durability under match conditions.
+

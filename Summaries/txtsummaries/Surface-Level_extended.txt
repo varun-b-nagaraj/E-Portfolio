@@ -1,0 +1,90 @@
+VARUN BHADURGATTE NAGARAJ
+Austin, TX | (512) 212-6269 | varunnagaraj2009@gmail.com
+Education
+Round Rock High School, Round Rock, TX - Expected Graduation: May 2027
+Academies: STEM & Business Industry
+Relevant Coursework: Advanced Computer Science I, AP Precalculus, Introduction to Engineering Design, Principles of Engineering, AP Seminar, TAG Adv English II
+Skills
+Programming: Python, JavaScript, Java, C++, HTML, CSS
+Frameworks & Tools: Flask, React, Supabase, GitHub, Tailwind CSS, Wix Velo, Selenium, BeautifulSoup, Requests, JSON, Render, Git, Bash, Canva, Google Sites
+Robotics Platforms: VEX V5 (PROS, LemLib, VEXcode), FTC SDK (Java)
+Languages: English, Kannada, Hindi, Spanish
+Experience
+Virtual Robot Simulator - Project Team Lead | Jun 2025 - Present
+* Led development of a full-stack replacement platform for VEX robotics including CAD libraries, a custom transpiler, compiler, and real-time simulation tools.
+* Scaled platform adoption to 50,000+ monthly users through documentation, outreach, and continuous feature development.
+* Managed cross-functional teams and collaborated on UX, firmware, and simulation architecture.
+Virtual Robot Simulator - Summer Intern | May 2025 - Jun 2025
+* Debugged and optimized robotics simulation codebases and assisted with CAD design and mechanical modeling.
+* Led internal testing and documentation while mentoring FTC teams in autonomous programming and control systems.
+* Developed React Native web and mobile interfaces for simulator access and telemetry review.
+HallHop - Founder & Lead Developer | Nov 2024 - Present
+* Built and deployed a Chrome Extension and Flask-based REST API replacing paper hall passes with real-time tracking.
+* Optimized HAC data scraping by replacing Selenium with Requests/BeautifulSoup, achieving 7× performance improvement.
+* Integrated Supabase with JWT authentication, FERPA-conscious RLS, automated logging, and multi-user session recovery.
+* Onboarded 4,000+ students with scalability planned for 10,000+ users across campuses.
+Round Rock High School - CEO | Feb 2026 - Present
+* Led school organization.
+Round Rock High School - LightSpeed(IT) Director | Mar 2025 - Present
+* Led student IT team improving school store e-commerce operations and inventory workflows.
+* Designed and deployed a custom iOS inventory counter app using barcode scanning and real-time database sync.
+* Coordinated with administrators and special education staff to support inclusive, delivery-based fulfillment.
+Round Rock High School - LightSpeed(IT) Member | Nov 2024 - Mar 2025
+* Reformatted, re-photographed, and rewrote 400+ product listings to improve catalog accuracy.
+* Integrated Stripe checkout supporting Apple Pay and Google Pay.
+* Enhanced frontend UX with CSS animations and assisted backend inventory verification.
+Transforze - Software Engineer/Shareholder & Co-Founder| Nov 2025 - Present
+* Designing an AI-native, multi-tenant CRM using React, TypeScript, Supabase, and SSE streaming.
+* Implementing agent-driven workflows with deterministic, auditable behavior enforced by RLS and Edge Functions.
+LPL Financial - Machine Learning Intern | Jun 2024 - Sep 2024
+* Worked on conversational AI systems to streamline client interactions.
+* Assisted with model design, training, testing, and performance evaluation.
+Best Brains - Academic Tutor | Oct 2022 - Jan 2023
+* Provided one-on-one and small-group tutoring in math, reading, and writing.
+* Supported neurodiverse learners and collaborated with staff to track student progress.
+Projects & Research
+AP Research - Quantum Computing
+* Investigating contextuality-based error mitigation on noisy quantum hardware using Qiskit and IBM Quantum systems.
+* Comparing contextuality-preserving and non-contextual circuits under real hardware noise.
+Research Project - Texas Tech University | Jun 2025 - Present
+* Analyzed composting behavior of 600+ students using the Theory of Planned Behavior.
+* Applied Structural Equation Modeling and multiple imputation techniques.
+* Co-authoring a research manuscript on sustainability behavior predictors.
+FTC Illinois Mentorship | Jun 2025 - Present
+* Provided remote mentorship to FTC teams on Java autonomous routines, sensor calibration, and strategy.
+* Supported AprilTag vision integration and control-system debugging.
+Inventory Counter iOS App | Mar 2024 - May 2024
+* Built a React Native mobile app for barcode-based inventory tracking.
+* Enabled real-time database sync to eliminate manual entry errors and speed up audits.
+Meals for Students | Mar 2024 - Nov 2024
+* Researched food insecurity and partnered with Texas Baptist Children's Home.
+* Launched a Google Sites platform connecting students with local food resources.
+* Designed outreach materials using Canva and social media.
+Leadership & Activities
+Boy Scouts of America - Life Scout | 2020 - Present
+* Held troop leadership roles, led summer camp patrols, and mentored younger scouts.
+* Completed service projects and merit badges in emergency preparedness, first aid, and citizenship.
+* Designed and built a flood detection and alert system as part of an Eagle Scout project, applying engineering, programming, and systems integration to improve community safety.
+* Managed documentation, testing, and deployment, demonstrating ownership, accountability, and end-to-end project leadership.
+VEX & FTC Robotics - Software/Hardware Team Lead | 2023 - Present
+* Led software and hardware development for competitive VEX and FTC robotics teams, coordinating design, programming, testing, and match strategy.
+* Built autonomous routines and control systems using PROS, LemLib, and the FTC SDK, achieving 90%+ autonomous reliability through tuning and iteration.
+* Designed and implemented custom PID controllers, sensor fusion, and real-time localization using inertial sensors, encoders, tracking wheels, and vision (AprilTags).
+* Transitioned team codebases from Python to C++ to enable low-level motor control, improved responsiveness, and more reliable autonomous behavior.
+* Modularized large codebases into reusable subsystems (drivetrain, intake, launcher), improving maintainability, debugging speed, and onboarding of new members.
+* Led code reviews, documentation, and testing sessions; mentored younger programmers and bridged communication between build, programming, and strategy teams.
+* Contributed to competition success, including consistent autonomous performance and qualification to the VEX State Championship.
+
+DECA - Member | 2023 - Present
+* Advanced to Texas DECA State in Human Resource Management.
+* Gained experience in case-based problem solving and business presentations.
+National Honor Society & Mu Alpha Theta | 2024 - Present
+* Active member and volunteer math tutor supporting underclassmen.
+Austin Kannada Sangha - Event & Technical Volunteer | 2020 - Present
+* Provided AV support, ticketing, logistics, and emcee services for large cultural events.
+Cross Country - Round Rock High School | 2023 Season
+* Improved 5K time from 35 minutes to 23 minutes through disciplined training.
+Certifications
+Autodesk Certified User: Inventor - Apr 2024
+Microsoft Office Specialist: Word, Excel, PowerPoint - May 2023
+NOCTI Business Management & Administration - Apr 2025
