@@ -14,7 +14,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
   return (
     <article
       className={`surface-glow group relative overflow-hidden rounded-lg border border-white/12 bg-panel/90 shadow-glass backdrop-blur-xl transition-all duration-700 ease-out hover:border-teal-200/40 hover:shadow-[0_30px_110px_rgba(20,184,166,0.16),0_18px_70px_rgba(251,191,36,0.08),0_0_0_1px_rgba(255,255,255,0.10)] ${
-        featured ? "flex min-h-[clamp(500px,56vh,620px)] flex-col p-6 md:p-8" : "p-6"
+        featured ? "flex min-h-[clamp(430px,50vh,560px)] flex-col p-5 md:p-7" : "p-6"
       }`}
     >
       <div className="accent-rule absolute inset-x-0 top-0 h-px opacity-70" />
@@ -27,7 +27,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="section-kicker text-xs uppercase tracking-[0.28em]">{project.eyebrow}</p>
-            <h3 className={`mt-3 font-semibold text-bone ${featured ? "text-3xl md:text-4xl" : "text-3xl md:text-5xl"}`}>
+            <h3 className={`mt-3 font-semibold text-bone ${featured ? "text-2xl md:text-4xl" : "text-3xl md:text-5xl"}`}>
               {project.title}
             </h3>
           </div>
@@ -39,7 +39,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
             <ArrowUpRight className="h-5 w-5" />
           </Link>
         </div>
-        <p className={`max-w-2xl leading-relaxed text-silver ${featured ? "mt-4 text-base" : "mt-5 text-lg"}`}>{project.summary}</p>
+        <p className={`max-w-2xl leading-relaxed text-silver ${featured ? "mt-4 text-sm md:text-base" : "mt-5 text-lg"}`}>{project.summary}</p>
         {featured && <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">{project.narrative}</p>}
         <div className={`grid md:grid-cols-3 ${featured ? "mt-6 gap-4" : "mt-8 gap-5"}`}>
           <div>

@@ -128,6 +128,38 @@ function StackedCard({
   );
 }
 
+function MobileStackCard({ card, index }: { card: StackCard; index: number }) {
+  const details = cardDetails[card.title] ?? { points: [card.body], metrics: [card.kicker] };
+
+  return (
+    <article className="surface-glow relative overflow-hidden rounded-lg border border-white/12 bg-carbon/95 p-5 shadow-glass">
+      <div className="accent-rule absolute inset-x-0 top-0 h-px" />
+      <div className="absolute inset-0 grid-bg opacity-14" />
+      <div className="absolute right-4 top-4 text-6xl font-semibold leading-none text-white/[0.03]">0{index + 1}</div>
+      <div className="relative">
+        <p className="section-kicker text-xs uppercase tracking-[0.24em]">{card.kicker}</p>
+        <h3 className="mt-3 text-3xl font-semibold leading-tight text-bone">{card.title}</h3>
+        <div className="accent-rule my-5 h-px w-full" />
+        <p className="text-base leading-relaxed text-silver">{card.body}</p>
+        <div className="mt-5 grid gap-3">
+          {details.points.map((point) => (
+            <div key={point} className="rounded-md border border-white/10 bg-black/25 p-3 text-sm leading-relaxed text-muted">
+              {point}
+            </div>
+          ))}
+        </div>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {details.metrics.map((metric) => (
+            <span key={metric} className="accent-chip rounded-full px-3 py-1 text-xs text-muted">
+              {metric}
+            </span>
+          ))}
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export function StackingSection({ cards }: { cards: StackCard[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 72%", "end 86%"] });
@@ -141,11 +173,16 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
           Each layer locks into place as the next one arrives, forming a readable stack of the systems behind the work.
         </p>
       </div>
-      <div ref={ref} className="relative" style={{ height: `${cards.length * 88}vh` }}>
-        <div className="sticky top-24 h-[calc(100vh-6rem)] min-h-[780px]">
+      <div className="grid gap-5 md:hidden">
         {cards.map((card, index) => (
-          <StackedCard key={card.title} card={card} index={index} total={cards.length} progress={scrollYProgress} />
+          <MobileStackCard key={card.title} card={card} index={index} />
         ))}
+      </div>
+      <div ref={ref} className="relative hidden md:block" style={{ height: `${cards.length * 88}vh` }}>
+        <div className="sticky top-24 h-[calc(100vh-6rem)] min-h-[780px]">
+          {cards.map((card, index) => (
+            <StackedCard key={card.title} card={card} index={index} total={cards.length} progress={scrollYProgress} />
+          ))}
         </div>
       </div>
     </section>

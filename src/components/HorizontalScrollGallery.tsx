@@ -69,6 +69,7 @@ function GallerySlide({
 export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const motionEnabled = useMotionEnabled();
+  const [isCompact, setIsCompact] = useState(false);
   const [slideWidths, setSlideWidths] = useState<number[]>(() => projects.map(() => 980));
   const offsets = useMemo(
     () =>
@@ -123,15 +124,25 @@ export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
   const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   useEffect(() => {
-    const updateWidths = () => setSlideWidths(projects.map((project) => getSlideWidth(project, window.innerWidth)));
+    const updateWidths = () => {
+      setIsCompact(window.innerWidth < 768);
+      setSlideWidths(projects.map((project) => getSlideWidth(project, window.innerWidth)));
+    };
     updateWidths();
     window.addEventListener("resize", updateWidths);
     return () => window.removeEventListener("resize", updateWidths);
   }, [projects]);
 
-  if (!motionEnabled) {
+  if (!motionEnabled || isCompact) {
     return (
-      <section className="container-page grid gap-5 py-20 lg:grid-cols-2">
+      <section className="container-page grid gap-5 py-16 md:py-20 lg:grid-cols-2">
+        <div className="lg:col-span-2">
+          <p className="section-kicker text-sm uppercase tracking-[0.28em]">Featured systems</p>
+          <h2 className="mt-4 max-w-4xl text-4xl font-semibold leading-tight text-bone md:text-6xl">
+            Follow the build path: problem, system, tradeoff, next pass.
+          </h2>
+          <div className="accent-rule mt-5 h-px max-w-xs" />
+        </div>
         {projects.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}
@@ -141,18 +152,18 @@ export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
 
   return (
     <section ref={ref} className="relative h-[760vh]">
-      <div className="sticky top-0 h-screen overflow-x-hidden border-y border-white/10 bg-black">
+      <div className="sticky top-0 h-screen overflow-hidden border-y border-white/10 bg-black">
         <motion.div className="pointer-events-none absolute inset-0 grid-bg opacity-30" style={{ x: lineX }} />
-        <div className="container-page absolute left-1/2 top-20 z-10 -translate-x-1/2">
+        <div className="container-page absolute left-1/2 top-14 z-10 -translate-x-1/2">
           <p className="text-sm uppercase tracking-[0.28em] text-muted">Featured systems</p>
-          <h2 className="mt-4 max-w-4xl text-4xl font-semibold leading-tight text-bone md:text-6xl">
+          <h2 className="mt-4 max-w-4xl text-4xl font-semibold leading-tight text-bone md:text-5xl xl:text-6xl">
             Follow the build path: problem, system, tradeoff, next pass.
           </h2>
           <div className="mt-5 h-px max-w-xs overflow-hidden bg-white/[0.06]">
             <motion.div className="h-full origin-left bg-white/35" style={{ width: progressWidth }} />
           </div>
         </div>
-        <motion.div className="flex items-start gap-6 pb-20 pl-[max(16px,calc((100vw-1180px)/2))] pt-[clamp(17rem,34vh,22rem)]" style={{ x }}>
+        <motion.div className="flex items-start gap-6 pb-20 pl-[max(16px,calc((100vw-1180px)/2))] pt-[clamp(15.5rem,30vh,19rem)]" style={{ x }}>
           {projects.map((project, index) => (
             <GallerySlide
               key={project.slug}

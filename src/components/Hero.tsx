@@ -16,7 +16,7 @@ export function Hero() {
 
   return (
     <section
-      className="relative flex min-h-screen items-center overflow-hidden pt-20"
+      className="relative flex min-h-screen items-center overflow-hidden pt-28 md:pt-20"
       onMouseMove={(event) => {
         if (!motionEnabled) return;
         const rect = event.currentTarget.getBoundingClientRect();
@@ -25,10 +25,10 @@ export function Hero() {
       }}
     >
       <BackgroundGrid />
-      <div className="container-page relative z-10 grid items-center gap-12 py-16 lg:grid-cols-[minmax(0,1.18fr)_minmax(360px,0.82fr)]">
+      <div className="container-page relative z-10 grid items-center gap-12 py-12 md:py-16 lg:grid-cols-[minmax(0,1.18fr)_minmax(360px,0.82fr)]">
         <div className="min-w-0">
           <motion.p
-            className="section-kicker text-sm uppercase tracking-[0.32em]"
+            className="section-kicker text-xs uppercase tracking-[0.24em] md:text-sm md:tracking-[0.32em]"
             initial={motionEnabled ? { opacity: 0, y: 22 } : false}
             animate={motionEnabled ? { opacity: 1, y: 0 } : undefined}
             transition={{ duration: 0.6 }}
@@ -37,7 +37,7 @@ export function Hero() {
           </motion.p>
           <div className="mt-7 overflow-visible pb-2">
             <motion.h1
-              className="accent-text max-w-full pb-2 text-6xl font-semibold leading-[1.03] md:text-8xl lg:text-[clamp(4.9rem,5.35vw,6.15rem)] xl:text-[clamp(5.4rem,5.55vw,6.5rem)]"
+              className="accent-text max-w-full pb-2 text-[clamp(3.05rem,15vw,4.7rem)] font-semibold leading-[1.04] md:text-8xl lg:text-[clamp(4.9rem,5.35vw,6.15rem)] xl:text-[clamp(5.4rem,5.55vw,6.5rem)]"
               initial={motionEnabled ? { y: 110 } : false}
               animate={motionEnabled ? { y: 0 } : undefined}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
@@ -49,27 +49,27 @@ export function Hero() {
               Nagaraj
             </motion.h1>
           </div>
-          <div className="mt-6 h-10 overflow-hidden text-2xl text-silver">
+          <div className="mt-5 h-8 overflow-hidden text-xl text-silver md:mt-6 md:h-10 md:text-2xl">
             <motion.div
               animate={motionEnabled ? { y: ["0%", "-25%", "-50%", "-75%", "0%"] } : undefined}
               transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
             >
               {profile.roles.map((role) => (
-                <p key={role} className="h-10">
+                <p key={role} className="h-8 md:h-10">
                   {role}
                 </p>
               ))}
             </motion.div>
           </div>
-          <p className="mt-7 max-w-2xl text-xl leading-relaxed text-muted">{profile.intro}</p>
-          <div className="mt-9 flex flex-wrap gap-3">
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted md:mt-7 md:text-xl">{profile.intro}</p>
+          <div className="mt-7 flex flex-wrap gap-3 md:mt-9">
             <MagneticButton href="/projects">View systems</MagneticButton>
             <MagneticButton href="/resume">
               View resume
             </MagneticButton>
           </div>
         </div>
-        <motion.div className="relative mx-auto w-full max-w-[460px]" style={motionEnabled ? { x, y } : undefined}>
+        <motion.div className="relative mx-auto mb-10 w-full max-w-[360px] md:max-w-[460px] lg:mb-0" style={motionEnabled ? { x, y } : undefined}>
           <div className="absolute -inset-6 rounded-[2rem] border border-teal-100/15 bg-[linear-gradient(135deg,rgba(141,223,213,0.08),rgba(240,195,106,0.04),rgba(134,168,255,0.07))] blur-xl" />
           <div className="surface-glow relative overflow-hidden rounded-lg border border-white/12 bg-white/[0.04] shadow-glass">
             <div className="accent-rule absolute inset-x-0 top-0 z-10 h-px" />
@@ -82,10 +82,10 @@ export function Hero() {
               className="aspect-[4/5] w-full object-cover"
             />
           </div>
-          <div className="glass absolute -bottom-7 left-1/2 grid w-[92%] -translate-x-1/2 grid-cols-3 overflow-hidden rounded-lg">
+          <div className="glass absolute -bottom-8 left-1/2 grid w-[94%] -translate-x-1/2 grid-cols-3 overflow-hidden rounded-lg md:-bottom-7 md:w-[92%]">
             {profile.metrics.slice(0, 3).map((metric) => (
-              <div key={metric.label} className="border-r border-white/10 p-4 last:border-r-0">
-                <p className="text-xl font-semibold text-bone md:text-2xl">
+              <div key={metric.label} className="border-r border-white/10 p-3 last:border-r-0 md:p-4">
+                <p className="text-lg font-semibold text-bone md:text-2xl">
                   <AnimatedCounter value={metric.value} suffix={metric.suffix} />
                 </p>
                 <p className="mt-1 text-[11px] leading-tight text-muted">{metric.label}</p>
@@ -94,7 +94,7 @@ export function Hero() {
           </div>
         </motion.div>
       </div>
-      <div className="absolute bottom-7 left-1/2 z-10 -translate-x-1/2 text-muted">
+      <div className="absolute bottom-5 left-1/2 z-10 hidden -translate-x-1/2 text-muted md:block">
         <ArrowDown className="h-5 w-5 animate-pulse" />
       </div>
     </section>

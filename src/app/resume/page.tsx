@@ -11,7 +11,7 @@ export default function ResumePage() {
         body="A clean embedded copy of the formal resume, framed in the same visual theme as the portfolio."
       />
 
-      <section className="container-page py-16">
+      <section className="container-page py-10 md:py-16">
         <div className="surface-glow overflow-hidden rounded-lg border border-white/12 bg-panel/80 shadow-glass">
           <div className="accent-rule h-px" />
           <div className="flex flex-col gap-5 border-b border-white/10 p-5 md:flex-row md:items-center md:justify-between md:p-6">
@@ -49,8 +49,8 @@ export default function ResumePage() {
             </div>
           </div>
 
-          <div className="bg-black/45 p-3 md:p-5">
-            <object data={profile.resume} type="application/pdf" className="h-[82vh] min-h-[720px] w-full rounded-md border border-white/10 bg-white">
+          <div className="bg-black/45 p-2 md:p-5">
+            <object data={profile.resume} type="application/pdf" className="h-[72vh] min-h-[520px] w-full rounded-md border border-white/10 bg-white md:h-[82vh] md:min-h-[720px]">
               <div className="rounded-md border border-white/10 bg-black/40 p-8">
                 <p className="text-sm leading-relaxed text-muted">PDF preview is unavailable in this browser.</p>
                 <a href={profile.resume} download className="mt-4 inline-flex items-center gap-2 text-bone">
