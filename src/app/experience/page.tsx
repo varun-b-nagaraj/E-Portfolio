@@ -13,7 +13,7 @@ export default function ExperiencePage() {
       <section className="container-page grid gap-4 pt-14 md:grid-cols-3">
         {[
           ["Technical ownership", "Simulation platforms, school infrastructure, AI workflows, client systems, and applied ML work."],
-          ["Leadership scope", "Student teams, administrator coordination, mentoring, operations, documentation, and cross-functional execution."],
+          ["Community scope", "Student teams, administrator coordination, mentoring, operations, documentation, and cross-functional execution."],
           ["Progression", "Early tutoring and robotics roles grew into founder, lead developer, team lead, and organization-level responsibilities."]
         ].map(([title, body]) => (
           <div key={title} className="rounded-lg border border-white/12 bg-panel/75 p-5">

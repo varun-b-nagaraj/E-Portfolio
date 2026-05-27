@@ -40,7 +40,7 @@ const sectionDetails: Record<string, { bullets: string[]; tags: string[]; metric
     tags: ["React", "Flask", "Supabase"],
     metrics: ["Real-time database sync", "JWT authentication", "Responsive design"]
   },
-  Leadership: {
+  "Community Impact": {
     bullets: ["Student-run operations", "Inclusive fulfillment", "Technical mentorship"],
     tags: ["250+ members", "15,000+ views", "Co-Op"],
     metrics: ["250+ active members", "15,000+ monthly views", "Inclusive fulfillment"]

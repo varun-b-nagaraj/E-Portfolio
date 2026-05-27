@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MagneticButton } from "./MagneticButton";
+import { SocialDropdown } from "./SocialLinks";
 
 const nav = [
   ["Home", "/"],
@@ -10,7 +10,7 @@ const nav = [
   ["Experience", "/experience"],
   ["Projects", "/projects"],
   ["Academia", "/education"],
-  ["Leadership", "/leadership"],
+  ["Community Impact", "/leadership"],
   ["Resume", "/resume"],
   ["Contact", "/contact"]
 ];
@@ -43,9 +43,7 @@ export function Navbar() {
             })}
           </div>
           <div className="hidden sm:block">
-            <MagneticButton href="/contact" className="px-4 py-2 text-xs">
-              Start a conversation
-            </MagneticButton>
+            <SocialDropdown />
           </div>
         </div>
         <div className="mt-3 flex gap-2 overflow-x-auto pb-1 md:hidden">

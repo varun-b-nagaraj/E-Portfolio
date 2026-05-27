@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { profile } from "@/data/profile";
+import { SocialIconLinks } from "./SocialLinks";
 
 export function Footer() {
   return (
@@ -8,12 +9,13 @@ export function Footer() {
         <div>
           <p className="font-medium text-bone">{profile.name}</p>
           <p className="mt-2 max-w-md">AI systems, robotics simulation, full-stack products, research, and community technology.</p>
+          <SocialIconLinks className="mt-5" />
         </div>
         <div className="flex flex-wrap gap-4">
-          <Link href={`mailto:${profile.email}`}>Email</Link>
           <Link href="/resume">Resume</Link>
           <Link href="/projects">Projects</Link>
           <Link href="/education">Research</Link>
+          <Link href="/contact">Contact</Link>
         </div>
       </div>
     </footer>

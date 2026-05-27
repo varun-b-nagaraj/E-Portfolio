@@ -23,6 +23,14 @@ export const education = {
       certificatePdf: "/certificates/osha-10-hour-general-industry.jpeg"
     },
     {
+      title: "Introduction to Model Context Protocol",
+      issuer: "Anthropic",
+      issued: "May 2026",
+      skills: ["Model Context Protocol", "AI tooling", "MCP servers"],
+      credentialUrl: "https://verify.skilljar.com/c/bpxqt5aqr9xg",
+      certificatePdf: "/certificates/introduction-to-model-context-protocol-anthropic.pdf"
+    },
+    {
       title: "Autodesk Certified User: Inventor",
       issuer: "Certiport - A Pearson VUE Business",
       issued: "Apr 2024",

@@ -112,7 +112,7 @@ export const profile = {
       body: "Shipping Flask, React, Supabase, PostgreSQL, TypeScript, React Native, and Chrome Extension systems for schools and organizations."
     },
     {
-      title: "Leadership",
+      title: "Community Impact",
       kicker: "Student-run operations",
       body: "Leading Co-Op and LightSpeed IT initiatives across e-commerce, inventory automation, inclusive fulfillment, and student mentorship."
     },

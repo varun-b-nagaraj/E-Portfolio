@@ -198,7 +198,7 @@ export default function ResumePage() {
                 </div>
               </SectionBlock>
 
-              <SectionBlock title="Leadership and Activities">
+              <SectionBlock title="Community Impact">
                 <div className="space-y-4">
                   {leadership.map((item) => (
                     <article key={item.title}>

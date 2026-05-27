@@ -8,7 +8,7 @@ const labels: Record<string, string> = {
   experience: "Experience",
   projects: "Projects",
   education: "Academia",
-  leadership: "Leadership",
+  leadership: "Community Impact",
   contact: "Contact"
 };
 
