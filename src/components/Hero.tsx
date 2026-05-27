@@ -25,8 +25,8 @@ export function Hero() {
       }}
     >
       <BackgroundGrid />
-      <div className="container-page relative z-10 grid items-center gap-12 py-16 lg:grid-cols-[1.08fr_0.92fr]">
-        <div>
+      <div className="container-page relative z-10 grid items-center gap-12 py-16 lg:grid-cols-[minmax(0,1.18fr)_minmax(360px,0.82fr)]">
+        <div className="min-w-0">
           <motion.p
             className="section-kicker text-sm uppercase tracking-[0.32em]"
             initial={motionEnabled ? { opacity: 0, y: 22 } : false}
@@ -37,7 +37,7 @@ export function Hero() {
           </motion.p>
           <div className="mt-7 overflow-hidden">
             <motion.h1
-              className="accent-text max-w-5xl text-6xl font-semibold leading-[0.95] md:text-8xl lg:text-[104px]"
+              className="accent-text max-w-full text-6xl font-semibold leading-[0.95] md:text-8xl lg:text-[clamp(4.9rem,5.35vw,6.15rem)] xl:text-[clamp(5.4rem,5.55vw,6.5rem)]"
               initial={motionEnabled ? { y: 110 } : false}
               animate={motionEnabled ? { y: 0 } : undefined}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
