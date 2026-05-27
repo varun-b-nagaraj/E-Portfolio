@@ -105,9 +105,9 @@ function Curtain({ phase, label, subheading }: { phase: CurtainPhase; label: str
           transition={{ duration: 0.28, ease: "easeOut" }}
         >
           <p className="text-xs uppercase tracking-[0.32em] text-teal-100/65">Transitioning to</p>
-          <p className="mt-3 text-3xl font-semibold text-bone md:text-5xl">{label}</p>
-          {subheading && <p className="mt-2 text-sm text-silver md:text-base">{subheading}</p>}
+          <p className="mt-3 font-display text-3xl font-semibold text-bone md:text-5xl">{label}</p>
           <div className="mx-auto mt-6 h-px w-56 bg-gradient-to-r from-transparent via-teal-100/45 to-transparent shadow-[0_0_18px_rgba(141,223,213,0.16)]" />
+          {subheading && <p className="mt-3 font-display text-sm text-silver md:text-base">{subheading}</p>}
         </motion.div>
       </div>
     </motion.div>
@@ -125,6 +125,32 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
   const pendingPathname = useRef<string | null>(null);
   const coverTimer = useRef<number | null>(null);
   const revealTimer = useRef<number | null>(null);
+  const revealEndTimer = useRef<number | null>(null);
+
+  const clearTimers = () => {
+    if (coverTimer.current) {
+      window.clearTimeout(coverTimer.current);
+      coverTimer.current = null;
+    }
+    if (revealTimer.current) {
+      window.clearTimeout(revealTimer.current);
+      revealTimer.current = null;
+    }
+    if (revealEndTimer.current) {
+      window.clearTimeout(revealEndTimer.current);
+      revealEndTimer.current = null;
+    }
+  };
+
+  const startReveal = () => {
+    clearTimers();
+    revealTimer.current = window.setTimeout(() => {
+      setPhase("revealing");
+      revealEndTimer.current = window.setTimeout(() => {
+        setPhase("idle");
+      }, curtainDuration * 1000);
+    }, revealDelay);
+  };
 
   useEffect(() => {
     if (!motionEnabled) return;
@@ -151,6 +177,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
       setLabel(transitionMeta.label);
       setSubheading(transitionMeta.subheading);
       setPhase("covering");
+      clearTimers();
 
       coverTimer.current = window.setTimeout(() => {
         setPhase("covered");
@@ -163,26 +190,24 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
   }, [motionEnabled, pathname, phase, router]);
 
   useEffect(() => {
-    if (pendingHref.current && pendingPathname.current === pathname && phase === "covered") {
+    if (phase === "covering" && pendingPathname.current && pendingPathname.current !== pathname) {
       pendingHref.current = null;
       pendingPathname.current = null;
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          revealTimer.current = window.setTimeout(() => {
-            setPhase("revealing");
-            revealTimer.current = window.setTimeout(() => {
-              setPhase("idle");
-            }, curtainDuration * 1000);
-          }, revealDelay);
-        });
-      });
+      clearTimers();
+      setPhase("idle");
+      return;
+    }
+
+    if (phase === "covered") {
+      pendingHref.current = null;
+      pendingPathname.current = null;
+      startReveal();
     }
   }, [pathname, phase]);
 
   useEffect(() => {
     return () => {
-      if (coverTimer.current) window.clearTimeout(coverTimer.current);
-      if (revealTimer.current) window.clearTimeout(revealTimer.current);
+      clearTimers();
     };
   }, []);
 
