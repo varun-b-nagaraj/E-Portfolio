@@ -1,25 +1,26 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Bot, BrainCircuit, Microscope, School } from "lucide-react";
 
 const nodes = [
   {
-    icon: "🏫",
+    icon: School,
     title: "School systems",
     body: "HallHop, Co-Op, inventory, e-commerce, and workflows that have to survive a normal school day."
   },
   {
-    icon: "🤖",
+    icon: Bot,
     title: "Robotics",
     body: "Autonomous routines, odometry, PID tuning, AprilTags, simulator feedback, and mentoring other teams."
   },
   {
-    icon: "🧠",
+    icon: BrainCircuit,
     title: "AI tools",
     body: "CRM agents, conversational AI, streaming interfaces, permission checks, and structured task execution."
   },
   {
-    icon: "🔬",
+    icon: Microscope,
     title: "Research",
     body: "Qiskit experiments, IBM Quantum runs, SEM in R, survey analysis, and reproducible notes."
   }
@@ -40,22 +41,28 @@ export function AboutSystemsMap() {
       </div>
 
       <div className="relative mt-10 grid gap-4 sm:grid-cols-2">
-        {nodes.map((node, index) => (
-          <motion.article
-            key={node.title}
-            className="group min-h-[160px] rounded-lg border border-white/12 bg-black/25 p-5 transition duration-300 hover:-translate-y-1 hover:border-teal-100/35 hover:bg-white/[0.06]"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ delay: index * 0.06, duration: 0.45 }}
-          >
-            <div className="flex items-center gap-3">
-              <span className="grid h-10 w-10 place-items-center rounded-md border border-white/12 bg-white/[0.05] text-lg">{node.icon}</span>
-              <h3 className="text-xl font-semibold text-bone">{node.title}</h3>
-            </div>
-            <p className="mt-4 text-sm leading-relaxed text-silver">{node.body}</p>
-          </motion.article>
-        ))}
+        {nodes.map((node, index) => {
+          const Icon = node.icon;
+
+          return (
+            <motion.article
+              key={node.title}
+              className="group min-h-[160px] rounded-lg border border-white/12 bg-black/25 p-5 transition duration-300 hover:-translate-y-1 hover:border-teal-100/35 hover:bg-white/[0.06]"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ delay: index * 0.06, duration: 0.45 }}
+            >
+              <div className="flex items-center gap-3">
+                <span className="grid h-10 w-10 place-items-center rounded-md border border-white/12 bg-white/[0.05] text-teal-100/80">
+                  <Icon className="h-5 w-5" aria-hidden="true" strokeWidth={1.8} />
+                </span>
+                <h3 className="text-xl font-semibold text-bone">{node.title}</h3>
+              </div>
+              <p className="mt-4 text-sm leading-relaxed text-silver">{node.body}</p>
+            </motion.article>
+          );
+        })}
       </div>
 
       <div className="relative mt-6 rounded-lg border border-white/12 bg-black/30 p-5">
