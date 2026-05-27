@@ -9,7 +9,36 @@ import { AnimatedCounter } from "./AnimatedCounter";
 import { BackgroundGrid } from "./BackgroundGrid";
 import { MagneticButton } from "./MagneticButton";
 import { useMotionEnabled } from "./ReducedMotionProvider";
-import { heroBodyDelayAfterName, heroNameCharacterStep, heroNameDelay, heroNameLines, heroNameTypingEnd, heroRevealAfterName } from "./heroIntroTiming";
+import { heroNameCharacterStep, heroNameDelay, heroNameLines, heroRevealAfterName } from "./heroIntroTiming";
+
+function TypedText({
+  text,
+  start,
+  delay = 0,
+  step = 24
+}: {
+  text: string;
+  start: boolean;
+  delay?: number;
+  step?: number;
+}) {
+  const [visibleCharacters, setVisibleCharacters] = useState(0);
+
+  useEffect(() => {
+    if (!start) {
+      setVisibleCharacters(0);
+      return;
+    }
+
+    const timers = Array.from(text).map((_, index) =>
+      window.setTimeout(() => setVisibleCharacters(index + 1), delay + index * step)
+    );
+
+    return () => timers.forEach((timer) => window.clearTimeout(timer));
+  }, [delay, start, step, text]);
+
+  return <>{text.slice(0, visibleCharacters)}</>;
+}
 
 function TypedHeroName() {
   const [visibleCharacters, setVisibleCharacters] = useState(0);
@@ -49,32 +78,38 @@ function TypedHeroName() {
   );
 }
 
-function TypedRoleCarousel() {
+function TypedRoleCarousel({ start }: { start: boolean }) {
   const motionEnabled = useMotionEnabled();
   const [typedRole, setTypedRole] = useState("");
   const [hasTypedInitialRole, setHasTypedInitialRole] = useState(false);
   const role = profile.roles[0] ?? "";
 
   useEffect(() => {
+    if (!start) {
+      setTypedRole("");
+      setHasTypedInitialRole(false);
+      return;
+    }
+
     let cancelled = false;
     setTypedRole("");
 
     const typeTimers = Array.from(role).map((_, index) =>
       window.setTimeout(() => {
         if (!cancelled) setTypedRole(role.slice(0, index + 1));
-      }, heroNameTypingEnd + heroBodyDelayAfterName + index * 28)
+      }, 120 + index * 28)
     );
 
     const doneTimer = window.setTimeout(() => {
       if (!cancelled) setHasTypedInitialRole(true);
-    }, heroNameTypingEnd + heroBodyDelayAfterName + role.length * 28 + 900);
+    }, 120 + role.length * 28 + 900);
 
     return () => {
       cancelled = true;
       typeTimers.forEach((timer) => window.clearTimeout(timer));
       window.clearTimeout(doneTimer);
     };
-  }, [role]);
+  }, [role, start]);
 
   if (hasTypedInitialRole) {
     return (
@@ -125,6 +160,7 @@ export function Hero() {
 
   return (
     <section
+      data-no-type
       className="relative flex min-h-screen items-center overflow-hidden pt-28 md:pt-20"
       onMouseMove={(event) => {
         if (!motionEnabled) return;
@@ -143,7 +179,7 @@ export function Hero() {
             animate={revealAnimate}
             transition={{ duration: 0.55, ease: revealEase }}
           >
-            AI / robotics / simulation / research
+            <TypedText text="AI / robotics / simulation / research" start={introRevealed} step={18} />
           </motion.p>
           <div className="mt-7 overflow-visible pb-2">
             <motion.div
@@ -156,7 +192,7 @@ export function Hero() {
               <TypedHeroName />
             </motion.div>
           </div>
-          <TypedRoleCarousel />
+          <TypedRoleCarousel start={introRevealed} />
           <motion.p
             data-no-type
             className="mt-6 max-w-2xl text-base leading-relaxed text-muted md:mt-7 md:text-xl"
@@ -164,7 +200,7 @@ export function Hero() {
             animate={revealAnimate}
             transition={{ duration: 0.55, ease: revealEase }}
           >
-            {profile.intro}
+            <TypedText text={profile.intro} start={introRevealed} delay={160} step={10} />
           </motion.p>
           <motion.div
             data-no-type
