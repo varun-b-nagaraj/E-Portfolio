@@ -92,7 +92,7 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
     };
   });
 
-  const indicatorHeight = 64;
+  const indicatorHeight = 80; // h-14 (56px) + space-y-6 (24px)
   const last = Math.max(sections.length - 1, 1);
   
   // Map scroll progress to indicator position
@@ -112,9 +112,9 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
 
   return (
     <section ref={containerRef} className="container-page py-20 md:py-0" style={{ minHeight: `${sections.length * 100}vh` }}>
-      <div className="sticky top-0 h-screen flex items-center">
+      <div className="sticky top-0 h-[88vh] flex items-center">
         <div className="grid h-auto gap-10 lg:grid-cols-[0.3fr_0.7fr] w-full">
-          <div className="hidden md:block">
+          <div className="hidden md:flex md:items-center">
             <div className="relative">
               <div className="absolute left-0 top-0 bottom-0 w-px bg-white/15" />
               <motion.div
