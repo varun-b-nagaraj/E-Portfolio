@@ -21,20 +21,21 @@ function StackedCard({ card, index }: { card: StackCard; index: number }) {
   return (
     <motion.article
       ref={ref}
-      className="sticky top-24 mb-[42vh] min-h-[64vh] overflow-hidden rounded-lg border border-white/12 bg-carbon/90 p-8 shadow-glass md:p-12"
+      className="surface-glow sticky top-24 mb-[42vh] min-h-[64vh] overflow-hidden rounded-lg border border-white/12 bg-carbon/90 p-8 shadow-glass md:p-12"
       style={motionEnabled ? { scale, opacity, y, zIndex: index + 1 } : { zIndex: index + 1 }}
     >
+      <div className="accent-rule absolute inset-x-0 top-0 h-px" />
       <div className="absolute inset-0 grid-bg opacity-14" />
       <div className="absolute right-8 top-8 text-[11rem] font-semibold leading-none text-white/[0.025] md:text-[16rem]">
         0{index + 1}
       </div>
       <div className="relative grid h-full gap-10 md:grid-cols-[0.78fr_1.22fr] md:items-end">
         <div>
-          <p className="text-xs uppercase tracking-[0.28em] text-muted">{card.kicker}</p>
+          <p className="section-kicker text-xs uppercase tracking-[0.28em]">{card.kicker}</p>
           <h3 className="mt-4 text-5xl font-semibold text-bone md:text-7xl">{card.title}</h3>
         </div>
         <div>
-          <div className="mb-7 h-px w-full bg-gradient-to-r from-white/40 to-transparent" />
+          <div className="accent-rule mb-7 h-px w-full" />
           <p className="max-w-xl text-xl leading-relaxed text-silver">{card.body}</p>
         </div>
       </div>
@@ -46,7 +47,7 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
   return (
     <section className="container-page py-24">
       <div className="sticky top-24 z-0 mb-12 max-w-2xl">
-        <p className="text-sm uppercase tracking-[0.28em] text-muted">Builder profile</p>
+        <p className="section-kicker text-sm uppercase tracking-[0.28em]">Builder profile</p>
         <h2 className="mt-4 text-4xl font-semibold text-bone md:text-6xl">A technical exhibit, built from shipped systems.</h2>
         <p className="mt-5 text-lg leading-relaxed text-muted">
           Each stop holds long enough to read, then gives way to the next layer of work.

@@ -22,12 +22,12 @@ export default function AboutPage() {
         <AboutSystemsMap />
         <div className="space-y-8">
           <div className="glass rounded-lg p-8 ring-1 ring-teal-200/10">
-            <p className="text-sm uppercase tracking-[0.25em] text-muted">Philosophy</p>
+            <p className="section-kicker text-sm uppercase tracking-[0.25em]">Philosophy</p>
             <p className="mt-4 text-3xl font-semibold leading-tight text-bone">{profile.philosophy}</p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             {profile.focusAreas.map((area) => (
-              <div key={area.label} className="rounded-lg border border-white/12 bg-panel/80 p-5 transition-all duration-700 ease-out hover:-translate-y-1 hover:border-amber-100/30 hover:bg-white/[0.07] hover:shadow-[0_22px_70px_rgba(251,191,36,0.10),0_0_0_1px_rgba(255,255,255,0.08)]">
+              <div key={area.label} className="surface-glow rounded-lg border border-white/12 bg-panel/80 p-5 transition-all duration-700 ease-out hover:-translate-y-1 hover:border-amber-100/30 hover:bg-white/[0.07] hover:shadow-[0_22px_70px_rgba(251,191,36,0.10),0_0_0_1px_rgba(255,255,255,0.08)]">
                 <p className="text-xs uppercase tracking-[0.22em] text-teal-100/70">{area.label}</p>
                 <p className="mt-3 text-sm leading-relaxed text-silver">{area.body}</p>
               </div>
@@ -37,7 +37,7 @@ export default function AboutPage() {
       </section>
       <section className="container-page grid gap-5 pb-20 lg:grid-cols-[0.85fr_1.15fr]">
         <div>
-          <p className="text-sm uppercase tracking-[0.28em] text-muted">How I work</p>
+          <p className="section-kicker text-sm uppercase tracking-[0.28em]">How I work</p>
           <h2 className="mt-4 text-4xl font-semibold leading-tight text-bone">A few habits that make the projects less random.</h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -45,7 +45,7 @@ export default function AboutPage() {
             const Icon = workingNoteIcons[note.icon as keyof typeof workingNoteIcons];
 
             return (
-              <div key={note.title} className="rounded-lg border border-white/12 bg-panel/80 p-5">
+              <div key={note.title} className="surface-glow rounded-lg border border-white/12 bg-panel/80 p-5">
                 <span className="grid h-10 w-10 place-items-center rounded-md border border-white/12 bg-white/[0.05] text-teal-100/80">
                   <Icon className="h-5 w-5" aria-hidden="true" strokeWidth={1.8} />
                 </span>
@@ -58,7 +58,7 @@ export default function AboutPage() {
       </section>
       <section className="container-page grid gap-4 pb-24 sm:grid-cols-2 lg:grid-cols-3">
         {profile.metrics.map((metric) => (
-          <div key={metric.label} className="rounded-lg border border-white/12 bg-panel/80 p-6">
+          <div key={metric.label} className="surface-glow rounded-lg border border-white/12 bg-panel/80 p-6">
             <p className="text-4xl font-semibold text-bone">
               <AnimatedCounter value={metric.value} suffix={metric.suffix} />
             </p>

@@ -28,7 +28,7 @@ export function Hero() {
       <div className="container-page relative z-10 grid items-center gap-12 py-16 lg:grid-cols-[1.08fr_0.92fr]">
         <div>
           <motion.p
-            className="text-sm uppercase tracking-[0.32em] text-muted"
+            className="section-kicker text-sm uppercase tracking-[0.32em]"
             initial={motionEnabled ? { opacity: 0, y: 22 } : false}
             animate={motionEnabled ? { opacity: 1, y: 0 } : undefined}
             transition={{ duration: 0.6 }}
@@ -37,7 +37,7 @@ export function Hero() {
           </motion.p>
           <div className="mt-7 overflow-hidden">
             <motion.h1
-              className="max-w-5xl text-6xl font-semibold leading-[0.95] text-bone md:text-8xl lg:text-[104px]"
+              className="accent-text max-w-5xl text-6xl font-semibold leading-[0.95] md:text-8xl lg:text-[104px]"
               initial={motionEnabled ? { y: 110 } : false}
               animate={motionEnabled ? { y: 0 } : undefined}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
@@ -70,8 +70,9 @@ export function Hero() {
           </div>
         </div>
         <motion.div className="relative mx-auto w-full max-w-[460px]" style={motionEnabled ? { x, y } : undefined}>
-          <div className="absolute -inset-6 rounded-[2rem] border border-white/10 bg-white/[0.03] blur-xl" />
-          <div className="relative overflow-hidden rounded-lg border border-white/12 bg-white/[0.04] shadow-glass">
+          <div className="absolute -inset-6 rounded-[2rem] border border-teal-100/15 bg-[linear-gradient(135deg,rgba(141,223,213,0.08),rgba(240,195,106,0.04),rgba(134,168,255,0.07))] blur-xl" />
+          <div className="surface-glow relative overflow-hidden rounded-lg border border-white/12 bg-white/[0.04] shadow-glass">
+            <div className="accent-rule absolute inset-x-0 top-0 z-10 h-px" />
             <Image
               src="/assets/less-light.png"
               alt="Portrait of Varun Bhadurgatte Nagaraj"
