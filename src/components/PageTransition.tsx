@@ -190,14 +190,22 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
   }, [motionEnabled, pathname, phase, router]);
 
   useEffect(() => {
-    if (phase === "covering" && pendingPathname.current && pendingPathname.current !== pathname) {
-      pendingHref.current = null;
-      pendingPathname.current = null;
-      clearTimers();
-      setPhase("idle");
-      return;
-    }
+    if (!motionEnabled) return;
 
+    const handleHistoryNavigation = () => {
+      if (phase !== "idle") {
+        pendingHref.current = null;
+        pendingPathname.current = null;
+        clearTimers();
+        setPhase("idle");
+      }
+    };
+
+    window.addEventListener("popstate", handleHistoryNavigation);
+    return () => window.removeEventListener("popstate", handleHistoryNavigation);
+  }, [motionEnabled, phase]);
+
+  useEffect(() => {
     if (phase === "covered") {
       pendingHref.current = null;
       pendingPathname.current = null;
