@@ -16,7 +16,12 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Varun Bhadurgatte Nagaraj | AI, Robotics, Simulation",
   description:
-    "A cinematic technical portfolio for Varun Bhadurgatte Nagaraj, focused on AI systems, robotics simulation, full-stack engineering, research, and community leadership."
+    "A cinematic technical portfolio for Varun Bhadurgatte Nagaraj, focused on AI systems, robotics simulation, full-stack engineering, research, and community leadership.",
+  icons: {
+    icon: "/vbn.svg",
+    shortcut: "/vbn.svg",
+    apple: "/vbn.svg"
+  }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
