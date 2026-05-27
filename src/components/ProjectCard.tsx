@@ -13,11 +13,11 @@ const stackGroups = [
 export function ProjectCard({ project, featured = false }: { project: Project; featured?: boolean }) {
   return (
     <article
-      className={`group relative overflow-hidden rounded-lg border border-white/12 bg-panel/90 shadow-glass backdrop-blur-xl transition duration-300 hover:border-teal-200/35 ${
+      className={`group relative overflow-hidden rounded-lg border border-white/12 bg-panel/90 shadow-glass backdrop-blur-xl transition-all duration-700 ease-out hover:border-teal-200/40 hover:shadow-[0_30px_110px_rgba(20,184,166,0.16),0_18px_70px_rgba(251,191,36,0.08),0_0_0_1px_rgba(255,255,255,0.10)] ${
         featured ? "flex h-full flex-col p-6 md:p-8" : "p-6"
       }`}
     >
-      <div className="absolute inset-0 opacity-0 transition duration-700 group-hover:opacity-100">
+      <div className="absolute inset-0 opacity-0 transition-opacity duration-1000 ease-out group-hover:opacity-100">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal-200/80 via-amber-200/70 to-transparent" />
         <div className="absolute bottom-0 right-0 h-56 w-56 rounded-full bg-teal-400/12 blur-3xl" />
         <div className="absolute left-0 top-12 h-40 w-40 rounded-full bg-amber-300/10 blur-3xl" />
@@ -32,7 +32,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
           </div>
           <Link
             href={`/projects/${project.slug}`}
-            className="rounded-full border border-white/15 p-3 text-bone transition hover:bg-white/10"
+            className="rounded-full border border-white/15 p-3 text-bone transition-all duration-500 ease-out hover:bg-white/10 hover:shadow-[0_12px_36px_rgba(255,255,255,0.10)]"
             aria-label={`Open ${project.title}`}
           >
             <ArrowUpRight className="h-5 w-5" />

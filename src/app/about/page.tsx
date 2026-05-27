@@ -19,7 +19,7 @@ export default function AboutPage() {
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             {profile.focusAreas.map((area) => (
-              <div key={area.label} className="rounded-lg border border-white/12 bg-panel/80 p-5 transition duration-300 hover:-translate-y-1 hover:border-amber-100/30 hover:bg-white/[0.07]">
+              <div key={area.label} className="rounded-lg border border-white/12 bg-panel/80 p-5 transition-all duration-700 ease-out hover:-translate-y-1 hover:border-amber-100/30 hover:bg-white/[0.07] hover:shadow-[0_22px_70px_rgba(251,191,36,0.10),0_0_0_1px_rgba(255,255,255,0.08)]">
                 <p className="text-xs uppercase tracking-[0.22em] text-teal-100/70">{area.label}</p>
                 <p className="mt-3 text-sm leading-relaxed text-silver">{area.body}</p>
               </div>

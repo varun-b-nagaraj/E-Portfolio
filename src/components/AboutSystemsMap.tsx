@@ -47,7 +47,7 @@ export function AboutSystemsMap() {
           return (
             <motion.article
               key={node.title}
-              className="group min-h-[160px] rounded-lg border border-white/12 bg-black/25 p-5 transition duration-300 hover:-translate-y-1 hover:border-teal-100/35 hover:bg-white/[0.06]"
+              className="group min-h-[160px] rounded-lg border border-white/12 bg-black/25 p-5 transition-all duration-700 ease-out hover:-translate-y-1 hover:border-teal-100/35 hover:bg-white/[0.06] hover:shadow-[0_22px_70px_rgba(20,184,166,0.12),0_0_0_1px_rgba(255,255,255,0.08)]"
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
