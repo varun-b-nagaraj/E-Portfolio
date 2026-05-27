@@ -5,6 +5,7 @@ export type Experience = {
   period: string;
   location: string;
   summary: string;
+  lens?: string;
   bullets: string[];
   tags: string[];
   metric?: string;
@@ -28,6 +29,8 @@ export const experiences: Experience[] = [
     location: "Remote",
     metric: "50,000+ monthly users",
     summary: "Leading VEX-focused expansion for a cross-platform robotics simulation ecosystem.",
+    lens:
+      "This role is where my robotics work became platform work: less about a single robot and more about helping teams test, debug, and understand robot behavior before hardware is ready.",
     bullets: [
       "Developed full-stack simulation and tooling features for virtual robot testing, debugging, and competitive robotics workflows.",
       "Worked on modular CAD libraries, simulator infrastructure, SDK abstractions, and Java-to-JavaScript transpilation for robot code.",
@@ -85,6 +88,8 @@ export const experiences: Experience[] = [
     location: "Self-employed",
     metric: "4,000+ students, 7x faster API",
     summary: "Built a digital hall pass platform replacing paper workflows with real-time school operations.",
+    lens:
+      "HallHop is founder work: I owned the product, backend, school constraints, adoption path, and the uncomfortable parts of building software around real student data and administrator expectations.",
     bullets: [
       "Shipped a Chrome Extension, web app, and Flask REST API for hall pass management and student workflow tracking.",
       "Replaced Selenium-heavy HAC scraping with Requests and BeautifulSoup pipelines, producing about a 7x performance improvement.",
@@ -118,6 +123,8 @@ export const experiences: Experience[] = [
     location: "Round Rock, Texas",
     metric: "250+ members, 15,000+ monthly views",
     summary: "Leading a student-run enterprise across business, engineering, e-commerce, and inclusive operations.",
+    lens:
+      "Co-Op is the clearest example of my operating style: technical systems only matter if they improve the way people coordinate, fulfill orders, mentor students, and run the organization every day.",
     bullets: [
       "Directed student teams, set operating goals, and worked toward CTE-aligned expansion with school leadership.",
       "Modernized e-commerce workflows, rebuilt 400+ product listings, supported Stripe checkout, and improved catalog quality.",
@@ -175,6 +182,8 @@ export const experiences: Experience[] = [
     location: "Remote",
     metric: "AI-native CRM",
     summary: "Developing a multi-tenant CRM for agent-driven business operations and workflow automation.",
+    lens:
+      "Transforze is where I think about AI as infrastructure, not decoration: secure tenancy, auditable execution, streaming interfaces, and workflows that stay deterministic enough for real operations.",
     bullets: [
       "Built secure data isolation with Supabase, PostgreSQL, RLS, and Edge Functions.",
       "Developed streaming AI pipelines for structured business plan generation and operational task management.",
@@ -207,6 +216,8 @@ export const experiences: Experience[] = [
     period: "Jun 2025 - Dec 2025",
     location: "Remote",
     summary: "Redesigned a client website for user experience, mobile responsiveness, SEO, and maintainability.",
+    lens:
+      "This was client-facing execution: understand the audience, clean up the browsing path, improve trust signals, and make the site easier to maintain after handoff.",
     bullets: [
       "Implemented custom animations, image galleries, structured data markup, and secure Wix-hosted document preview systems.",
       "Aligned branding and navigation with the client's adoption and breeder audience."
@@ -231,6 +242,8 @@ export const experiences: Experience[] = [
     period: "Jun 2024 - Sep 2024",
     location: "Remote, Austin",
     summary: "Contributed to conversational AI systems for financial services workflows.",
+    lens:
+      "This internship gave me a practical view of enterprise AI: response quality, evaluation, prompt refinement, and workflow constraints matter as much as the model itself.",
     bullets: [
       "Assisted with model design, testing, prompt refinement, data handling, and response quality evaluation.",
       "Gained hands-on exposure to applied machine learning and enterprise AI integration."
@@ -254,6 +267,8 @@ export const experiences: Experience[] = [
     period: "Oct 2022 - Jan 2023",
     location: "Austin, Texas",
     summary: "Tutored elementary and middle school students across math, reading, and writing.",
+    lens:
+      "Tutoring shaped how I explain technical ideas: watch where someone gets stuck, adapt the explanation, and make progress visible without making the learner feel small.",
     bullets: [
       "Adapted instruction for different learning styles, including neurodiverse learners and students with disabilities.",
       "Worked with staff to track progress and support a focused learning environment."

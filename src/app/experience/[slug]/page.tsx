@@ -31,8 +31,17 @@ export default async function ExperienceDetailPage({ params }: { params: Promise
       </div>
 
       <section className="mt-12 rounded-lg border border-white/12 bg-panel/85 p-7 md:p-9">
-        <p className="max-w-4xl text-xl leading-relaxed text-silver">{experience.summary}</p>
-        <div className="mt-8 flex flex-wrap gap-2">
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <div>
+            <p className="text-xs uppercase tracking-[0.24em] text-muted">Role snapshot</p>
+            <p className="mt-4 text-xl leading-relaxed text-silver">{experience.summary}</p>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-[0.24em] text-muted">Operating lens</p>
+            <p className="mt-4 text-xl leading-relaxed text-bone">{experience.lens ?? experience.summary}</p>
+          </div>
+        </div>
+        <div className="mt-8 flex flex-wrap gap-2 border-t border-white/10 pt-6">
           {experience.tags.map((tag) => (
             <span key={tag} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-muted">
               {tag}
