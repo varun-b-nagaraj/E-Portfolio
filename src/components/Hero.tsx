@@ -35,9 +35,9 @@ export function Hero() {
           >
             AI / robotics / simulation / research
           </motion.p>
-          <div className="mt-7 overflow-hidden">
+          <div className="mt-7 overflow-visible pb-2">
             <motion.h1
-              className="accent-text max-w-full text-6xl font-semibold leading-[0.95] md:text-8xl lg:text-[clamp(4.9rem,5.35vw,6.15rem)] xl:text-[clamp(5.4rem,5.55vw,6.5rem)]"
+              className="accent-text max-w-full pb-2 text-6xl font-semibold leading-[1.03] md:text-8xl lg:text-[clamp(4.9rem,5.35vw,6.15rem)] xl:text-[clamp(5.4rem,5.55vw,6.5rem)]"
               initial={motionEnabled ? { y: 110 } : false}
               animate={motionEnabled ? { y: 0 } : undefined}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
