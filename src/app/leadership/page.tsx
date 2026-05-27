@@ -29,7 +29,7 @@ export default function LeadershipPage() {
         title="Service, mentorship, and activities."
         body="Each entry keeps the main story visible here, with a deeper page for context, examples, and specific highlights."
         detailLabel="More info"
-        maxBullets={5}
+        maxBullets={3}
       />
     </>
   );

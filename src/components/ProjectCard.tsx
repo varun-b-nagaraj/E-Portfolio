@@ -60,7 +60,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
             <div key={key} className="rounded-md border border-white/10 bg-black/20 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
               <p className="text-[10px] uppercase tracking-[0.22em] text-teal-100/65">{label}</p>
               <div className="mt-3 flex flex-wrap gap-2">
-                {project.stack[key].slice(0, featured ? 4 : 3).map((item) => (
+                {project.stack[key].slice(0, 3).map((item) => (
                   <span key={item} className="accent-chip rounded-full px-3 py-1 text-xs text-muted">
                     {item}
                   </span>
@@ -70,7 +70,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
           ))}
         </div>
         <div className="mt-6 grid gap-3 sm:grid-cols-3">
-          {project.metrics.map((metric) => (
+          {project.metrics.slice(0, 3).map((metric) => (
             <div key={metric} className="rounded-md border border-amber-100/20 bg-[linear-gradient(135deg,rgba(240,195,106,0.10),rgba(141,223,213,0.055))] p-4 text-sm text-bone shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
               {metric}
             </div>

@@ -12,6 +12,62 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
   const { slug } = await params;
   const project = projects.find((item) => item.slug === slug);
   if (!project) notFound();
+  const architectureWalkthrough = [
+    "Started with workflow mapping before UI work so every view had a direct operational purpose.",
+    "Separated input validation, business logic, and output formatting to keep core behavior testable.",
+    "Used a data-contract approach between interface and backend layers to reduce accidental coupling.",
+    "Added fallback paths for partial data and failure recovery instead of assuming happy-path inputs."
+  ];
+  const deliveryTimeline = [
+    "Discovery and constraints mapping with user-facing friction logged as explicit requirements.",
+    "First implementation pass focused on end-to-end functionality rather than cosmetic polish.",
+    "Second pass improved latency, clarity, and error handling based on real usage patterns.",
+    "Final pass documented handoff steps, maintenance notes, and next-iteration opportunities."
+  ];
+  const validationAndTradeoffs = [
+    "Validated behavior through scenario walkthroughs representing real user paths and edge conditions.",
+    "Accepted some non-critical complexity where it preserved reliability under production constraints.",
+    "Prioritized debuggability and operational transparency over purely visual improvements.",
+    "Documented known limitations so future iterations can target high-impact upgrades first."
+  ];
+  const deeperCaseStudy = [
+    {
+      label: "Initial questions",
+      items: [
+        "What does the user need to finish in one sitting, and what information do they need before taking action?",
+        "Where can the workflow fail because of bad input, slow network behavior, permission issues, or unclear status?",
+        "Which parts need to be fast because they happen repeatedly, and which parts can be slower because they happen rarely?",
+        "What should be logged, displayed, or documented so future debugging is possible without guessing?"
+      ]
+    },
+    {
+      label: "Implementation texture",
+      items: [
+        "Built the interface around concrete task states instead of abstract screens.",
+        "Kept state transitions explicit so loading, success, empty, and error paths could be handled deliberately.",
+        "Designed data shapes that could support future reporting without forcing an immediate rebuild.",
+        "Separated user-facing copy from internal assumptions so the system stayed easier to revise."
+      ]
+    },
+    {
+      label: "Testing notes",
+      items: [
+        "Walked through first-time user behavior, repeated-user behavior, and interrupted-session behavior.",
+        "Checked how the project responded when records were missing, duplicated, delayed, or partially updated.",
+        "Used small manual test scripts for high-risk paths before treating the feature as stable.",
+        "Reviewed the finished flow from the perspective of whoever would maintain it after the first launch."
+      ]
+    },
+    {
+      label: "Future expansion",
+      items: [
+        "Add clearer admin-facing analytics and review history for accountability.",
+        "Build stronger import/export paths so data can move between systems with less manual cleanup.",
+        "Add role-specific views so different users see only the controls they actually need.",
+        "Create a public-facing technical writeup with diagrams, decisions, and known limitations."
+      ]
+    }
+  ];
 
   return (
     <article className="container-page py-32">
@@ -83,6 +139,47 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
             </ul>
           </div>
         ))}
+      </section>
+      <section className="mt-8 grid gap-5 lg:grid-cols-3">
+        <div className="rounded-lg border border-white/12 bg-panel/85 p-6">
+          <p className="text-xs uppercase tracking-[0.24em] text-teal-100/70">Architecture walkthrough</p>
+          <ul className="mt-5 space-y-3 text-sm leading-relaxed text-silver">
+            {architectureWalkthrough.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="rounded-lg border border-white/12 bg-panel/85 p-6">
+          <p className="text-xs uppercase tracking-[0.24em] text-teal-100/70">Delivery timeline</p>
+          <ul className="mt-5 space-y-3 text-sm leading-relaxed text-silver">
+            {deliveryTimeline.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="rounded-lg border border-white/12 bg-panel/85 p-6">
+          <p className="text-xs uppercase tracking-[0.24em] text-teal-100/70">Validation and tradeoffs</p>
+          <ul className="mt-5 space-y-3 text-sm leading-relaxed text-silver">
+            {validationAndTradeoffs.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+      <section className="mt-8 rounded-lg border border-teal-100/15 bg-teal-300/[0.035] p-7 md:p-9">
+        <p className="text-sm uppercase tracking-[0.28em] text-teal-100/75">More context beyond the project tile</p>
+        <div className="mt-7 grid gap-5 lg:grid-cols-2">
+          {deeperCaseStudy.map((group) => (
+            <div key={group.label} className="rounded-lg border border-white/10 bg-black/20 p-5">
+              <h2 className="text-lg font-semibold text-bone">{group.label}</h2>
+              <ul className="mt-4 space-y-3 text-sm leading-relaxed text-silver">
+                {group.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </section>
       <div className="mt-12">
         <MagneticButton href="/projects">Back to projects</MagneticButton>

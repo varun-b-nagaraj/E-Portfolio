@@ -1,37 +1,35 @@
-import { Download, ExternalLink, FileText, Mail, MapPin, Phone } from "lucide-react";
-import { SectionIntro } from "@/components/SectionIntro";
-import { education } from "@/data/education";
-import { experiences } from "@/data/experience";
-import { leadership } from "@/data/leadership";
+import { Download, ExternalLink } from "lucide-react";
 import { profile } from "@/data/profile";
 
-const skillGroups = [
-  ["Languages", ["Python", "Java", "C/C++", "JavaScript", "TypeScript", "HTML/CSS", "R", "SQL"]],
-  ["Web Development", ["React", "React Native", "Flask", "Supabase", "PostgreSQL", "Redis", "Vercel", "Qiskit"]],
-  ["AI Development", ["ML/NLP", "LLM integration", "MCP agents", "Vector databases", "RAG", "Ollama", "Inference optimization"]],
-  ["Robotics", ["PROS", "LemLib", "AprilTag vision", "Arduino", "Autodesk Inventor", "PID control", "VEXcode"]]
-];
-
-function SectionBlock({ title, children }: { title: string; children: React.ReactNode }) {
+function ResumeSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="rounded-lg border border-white/10 bg-black/20 p-5">
-      <h2 className="section-kicker text-sm uppercase tracking-[0.22em]">{title}</h2>
-      <div className="accent-rule mt-3 h-px w-full" />
-      <div className="mt-4">{children}</div>
+    <section className="border-t border-white/15 pt-4">
+      <h2 className="text-xs font-semibold uppercase tracking-[0.22em] text-teal-100/80">{title}</h2>
+      <div className="mt-3 space-y-3 text-sm leading-relaxed text-silver">{children}</div>
     </section>
   );
 }
 
-function ResumeRole({ item }: { item: (typeof experiences)[number] }) {
+function Entry({
+  title,
+  subtitle,
+  period,
+  bullets
+}: {
+  title: string;
+  subtitle: string;
+  period: string;
+  bullets: string[];
+}) {
   return (
-    <article className="border-b border-white/10 pb-5 last:border-b-0 last:pb-0">
+    <article className="space-y-2">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h3 className="text-xl font-semibold text-bone">{item.company}</h3>
-        <p className="text-sm text-muted">{item.period}</p>
+        <h3 className="text-base font-semibold text-bone">{title}</h3>
+        <p className="text-xs text-muted">{period}</p>
       </div>
-      <p className="mt-1 text-sm italic text-silver">{item.role}</p>
-      <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted">
-        {item.bullets.map((bullet) => (
+      <p className="text-sm italic text-muted">{subtitle}</p>
+      <ul className="list-disc space-y-1 pl-5 text-sm text-silver">
+        {bullets.map((bullet) => (
           <li key={bullet}>{bullet}</li>
         ))}
       </ul>
@@ -39,183 +37,194 @@ function ResumeRole({ item }: { item: (typeof experiences)[number] }) {
   );
 }
 
+const technicalSkills = [
+  "Languages: Python, Java, C/C++, JavaScript, TypeScript, HTML/CSS, R, SQL",
+  "Web Development: React, React Native, Flask, Supabase (Postgres), Redis, Vercel, Qiskit",
+  "AI Development: ML/NLP, LLM Integration, MCP Agents, Vector Databases, RAG, Ollama, Inference Optimization",
+  "Robotics: PROS, LemLib, AprilTag Vision, Arduino, Autodesk Inventor, Java, PID Control, VEXcode, AutoCAD, Auto-Pathing"
+];
+
+const certifications = [
+  "Business Management and Administration (NOCTI) - Apr 2025",
+  "Autodesk Certified: Inventor (Certiport) - Apr 2024",
+  "MOS: Word, Excel, PowerPoint (Certiport, Office 2019) - May 2023"
+];
+
 export default function ResumePage() {
-  const primaryExperience = experiences.filter((item) =>
-    ["round-rock-co-op", "hallhop", "virtual-robot-simulator", "transforze"].includes(item.slug)
-  );
-  const additionalExperience = experiences.filter((item) => ["lpl-financial", "best-brains", "lone-star-ridgebacks"].includes(item.slug));
-
   return (
-    <>
-      <SectionIntro
-        eyebrow="Resume"
-        title="Resume"
-        body="A text version of the formal resume, styled to match the portfolio. Use the actions below for the original PDF."
-      />
-
-      <section className="container-page py-10 md:py-16">
-        <div className="surface-glow overflow-hidden rounded-lg border border-white/12 bg-panel/80 shadow-glass">
-          <div className="accent-rule h-px" />
-          <div className="flex flex-col gap-5 border-b border-white/10 p-5 md:flex-row md:items-center md:justify-between md:p-6">
-            <div className="flex items-start gap-4">
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-md border border-teal-100/20 bg-white/[0.05] text-teal-100/85">
-                <FileText className="h-5 w-5" />
-              </span>
-              <div>
-                <p className="section-kicker text-xs uppercase tracking-[0.24em]">Formal resume</p>
-                <h2 className="mt-2 text-2xl font-semibold text-bone">{profile.name}</h2>
-                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
-                  Cedar Park, Texas · AI systems, robotics simulation, full-stack engineering, and applied research.
-                </p>
-              </div>
+    <section className="container-page pb-16 pt-28 md:pb-20 md:pt-32">
+      <div className="mx-auto max-w-6xl border border-white/12 bg-black/20 px-6 py-8 md:px-10">
+        <header className="border-b border-white/15 pb-5">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="min-w-0">
+              <h1 className="accent-text text-3xl font-semibold md:text-4xl">{profile.name}</h1>
+              <p className="mt-2 text-sm text-silver">Cedar Park, TX · (512) 212-6269 · varunnagaraj2009@gmail.com</p>
             </div>
-
             <div className="flex flex-wrap gap-3">
-              <a
-                href={profile.resume}
-                download
-                className="inline-flex items-center gap-2 rounded-full border border-teal-100/20 bg-white/[0.05] px-4 py-2 text-sm text-bone transition-all duration-500 hover:-translate-y-0.5 hover:border-teal-200/24 hover:bg-white/[0.08] hover:shadow-[0_22px_70px_rgba(20,184,166,0.07),0_0_0_1px_rgba(255,255,255,0.06)]"
-              >
-                Download PDF
-                <Download className="h-4 w-4 text-teal-100/85" />
-              </a>
-              <a
-                href={profile.resume}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.05] px-4 py-2 text-sm text-bone transition-all duration-500 hover:-translate-y-0.5 hover:border-teal-200/24 hover:bg-white/[0.08] hover:shadow-[0_22px_70px_rgba(20,184,166,0.07),0_0_0_1px_rgba(255,255,255,0.06)]"
-              >
-                Open PDF
-                <ExternalLink className="h-4 w-4 text-teal-100/85" />
-              </a>
+            <a
+              href={profile.resume}
+              download
+              className="inline-flex items-center gap-2 border border-white/20 px-3 py-1.5 text-xs text-bone transition hover:bg-white/[0.06]"
+            >
+              Download PDF
+              <Download className="h-3.5 w-3.5" />
+            </a>
+            <a
+              href={profile.resume}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 border border-white/20 px-3 py-1.5 text-xs text-bone transition hover:bg-white/[0.06]"
+            >
+              Open PDF
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
             </div>
           </div>
+        </header>
 
-          <div className="grid gap-6 p-5 md:p-8 lg:grid-cols-[0.44fr_0.56fr]">
-            <aside className="space-y-5">
-              <SectionBlock title="Contact">
-                <div className="space-y-3 text-sm text-silver">
-                  {[
-                    [Mail, profile.email],
-                    [Phone, profile.phone],
-                    [MapPin, profile.location]
-                  ].map(([Icon, value]) => {
-                    const LucideIcon = Icon as typeof Mail;
-                    return (
-                      <div key={value as string} className="flex items-center gap-3">
-                        <LucideIcon className="h-4 w-4 text-teal-100/80" />
-                        <span>{value as string}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </SectionBlock>
+        <div className="mt-6 grid gap-8 lg:grid-cols-12">
+          <aside className="space-y-6 lg:col-span-4">
+            <ResumeSection title="Education">
+              <p className="text-bone">Round Rock High School</p>
+              <p>Cedar Park, TX · Graduation: May 2027</p>
+              <p>STEM and Business Industry Academy</p>
+              <p>4.0 GPA · SAT: 1490 (Math: 780, English: 710)</p>
+              <p>
+                Coursework: AP Calculus BC, AP CS A, AP Physics I, AP Research, Digital Electronics, AP Seminar
+              </p>
+            </ResumeSection>
 
-              <SectionBlock title="Academia">
-                <div className="text-sm leading-relaxed text-muted">
-                  <h3 className="font-semibold text-bone">{education.school}</h3>
-                  <p>{education.academy}</p>
-                  <p>{education.period}</p>
-                  <p className="mt-2">{education.gpa}</p>
-                </div>
-              </SectionBlock>
+            <ResumeSection title="Technical Skills">
+              <ul className="space-y-1">
+                {technicalSkills.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+            </ResumeSection>
 
-              <SectionBlock title="Technical Skills">
-                <div className="space-y-4">
-                  {skillGroups.map(([label, items]) => (
-                    <div key={label as string}>
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-100/70">{label as string}</p>
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {(items as string[]).map((item) => (
-                          <span key={item} className="accent-chip rounded-full px-3 py-1 text-xs text-muted">
-                            {item}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </SectionBlock>
+            <ResumeSection title="Certifications">
+              <ul className="space-y-1">
+                {certifications.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </ResumeSection>
 
-              <SectionBlock title="Certifications">
-                <ul className="space-y-2 text-sm leading-relaxed text-muted">
-                  {education.certifications.map((certification) => (
-                    <li key={certification.title}>
-                      {certification.credentialUrl ? (
-                        <a
-                          href={certification.credentialUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-1.5 text-silver transition hover:text-bone"
-                        >
-                          {certification.title} - {certification.issued}
-                          <ExternalLink className="h-3 w-3" />
-                        </a>
-                      ) : (
-                        <span>
-                          {certification.title} - {certification.issued}
-                        </span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </SectionBlock>
+            <ResumeSection title="Leadership and Activities">
+              <Entry
+                title="Boy Scouts of America"
+                subtitle="Life Scout"
+                period="2020 - Present"
+                bullets={[
+                  "Built and deployed a QR-accessed species-identification web app for trail signage (Eagle Scout project).",
+                  "Engineered an embedded flood detection and alert prototype using Arduino and ultrasonic sensing.",
+                  "Led and mentored scouts in advancement, first aid, and emergency preparedness."
+                ]}
+              />
+              <Entry
+                title="Austin Kannada Sangha (AKS)"
+                subtitle="Tech Volunteer"
+                period="2020 - Present"
+                bullets={["Supported ticketing, payments, website updates, and backstage logistics for 2,000+ attendee festivals."]}
+              />
+              <Entry
+                title="National Honor Society"
+                subtitle="Member"
+                period="Oct 2025 - Present"
+                bullets={["Active member and tutor."]}
+              />
+            </ResumeSection>
+          </aside>
 
-              <SectionBlock title="Additional Experience">
-                <div className="space-y-5">
-                  {additionalExperience.map((item) => (
-                    <ResumeRole key={item.slug} item={item} />
-                  ))}
-                </div>
-              </SectionBlock>
-            </aside>
+          <main className="space-y-6 lg:col-span-8">
+            <ResumeSection title="Work Experience">
+              <Entry
+                title="Round Rock High School Co-Op"
+                subtitle="Chief Executive Officer"
+                period="Mar 2025 - Present"
+                bullets={[
+                  "Directed a 250+ member, multi-department enterprise; set OKRs and led cross-functional execution.",
+                  "Scaled e-commerce operations to 15,000+ monthly views and implemented inclusive fulfillment workflows.",
+                  "Modernized operations through automation and applied ML for scheduling, forecasting, analytics, and inventory tracking."
+                ]}
+              />
+              <Entry
+                title="HallHop - Digital Pass System"
+                subtitle="Founder and Lead Developer"
+                period="Nov 2024 - Present"
+                bullets={[
+                  "Built and deployed a full-stack digital hall pass platform replacing paper workflows.",
+                  "Developed custom data integration and REST API sync with district systems; platform usage reached 4,000+ external requests/month.",
+                  "Engineered FERPA-conscious infrastructure with multi-tenant isolation and asynchronous pipelines, improving performance by 7x."
+                ]}
+              />
+              <Entry
+                title="Virtual Robot Simulator (VRS)"
+                subtitle="Project Team Lead"
+                period="May 2025 - Present"
+                bullets={[
+                  "Led VEX integration for a cross-platform robotics simulation system.",
+                  "Contributed to in-house FTC control SDK abstractions and simulation integration.",
+                  "Improved Java-to-JavaScript transpilation for FTC SDK code in Unity-based simulation."
+                ]}
+              />
+              <Entry
+                title="Transforze"
+                subtitle="Software Engineer"
+                period="Aug 2025 - Present"
+                bullets={[
+                  "Developed multi-tenant CRM infrastructure with secure workspace isolation.",
+                  "Built agent-driven automation workflows integrated with productivity tools.",
+                  "Implemented ML workflow components for conversational AI, including training and evaluation."
+                ]}
+              />
+            </ResumeSection>
 
-            <main className="space-y-5">
-              <SectionBlock title="Work Experience">
-                <div className="space-y-5">
-                  {primaryExperience.map((item) => (
-                    <ResumeRole key={item.slug} item={item} />
-                  ))}
-                </div>
-              </SectionBlock>
+            <ResumeSection title="Research">
+              <Entry
+                title="AP Research - Round Rock HS"
+                subtitle="Evaluating Quantum Contextuality as an Error Mitigation Resource"
+                period="Aug 2025 - May 2026"
+                bullets={[
+                  "Designed IBM Quantum experiments (8,192 shots across 9 configurations).",
+                  "Implemented zero-noise extrapolation with gate folding and Richardson extrapolation.",
+                  "Improved measured fidelity from 0.753 to 0.805."
+                ]}
+              />
+              <Entry
+                title="Texas State University"
+                subtitle="Research Contributor"
+                period="May 2025 - Jan 2026"
+                bullets={[
+                  "Co-authored and built an R-based analysis workflow for a 600+ student composting behavior study.",
+                  "Applied structural equation modeling and multiple imputation in support of manuscript development."
+                ]}
+              />
+            </ResumeSection>
 
-              <SectionBlock title="Research">
-                <div className="space-y-5">
-                  {education.research.map((item) => (
-                    <article key={item.title} className="border-b border-white/10 pb-5 last:border-b-0 last:pb-0">
-                      <h3 className="text-xl font-semibold text-bone">{item.title}</h3>
-                      <p className="mt-1 text-sm italic text-silver">{item.institution}</p>
-                      <p className="mt-3 text-sm leading-relaxed text-muted">{item.summary}</p>
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {[...item.methods.slice(0, 4), ...item.metrics].map((metric) => (
-                          <span key={metric} className="accent-chip rounded-full px-3 py-1 text-xs text-muted">
-                            {metric}
-                          </span>
-                        ))}
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              </SectionBlock>
-
-              <SectionBlock title="Community Impact">
-                <div className="space-y-4">
-                  {leadership.map((item) => (
-                    <article key={item.title}>
-                      <div className="flex flex-wrap items-baseline justify-between gap-2">
-                        <h3 className="text-lg font-semibold text-bone">{item.title}</h3>
-                        <p className="text-sm text-muted">{item.period}</p>
-                      </div>
-                      <p className="mt-1 text-sm italic text-silver">{item.role}</p>
-                      <p className="mt-2 text-sm leading-relaxed text-muted">{item.impact}</p>
-                    </article>
-                  ))}
-                </div>
-              </SectionBlock>
-            </main>
-          </div>
+            <ResumeSection title="Robotics">
+              <Entry
+                title="VEX Robotics Competition (VRC)"
+                subtitle="Lead Programmer - Virus VRC"
+                period="Oct 2024 - Present"
+                bullets={[
+                  "Designed and tuned PID control and odometry using IMU, tracking wheel, and encoder fusion.",
+                  "Achieved 90%+ autonomous reliability and qualified for VEX State Championship."
+                ]}
+              />
+              <Entry
+                title="First Tech Challenge (FTC) Robotics"
+                subtitle="Hardware Team Lead"
+                period="Jan 2023 - Dec 2024"
+                bullets={[
+                  "Designed and integrated drivetrain and full robot subsystems.",
+                  "Built Java autonomous/teleop control with AprilTag vision for reliable match performance."
+                ]}
+              />
+            </ResumeSection>
+          </main>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
