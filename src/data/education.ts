@@ -14,10 +14,6 @@ export const education = {
     "Principles of Engineering",
     "Introduction to Engineering Design"
   ],
-  testing: [
-    { name: "SAT", date: "Dec 2025", score: "1490", detail: "780 Math, 710 Evidence-Based Reading and Writing" },
-    { name: "PSAT / NMSQT", date: "Oct 2025", score: "1460", detail: "760 Math, 700 Evidence-Based Reading and Writing" }
-  ],
   certifications: [
     "NOCTI Business Management and Administration - Apr 2025",
     "OSHA 10-Hour General Industry - Nov 2025",

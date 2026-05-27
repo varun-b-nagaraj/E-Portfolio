@@ -130,7 +130,7 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   const last = Math.max(cards.length - 1, 1);
-  const itemSpacing = 96;
+  const itemSpacing = 80;
   const highlightTop = useTransform(
     scrollYProgress,
     cards.map((_, index) => index / last),
@@ -148,21 +148,21 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
                 A technical exhibit, built from shipped systems.
               </h2>
               <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted xl:text-lg">
-                Keep the stack on the right while the current heading lights up on the left.
+                Scroll to change which card appears on the right.
               </p>
             </div>
             <div className="relative rounded-[2rem] border border-white/10 bg-black/30 p-5">
               <div className="absolute left-5 top-5 bottom-5 w-px bg-white/10" />
               <motion.div
-                className="absolute left-3 h-20 w-1 rounded-full bg-teal-300"
+                className="absolute left-3 h-16 w-1 rounded-full bg-teal-300"
                 style={{ top: highlightTop }}
               />
               <div className="relative space-y-4 pl-8">
                 {cards.map((card) => (
-                  <div key={card.title} className="rounded-3xl border border-white/10 bg-white/5 p-5 transition duration-300 hover:border-teal-200/30">
-                    <p className="text-[10px] uppercase tracking-[0.28em] text-teal-100/80">{card.kicker}</p>
-                    <h3 className="mt-2 text-xl font-semibold text-bone">{card.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-silver line-clamp-2">{card.body}</p>
+                  <div key={card.title} className="group h-16 rounded-3xl border border-white/10 bg-transparent px-3 py-4 transition duration-300 hover:bg-white/5 hover:text-white">
+                    <h3 className="text-base font-semibold text-white transition-colors duration-200 group-hover:text-teal-100">
+                      {card.title}
+                    </h3>
                   </div>
                 ))}
               </div>

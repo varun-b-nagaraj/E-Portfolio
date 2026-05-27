@@ -116,7 +116,7 @@ export default function ResumePage() {
                   <h3 className="font-semibold text-bone">{education.school}</h3>
                   <p>{education.academy}</p>
                   <p>{education.period}</p>
-                  <p className="mt-2">{education.gpa} · SAT: 1490 | Math: 780, English: 710</p>
+                  <p className="mt-2">{education.gpa}</p>
                 </div>
               </SectionBlock>
 

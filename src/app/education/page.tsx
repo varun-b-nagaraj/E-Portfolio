@@ -7,7 +7,7 @@ export default function EducationPage() {
     <>
       <SectionIntro
         eyebrow="Education"
-        title="Academic foundation, testing, certifications, and research in one technical track."
+        title="Academic foundation, certifications, and research in one technical track."
         body="Research is treated as part of the academic system: experimental design, data methods, reproducibility, and measurement."
       />
       <section className="container-page grid gap-6 py-20 lg:grid-cols-[0.95fr_1.05fr]">
@@ -23,17 +23,6 @@ export default function EducationPage() {
             {education.coursework.map((course) => (
               <div key={course} className="rounded-md border border-white/10 bg-black/25 p-3 text-sm text-muted">
                 {course}
-              </div>
-            ))}
-          </div>
-        </PinnedPanel>
-        <PinnedPanel eyebrow="Testing" title="Standardized testing">
-          <div className="grid gap-4 sm:grid-cols-2">
-            {education.testing.map((test) => (
-              <div key={test.name} className="rounded-md border border-white/10 bg-black/25 p-5">
-                <p className="text-sm text-muted">{test.date}</p>
-                <p className="mt-2 text-4xl font-semibold text-bone">{test.score}</p>
-                <p className="mt-2 text-sm text-silver">{test.name}: {test.detail}</p>
               </div>
             ))}
           </div>

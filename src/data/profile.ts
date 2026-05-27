@@ -61,7 +61,6 @@ export const profile = {
     { label: "Monthly VRS users", value: 50000, suffix: "+" },
     { label: "HallHop student reach", value: 4000, suffix: "+" },
     { label: "API performance gain", value: 7, suffix: "x" },
-    { label: "SAT composite", value: 1490, suffix: "" },
     { label: "Product listings rebuilt", value: 400, suffix: "+" },
     { label: "Survey research sample", value: 600, suffix: "+" }
   ],
