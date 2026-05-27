@@ -150,8 +150,9 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
                   >
                     <button
                       type="button"
+                      data-type-tier="primary"
                       onClick={() => scrollToSection(index)}
-                      className={`text-left text-base transition hover:text-white focus:outline-none focus:ring-2 focus:ring-teal-100/35 focus:ring-offset-4 focus:ring-offset-transparent ${
+                      className={`text-left text-base transition hover:text-white focus:outline-none ${
                         activeIndex === index
                           ? "text-white font-semibold opacity-100"
                           : "text-slate-500 opacity-70"

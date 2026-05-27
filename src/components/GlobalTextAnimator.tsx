@@ -91,6 +91,9 @@ function isHeroNameElement(element: HTMLElement) {
 }
 
 function getTypeKind(element: HTMLElement) {
+  if (element.dataset.typeTier === "primary") return "primary";
+  if (element.dataset.typeTier === "subheading") return "subheading";
+  if (element.dataset.typeTier === "body") return "body";
   if (primaryHeadingTags.has(element.tagName)) return "primary";
   if (subheadingTags.has(element.tagName) || element.classList.contains("section-kicker")) return "subheading";
   if (element.className.includes("uppercase") || element.className.includes("tracking-[")) return "subheading";
