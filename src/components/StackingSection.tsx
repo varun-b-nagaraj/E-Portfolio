@@ -178,8 +178,8 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
           <MobileStackCard key={card.title} card={card} index={index} />
         ))}
       </div>
-      <div ref={ref} className="relative hidden md:block" style={{ height: `${cards.length * 92}vh` }}>
-        <div className="sticky top-0 flex h-screen flex-col overflow-hidden pt-20">
+      <div ref={ref} className="relative hidden md:block" style={{ height: `${cards.length * 100}vh` }}>
+        <div className="sticky top-0 flex h-screen flex-col overflow-visible pt-20">
           <div className="shrink-0 pb-6">
             <p className="section-kicker text-sm uppercase tracking-[0.28em]">Builder profile</p>
             <h2 className="mt-4 max-w-4xl text-4xl font-semibold leading-tight text-bone md:text-5xl xl:text-6xl">
@@ -190,9 +190,9 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
             </p>
           </div>
           <div className="relative min-h-0 flex-1">
-          {cards.map((card, index) => (
-            <StackedCard key={card.title} card={card} index={index} total={cards.length} progress={scrollYProgress} />
-          ))}
+            {cards.map((card, index) => (
+              <StackedCard key={card.title} card={card} index={index} total={cards.length} progress={scrollYProgress} />
+            ))}
           </div>
         </div>
       </div>
