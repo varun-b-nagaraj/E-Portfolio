@@ -152,7 +152,7 @@ export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
             <motion.div className="h-full origin-left bg-white/35" style={{ width: progressWidth }} />
           </div>
         </div>
-        <motion.div className="flex items-start gap-6 pb-20 pl-[max(16px,calc((100vw-1180px)/2))] pt-[clamp(12.5rem,26vh,15.5rem)]" style={{ x }}>
+        <motion.div className="flex items-start gap-6 pb-20 pl-[max(16px,calc((100vw-1180px)/2))] pt-[clamp(17rem,34vh,22rem)]" style={{ x }}>
           {projects.map((project, index) => (
             <GallerySlide
               key={project.slug}
