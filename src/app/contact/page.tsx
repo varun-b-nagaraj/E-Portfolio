@@ -1,4 +1,4 @@
-import { FileText, Link as LinkIcon, Mail, MapPin } from "lucide-react";
+import { FileText, Link as LinkIcon, Mail, MapPin, Phone } from "lucide-react";
 import { MagneticButton } from "@/components/MagneticButton";
 import { SectionIntro } from "@/components/SectionIntro";
 import { profile } from "@/data/profile";
@@ -15,6 +15,7 @@ export default function ContactPage() {
         <div className="space-y-4">
           {[
             [Mail, "Email", profile.email, `mailto:${profile.email}`],
+            [Phone, "Phone", profile.phone, `tel:${profile.phone}`],
             [LinkIcon, "GitHub", "Profile", profile.github],
             [FileText, "LinkedIn", "Profile", profile.linkedin],
             [MapPin, "Location", profile.location, "#"]

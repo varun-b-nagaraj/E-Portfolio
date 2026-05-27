@@ -2,9 +2,9 @@ export const profile = {
   name: "Varun Bhadurgatte Nagaraj",
   location: "Austin / Cedar Park, Texas",
   email: "varunnagaraj2009@gmail.com",
-  phone: "(512) 212-6269",
-  github: "#",
-  linkedin: "#",
+  phone: "5122126269",
+  github: "https://github.com/varun-b-nagaraj",
+  linkedin: "https://www.linkedin.com/in/varun-b-n/",
   resume: "/resume/Varun-Bhadurgatte-Nagaraj-Resume.pdf",
   roles: ["AI systems builder", "Robotics simulation lead", "Full-stack engineer", "Research-driven founder"],
   intro:
