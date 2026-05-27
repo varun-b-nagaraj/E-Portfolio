@@ -14,7 +14,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
   return (
     <article
       className={`group relative overflow-hidden rounded-lg border border-white/12 bg-panel/90 shadow-glass backdrop-blur-xl transition duration-300 hover:border-teal-200/35 ${
-        featured ? "min-h-[clamp(520px,58vh,600px)] p-6 md:p-8" : "p-6"
+        featured ? "flex h-full flex-col p-6 md:p-8" : "p-6"
       }`}
     >
       <div className="absolute inset-0 opacity-0 transition duration-700 group-hover:opacity-100">
@@ -22,7 +22,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
         <div className="absolute bottom-0 right-0 h-56 w-56 rounded-full bg-teal-400/12 blur-3xl" />
         <div className="absolute left-0 top-12 h-40 w-40 rounded-full bg-amber-300/10 blur-3xl" />
       </div>
-      <div className="relative">
+      <div className="relative flex h-full flex-col">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-[0.28em] text-amber-100/70">{project.eyebrow}</p>
@@ -68,7 +68,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
             </div>
           ))}
         </div>
-        <div className={`grid gap-3 sm:grid-cols-3 ${featured ? "mt-5" : "mt-6"}`}>
+        <div className={`grid gap-3 sm:grid-cols-3 ${featured ? "mt-auto pt-5" : "mt-6"}`}>
           {project.metrics.map((metric) => (
             <div key={metric} className="rounded-md border border-amber-100/15 bg-amber-200/[0.045] p-4 text-sm text-bone">
               {metric}

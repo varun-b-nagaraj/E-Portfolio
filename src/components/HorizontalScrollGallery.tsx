@@ -1,10 +1,45 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Project } from "@/data/projects";
 import { ProjectCard } from "./ProjectCard";
 import { useMotionEnabled } from "./ReducedMotionProvider";
+
+function GallerySlide({
+  project,
+  index,
+  total,
+  scrollYProgress
+}: {
+  project: Project;
+  index: number;
+  total: number;
+  scrollYProgress: MotionValue<number>;
+}) {
+  const last = Math.max(total - 1, 1);
+  const center = index / last;
+  const focusWindow = Math.min(0.12, 0.46 / last);
+  const focusInput =
+    index === 0
+      ? [0, focusWindow]
+      : index === last
+        ? [1 - focusWindow, 1]
+        : [center - focusWindow, center, center + focusWindow];
+  const scaleOutput = index === 0 ? [1.04, 0.93] : index === last ? [0.93, 1.04] : [0.93, 1.04, 0.93];
+  const opacityOutput = index === 0 ? [1, 0.72] : index === last ? [0.72, 1] : [0.72, 1, 0.72];
+  const scale = useTransform(scrollYProgress, focusInput, scaleOutput);
+  const opacity = useTransform(scrollYProgress, focusInput, opacityOutput);
+
+  return (
+    <motion.div
+      className="h-[clamp(540px,60vh,620px)] w-[82vw] max-w-[980px] shrink-0 origin-center"
+      style={{ scale, opacity }}
+    >
+      <ProjectCard project={project} featured />
+    </motion.div>
+  );
+}
 
 export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -13,14 +48,37 @@ export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   const points = useMemo(() => {
     const last = Math.max(projects.length - 1, 1);
-    const input: number[] = [];
-    const output: number[] = [];
+    const input: number[] = [0];
+    const output: number[] = [0];
+    const slowWindow = Math.min(0.055, 0.22 / last);
+    const drift = step * 0.08;
+
+    const addPoint = (progress: number, position: number) => {
+      const clampedProgress = Math.min(1, Math.max(0, progress));
+      const previous = input[input.length - 1];
+
+      if (clampedProgress > previous) {
+        input.push(clampedProgress);
+        output.push(position);
+      } else if (clampedProgress === previous) {
+        output[output.length - 1] = position;
+      }
+    };
 
     for (let index = 0; index < projects.length; index += 1) {
       const center = index / last;
-      const hold = 0.045;
-      input.push(Math.max(0, center - hold), Math.min(1, center + hold));
-      output.push(-index * step, -index * step);
+      const position = -index * step;
+
+      if (index === 0) {
+        addPoint(slowWindow, position - drift);
+      } else if (index === last) {
+        addPoint(center - slowWindow, position + drift);
+        addPoint(1, position);
+      } else {
+        addPoint(center - slowWindow, position + drift);
+        addPoint(center, position);
+        addPoint(center + slowWindow, position - drift);
+      }
     }
 
     return { input, output };
@@ -59,11 +117,9 @@ export function HorizontalScrollGallery({ projects }: { projects: Project[] }) {
             <motion.div className="h-full origin-left bg-white/35" style={{ width: progressWidth }} />
           </div>
         </div>
-        <motion.div className="flex gap-6 pb-16 pl-[max(16px,calc((100vw-1180px)/2))] pt-[clamp(14rem,30vh,18rem)]" style={{ x }}>
-          {projects.map((project) => (
-            <div key={project.slug} className="w-[82vw] max-w-[980px] shrink-0">
-              <ProjectCard project={project} featured />
-            </div>
+        <motion.div className="flex items-center gap-6 pb-16 pl-[max(16px,calc((100vw-1180px)/2))] pt-[clamp(14rem,30vh,18rem)]" style={{ x }}>
+          {projects.map((project, index) => (
+            <GallerySlide key={project.slug} project={project} index={index} total={projects.length} scrollYProgress={scrollYProgress} />
           ))}
         </motion.div>
       </div>
