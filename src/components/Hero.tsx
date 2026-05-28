@@ -185,9 +185,6 @@ export function Hero() {
             <motion.div
               data-no-type
               className="block"
-              initial={motionEnabled ? { y: 110 } : false}
-              animate={motionEnabled ? { y: 0 } : undefined}
-              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             >
               <TypedHeroName />
             </motion.div>
