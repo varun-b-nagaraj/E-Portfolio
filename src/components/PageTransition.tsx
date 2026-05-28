@@ -70,6 +70,10 @@ function getInternalHref(anchor: HTMLAnchorElement) {
   return `${url.pathname}${url.search}${url.hash}`;
 }
 
+function scrollToRouteStart() {
+  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+}
+
 function Curtain({ phase, label, subheading }: { phase: CurtainPhase; label: string; subheading: string | null }) {
   const x =
     phase === "covering"
@@ -181,7 +185,8 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
 
       coverTimer.current = window.setTimeout(() => {
         setPhase("covered");
-        router.push(href);
+        scrollToRouteStart();
+        router.push(href, { scroll: true });
       }, curtainDuration * 1000);
     };
 
@@ -207,6 +212,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (phase === "covered") {
+      scrollToRouteStart();
       pendingHref.current = null;
       pendingPathname.current = null;
       startReveal();
