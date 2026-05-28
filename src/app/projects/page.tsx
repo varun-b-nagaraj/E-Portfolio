@@ -1,5 +1,5 @@
 import { HorizontalScrollGallery } from "@/components/HorizontalScrollGallery";
-import { ProjectCard } from "@/components/ProjectCard";
+import { ProjectBrowser } from "@/components/ProjectBrowser";
 import { SectionIntro } from "@/components/SectionIntro";
 import { featuredProjects, projects } from "@/data/projects";
 
@@ -8,17 +8,13 @@ export default function ProjectsPage() {
     <>
       <SectionIntro
         eyebrow="Projects"
-        title="Contained builds and research, separate from long-term roles."
-        body="Projects here are focused case studies: smaller tools, research modules, and scoped improvements. Larger company, founder, and long-running organizational work lives in Experience."
+        title="Operations platforms, AI systems, research, and infrastructure."
+        body="The featured track highlights the five strongest portfolio projects. The full archive below includes those systems plus additional builds, research, and operational tools with searchable case-study pages."
       />
       <div className="mt-16 md:mt-20">
         <HorizontalScrollGallery projects={featuredProjects} />
       </div>
-      <section className="container-page grid gap-5 py-24 lg:grid-cols-2">
-        {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
-        ))}
-      </section>
+      <ProjectBrowser projects={projects} />
     </>
   );
 }
