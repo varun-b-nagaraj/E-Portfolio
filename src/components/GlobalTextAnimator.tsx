@@ -49,6 +49,10 @@ const primaryHeadingTags = new Set(["H1", "H2", "H3"]);
 const subheadingTags = new Set(["H4", "H5", "H6"]);
 const subheadingDelayAfterHeading = 45;
 const bodyDelayAfterHeading = 85;
+const primaryCharacterStep = 15;
+const subheadingCharacterStep = 7;
+const bodyCharacterStep = 5;
+const compactCharacterStep = 6;
 
 type TextPlan = {
   entries: Array<{ node: Text; text: string }>;
@@ -78,15 +82,20 @@ function getTypingMeta(element: HTMLElement) {
   const isPrimaryHeading = typeKind === "primary";
   const isHeroName = isHeroNameElement(element);
   const isCompact = element.tagName === "A" || element.tagName === "BUTTON" || element.className.includes("rounded-full") || element.className.includes("accent-chip");
-  const duration = isHeroName
-    ? Math.min(4200, Math.max(2600, textLength * 72))
+  const characterStep = isHeroName
+    ? 72
     : isPrimaryHeading
-    ? Math.min(1150, Math.max(380, textLength * 15))
-    : Math.min(360, Math.max(90, textLength * 3));
+    ? primaryCharacterStep
+    : isCompact
+    ? compactCharacterStep
+    : typeKind === "subheading"
+    ? subheadingCharacterStep
+    : bodyCharacterStep;
+  const duration = Math.max(90, textLength * characterStep);
   const delay = isPrimaryHeading ? 120 : isCompact ? 70 : 90;
   const steps = Math.max(12, Math.min(textLength, 90));
 
-  return { duration, delay, steps, typeKind, isPrimaryHeading };
+  return { duration, delay, steps, typeKind, isPrimaryHeading, characterStep };
 }
 
 function isHeroNameElement(element: HTMLElement) {
@@ -119,7 +128,7 @@ function prepareText(element: HTMLElement) {
   const nestedPrepared = element.querySelector("[data-type-prepared='true']");
   if (nestedPrepared && !hasDirectText(element)) return;
 
-  const { duration, delay, steps, typeKind, isPrimaryHeading } = getTypingMeta(element);
+  const { duration, delay, steps, typeKind, isPrimaryHeading, characterStep } = getTypingMeta(element);
   const textKey = getTextKey(element);
   const alreadyTyped = completedTextKeys.has(textKey);
   const characterCount = prepareTextNodes(element, textKey, alreadyTyped);
@@ -135,7 +144,7 @@ function prepareText(element: HTMLElement) {
   element.style.setProperty("--typing-duration", `${duration}ms`);
   element.style.setProperty("--typing-delay", `${delay}ms`);
   element.style.setProperty("--typing-steps", `${steps}`);
-  element.style.setProperty("--typing-char-step", `${duration / characterCount}ms`);
+  element.style.setProperty("--typing-char-step", `${characterStep}ms`);
   element.style.setProperty("--typing-char-count", `${characterCount}`);
 
   if (alreadyTyped) {
@@ -215,38 +224,6 @@ function sequenceText(root: ParentNode) {
   });
 }
 
-function normalizeBatchTiming(root: ParentNode) {
-  const containers = Array.from(
-    new Set(
-      Array.from(root.querySelectorAll<HTMLElement>(".typing-reveal"))
-        .map(getSequenceContainer)
-        .filter((container): container is HTMLElement => Boolean(container))
-    )
-  );
-
-  containers.forEach((container) => {
-    ["primary", "subheading", "body"].forEach((typeKind) => {
-      const batch = Array.from(container.querySelectorAll<HTMLElement>(`.typing-reveal[data-type-kind='${typeKind}']`));
-      if (batch.length < 2) return;
-
-      const targetEnd = batch.reduce((latest, element) => {
-        const delay = Number.parseFloat(element.style.getPropertyValue("--typing-delay")) || 0;
-        const duration = Number.parseFloat(element.style.getPropertyValue("--typing-duration")) || 0;
-        return Math.max(latest, delay + duration);
-      }, 0);
-
-      batch.forEach((element) => {
-        const delay = Number.parseFloat(element.style.getPropertyValue("--typing-delay")) || 0;
-        const duration = Math.max(260, targetEnd - delay);
-        const characterCount = Number.parseFloat(element.style.getPropertyValue("--typing-char-count")) || 1;
-        element.style.setProperty("--typing-duration", `${duration}ms`);
-        element.style.setProperty("--typing-char-step", `${duration / characterCount}ms`);
-        element.dataset.typeEnd = `${delay + duration}`;
-      });
-    });
-  });
-}
-
 function startTyping(element: HTMLElement) {
   const plan = textPlans.get(element);
   if (!plan || plan.started) return;
@@ -298,9 +275,7 @@ function scan(root: ParentNode) {
   const candidates = Array.from(root.querySelectorAll<HTMLElement>(TEXT_SELECTOR));
   candidates.forEach(prepareText);
   sequenceText(root);
-  normalizeBatchTiming(root);
   sequenceText(root);
-  normalizeBatchTiming(root);
 }
 
 function observePreparedElements(root: ParentNode) {
