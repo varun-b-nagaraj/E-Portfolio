@@ -52,6 +52,40 @@ const sectionDetails: Record<string, { bullets: string[]; tags: string[]; metric
   }
 };
 
+function TypedText({
+  text,
+  resetKey,
+  delay = 0,
+  step = 12
+}: {
+  text: string;
+  resetKey: string | number;
+  delay?: number;
+  step?: number;
+}) {
+  const [visibleCharacters, setVisibleCharacters] = useState(0);
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) {
+      setVisibleCharacters(Array.from(text).length);
+      return;
+    }
+
+    setVisibleCharacters(0);
+    const characters = Array.from(text);
+    const timers = characters.map((_, index) => window.setTimeout(() => setVisibleCharacters(index + 1), delay + index * step));
+
+    return () => timers.forEach((timer) => window.clearTimeout(timer));
+  }, [delay, resetKey, step, text]);
+
+  return (
+    <span aria-label={text}>
+      <span aria-hidden>{Array.from(text).slice(0, visibleCharacters).join("")}</span>
+    </span>
+  );
+}
+
 function MobileTile({ section, index }: { section: SectionData; index: number }) {
   return (
     <article className="surface-glow overflow-hidden rounded-[1.75rem] border border-white/10 bg-carbon/95 p-6 shadow-glass">
@@ -123,6 +157,9 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
     });
   }, [scrollYProgress, last]);
 
+  const activeSection = sections[activeIndex];
+  const activeTypingKey = activeSection.title;
+
   return (
     <section id="builder-profile" ref={containerRef} data-no-type className="container-page py-20 md:py-0" style={{ minHeight: `${sections.length * 100}vh` }}>
       <div className="sticky top-0 h-screen flex items-center justify-center">
@@ -182,38 +219,52 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(56,189,248,0.14),_transparent_28%)]" />
                     <div className="relative z-10 flex h-full flex-col justify-between gap-8">
                       <div>
-                        <p className="text-xs uppercase tracking-[0.3em] text-teal-200/80">{sections[activeIndex].eyebrow}</p>
-                        <h3 className="mt-4 text-5xl font-semibold leading-tight text-white">{sections[activeIndex].title}</h3>
+                        <p className="min-h-4 text-xs uppercase tracking-[0.3em] text-teal-200/80">
+                          <TypedText text={activeSection.eyebrow} resetKey={activeTypingKey} delay={80} step={18} />
+                        </p>
+                        <h3 className="mt-4 min-h-[1.15em] text-5xl font-semibold leading-tight text-white">
+                          <TypedText text={activeSection.title} resetKey={activeTypingKey} delay={180} step={22} />
+                        </h3>
                         <p className="mt-5 max-w-3xl text-base leading-relaxed text-slate-300">
-                          {sections[activeIndex].description}
+                          <TypedText text={activeSection.description} resetKey={activeTypingKey} delay={360} step={8} />
                         </p>
                       </div>
                       <div>
-                        <p className="mb-4 text-xs uppercase tracking-widest text-slate-400">Core focus areas</p>
+                        <p className="mb-4 min-h-4 text-xs uppercase tracking-widest text-slate-400">
+                          <TypedText text="Core focus areas" resetKey={activeTypingKey} delay={760} step={12} />
+                        </p>
                         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                          {sections[activeIndex].bullets.map((bullet) => (
+                          {activeSection.bullets.map((bullet, index) => (
                             <div key={bullet} className="flex min-h-[54px] items-center rounded-3xl border border-white/10 bg-white/5 p-4 text-sm text-slate-300">
-                              <span>{bullet}</span>
+                              <span>
+                                <TypedText text={bullet} resetKey={activeTypingKey} delay={900 + index * 120} step={10} />
+                              </span>
                             </div>
                           ))}
                         </div>
                       </div>
-                      {sections[activeIndex].metrics && sections[activeIndex].metrics!.length > 0 && (
+                      {activeSection.metrics && activeSection.metrics.length > 0 && (
                         <div>
-                          <p className="mb-4 text-xs uppercase tracking-widest text-slate-400">Key dimensions</p>
+                          <p className="mb-4 min-h-4 text-xs uppercase tracking-widest text-slate-400">
+                            <TypedText text="Key dimensions" resetKey={activeTypingKey} delay={1240} step={12} />
+                          </p>
                           <div className="grid gap-3 sm:grid-cols-3">
-                            {sections[activeIndex].metrics!.map((metric) => (
+                            {activeSection.metrics.map((metric, index) => (
                               <div key={metric} className="flex min-h-[66px] items-center rounded-lg border border-white/[0.08] bg-white/[0.02] p-3 text-sm text-slate-200">
-                                <span>{metric}</span>
+                                <span>
+                                  <TypedText text={metric} resetKey={activeTypingKey} delay={1380 + index * 120} step={10} />
+                                </span>
                               </div>
                             ))}
                           </div>
                         </div>
                       )}
                       <div className="flex flex-wrap gap-2 text-xs text-slate-400">
-                        {sections[activeIndex].tags.map((tag) => (
+                        {activeSection.tags.map((tag, index) => (
                           <span key={tag} className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1">
-                            <span>{tag}</span>
+                            <span>
+                              <TypedText text={tag} resetKey={activeTypingKey} delay={1740 + index * 90} step={10} />
+                            </span>
                           </span>
                         ))}
                       </div>
