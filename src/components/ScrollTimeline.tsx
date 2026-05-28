@@ -82,6 +82,7 @@ function TimelineCard({
   return (
     <motion.article
       ref={ref}
+      data-typing-scope={`timeline-${item.slug}`}
       className="surface-glow relative min-w-0 overflow-hidden rounded-lg border border-white/12 bg-panel/85 p-6 shadow-glass backdrop-blur md:p-8"
       style={motionEnabled ? { y, opacity, scale, boxShadow: glow } : undefined}
     >

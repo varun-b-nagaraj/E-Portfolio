@@ -53,9 +53,11 @@ const bodyDelayAfterHeading = 150;
 type TextPlan = {
   entries: Array<{ node: Text; text: string }>;
   started: boolean;
+  key: string;
 };
 
 const textPlans = new WeakMap<HTMLElement, TextPlan>();
+const completedTextKeys = new Set<string>();
 
 function hasReadableText(element: Element) {
   const text = element.textContent?.replace(/\s+/g, " ").trim() ?? "";
@@ -118,7 +120,9 @@ function prepareText(element: HTMLElement) {
   if (nestedPrepared && !hasDirectText(element)) return;
 
   const { duration, delay, steps, typeKind, isPrimaryHeading } = getTypingMeta(element);
-  const characterCount = prepareTextNodes(element);
+  const textKey = getTextKey(element);
+  const alreadyTyped = completedTextKeys.has(textKey);
+  const characterCount = prepareTextNodes(element, textKey, alreadyTyped);
   if (characterCount === 0) return;
 
   element.dataset.typePrepared = "true";
@@ -133,9 +137,26 @@ function prepareText(element: HTMLElement) {
   element.style.setProperty("--typing-steps", `${steps}`);
   element.style.setProperty("--typing-char-step", `${duration / characterCount}ms`);
   element.style.setProperty("--typing-char-count", `${characterCount}`);
+
+  if (alreadyTyped) {
+    element.classList.add("is-visible", "is-typed");
+    element.dataset.typeEnd = `${delay}`;
+  }
 }
 
-function prepareTextNodes(element: HTMLElement) {
+function getTextKey(element: HTMLElement) {
+  const text = element.textContent?.replace(/\s+/g, " ").trim() ?? "";
+  const container = element.closest<HTMLElement>("[data-typing-scope], article, section, main");
+  const scope =
+    container?.dataset.typingScope ??
+    container?.getAttribute("aria-label") ??
+    container?.querySelector("h1,h2,h3")?.textContent?.replace(/\s+/g, " ").trim() ??
+    "";
+
+  return `${location.pathname}|${scope}|${element.tagName}|${text}`;
+}
+
+function prepareTextNodes(element: HTMLElement, textKey: string, alreadyTyped: boolean) {
   let characterIndex = 0;
   const nodes = Array.from(element.childNodes);
   const entries: TextPlan["entries"] = [];
@@ -151,10 +172,10 @@ function prepareTextNodes(element: HTMLElement) {
 
     entries.push({ node: node as Text, text: value });
     characterIndex += Array.from(value).length;
-    node.textContent = "";
+    node.textContent = alreadyTyped ? value : "";
   });
 
-  if (entries.length > 0) textPlans.set(element, { entries, started: false });
+  if (entries.length > 0 && !alreadyTyped) textPlans.set(element, { entries, started: false, key: textKey });
   return characterIndex;
 }
 
@@ -262,6 +283,7 @@ function startTyping(element: HTMLElement) {
     plan.entries.forEach((entry) => {
       entry.node.textContent = entry.text;
     });
+    completedTextKeys.add(plan.key);
     element.classList.remove("is-typing");
     element.classList.add("is-typed");
   };

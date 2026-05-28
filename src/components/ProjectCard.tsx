@@ -113,6 +113,7 @@ export function ProjectCard({ project, featured = false, revealContent }: { proj
   return (
     <article
       ref={ref}
+      data-typing-scope={`project-${project.slug}`}
       className={`surface-glow group relative overflow-hidden rounded-lg border border-white/12 bg-panel/90 shadow-glass backdrop-blur-xl transition-all duration-700 ease-out hover:border-teal-200/24 hover:shadow-[0_22px_70px_rgba(20,184,166,0.07),0_0_0_1px_rgba(255,255,255,0.06)] ${
         featured ? "flex min-h-[clamp(430px,50vh,560px)] flex-col p-5 md:p-7" : "p-6"
       }`}
