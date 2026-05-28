@@ -40,6 +40,8 @@ const SKIP_SELECTOR = [
   "textarea",
   "select",
   "option",
+  "a",
+  "button",
   "[aria-hidden='true']",
   "[data-no-type]",
   ".noise"
