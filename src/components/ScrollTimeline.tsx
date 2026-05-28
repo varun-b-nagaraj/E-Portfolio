@@ -176,7 +176,7 @@ function TimelineRow({
       ref={ref}
       className="relative grid gap-5 md:min-h-[118vh] md:grid-cols-[132px_minmax(0,1fr)] md:pb-28 last:md:min-h-[88vh]"
     >
-      <div className="relative hidden md:block">
+      <div data-no-type className="relative hidden md:block">
         <div className="sticky top-28 h-fit pr-8 text-right">
           <div className="absolute right-[-10px] top-1 h-5 w-5 rounded-full border border-teal-100/55 bg-black shadow-[0_0_24px_rgba(141,223,213,0.22)]" />
           <p className="text-xs uppercase tracking-[0.2em] text-muted">0{index + 1}</p>
