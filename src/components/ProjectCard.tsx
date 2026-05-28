@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 import { Project } from "@/data/projects";
 
 const stackGroups = [
@@ -61,9 +63,56 @@ function FeaturedProjectSkeleton({ project }: { project: Project }) {
   );
 }
 
-export function ProjectCard({ project, featured = false, revealContent = true }: { project: Project; featured?: boolean; revealContent?: boolean }) {
+function ProjectCardSkeleton({ project, featured }: { project: Project; featured: boolean }) {
+  if (featured) return <FeaturedProjectSkeleton project={project} />;
+
+  return (
+    <div className="relative flex min-h-[420px] flex-col" data-no-type>
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="min-w-0 flex-1">
+          <SkeletonBlock className="h-3 w-40 rounded-full" />
+          <SkeletonBlock className="mt-5 h-12 w-[min(520px,86%)] rounded-lg" />
+        </div>
+        <div className="h-11 w-11 rounded-full border border-teal-100/20 bg-white/[0.035]" aria-label={`Project details loading for ${project.title}`} />
+      </div>
+      <div className="mt-7 space-y-3">
+        <SkeletonBlock className="h-4 w-[82%]" />
+        <SkeletonBlock className="h-4 w-[68%]" />
+      </div>
+      <div className="mt-8 grid gap-5 md:grid-cols-3">
+        {[0, 1, 2].map((item) => (
+          <div key={item}>
+            <SkeletonBlock className="h-3 w-24 rounded-full" />
+            <SkeletonBlock className="mt-4 h-4 w-full" />
+            <SkeletonBlock className="mt-3 h-4 w-4/5" />
+          </div>
+        ))}
+      </div>
+      <div className="mt-8 grid gap-3 md:grid-cols-3">
+        {[0, 1, 2].map((item) => (
+          <div key={item} className="rounded-md border border-white/10 bg-black/20 p-4">
+            <SkeletonBlock className="h-3 w-24 rounded-full" />
+            <SkeletonBlock className="mt-5 h-6 w-28 rounded-full" />
+          </div>
+        ))}
+      </div>
+      <div className="mt-6 grid gap-3 sm:grid-cols-3">
+        {[0, 1, 2].map((item) => (
+          <SkeletonBlock key={item} className="h-[54px] rounded-md border border-amber-100/10" />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function ProjectCard({ project, featured = false, revealContent }: { project: Project; featured?: boolean; revealContent?: boolean }) {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-18% 0px -18% 0px" });
+  const shouldRevealContent = revealContent ?? isInView;
+
   return (
     <article
+      ref={ref}
       className={`surface-glow group relative overflow-hidden rounded-lg border border-white/12 bg-panel/90 shadow-glass backdrop-blur-xl transition-all duration-700 ease-out hover:border-teal-200/24 hover:shadow-[0_22px_70px_rgba(20,184,166,0.07),0_0_0_1px_rgba(255,255,255,0.06)] ${
         featured ? "flex min-h-[clamp(430px,50vh,560px)] flex-col p-5 md:p-7" : "p-6"
       }`}
@@ -74,7 +123,7 @@ export function ProjectCard({ project, featured = false, revealContent = true }:
         <div className="absolute bottom-0 right-0 h-48 w-48 rounded-full bg-teal-400/[0.045] blur-3xl" />
         <div className="absolute left-0 top-12 h-36 w-36 rounded-full bg-amber-300/[0.035] blur-3xl" />
       </div>
-      {featured && !revealContent ? <FeaturedProjectSkeleton project={project} /> : (
+      {!shouldRevealContent ? <ProjectCardSkeleton project={project} featured={featured} /> : (
       <div className="relative flex h-full flex-col">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>

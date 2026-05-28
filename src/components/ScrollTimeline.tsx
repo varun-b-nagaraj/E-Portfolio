@@ -1,11 +1,48 @@
 "use client";
 
-import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
+import { motion, MotionValue, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Experience } from "@/data/experience";
 import { useMotionEnabled } from "./ReducedMotionProvider";
+
+function SkeletonBlock({ className = "" }: { className?: string }) {
+  return <div aria-hidden className={`skeleton-shimmer rounded-md ${className}`} />;
+}
+
+function TimelineCardSkeleton({ item }: { item: Experience }) {
+  return (
+    <div className="relative" data-no-type>
+      <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+        <div className="min-w-0 flex-1">
+          <SkeletonBlock className="h-3 w-40 rounded-full" />
+          <SkeletonBlock className="mt-5 h-10 w-[min(420px,82%)] rounded-lg" />
+          <SkeletonBlock className="mt-4 h-5 w-56 rounded-md" />
+        </div>
+        {item.metric && <SkeletonBlock className="h-12 w-40 shrink-0 rounded-md" />}
+      </div>
+      <div className="mt-7 space-y-3">
+        <SkeletonBlock className="h-5 w-[78%]" />
+        <SkeletonBlock className="h-5 w-[62%]" />
+      </div>
+      <div className="mt-7 grid gap-3 md:grid-cols-3">
+        {[0, 1, 2].map((index) => (
+          <SkeletonBlock key={index} className="h-28 rounded-md border border-white/10" />
+        ))}
+      </div>
+      <div className="mt-6 flex flex-wrap gap-2">
+        {[0, 1, 2, 3].map((index) => (
+          <SkeletonBlock key={index} className="h-6 w-24 rounded-full" />
+        ))}
+      </div>
+      <div className="mt-7 flex gap-3">
+        <SkeletonBlock className="h-10 w-40 rounded-full" />
+        {item.website && <SkeletonBlock className="h-10 w-32 rounded-full" />}
+      </div>
+    </div>
+  );
+}
 
 function TimelineCard({
   item,
@@ -26,6 +63,7 @@ function TimelineCard({
   const motionEnabled = useMotionEnabled();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 76%", "end 32%"] });
   const activeProgress = rowProgress ?? scrollYProgress;
+  const [revealContent, setRevealContent] = useState(false);
   const y = useTransform(activeProgress, [0, 0.28, 1], [28, 0, 0]);
   const opacity = useTransform(activeProgress, [0, 0.2, 0.84, 1], [0.58, 1, 1, 0.74]);
   const scale = useTransform(activeProgress, [0, 0.24, 0.76, 1], [0.985, 1, 1, 0.992]);
@@ -37,6 +75,10 @@ function TimelineCard({
   ]);
   const visibleBulletCount = Math.min(maxBullets, 3);
 
+  useMotionValueEvent(activeProgress, "change", (progress) => {
+    if (!revealContent && progress >= 0.18 && progress <= 0.92) setRevealContent(true);
+  });
+
   return (
     <motion.article
       ref={ref}
@@ -45,6 +87,8 @@ function TimelineCard({
     >
       <div className="accent-rule absolute inset-x-0 top-0 h-px" />
       <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-teal-100/55 via-amber-100/20 to-transparent" />
+      {!revealContent ? <TimelineCardSkeleton item={item} /> : (
+      <>
       <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
         <div className="min-w-0">
           <p className="section-kicker text-xs uppercase tracking-[0.22em]">{item.period}</p>
@@ -104,6 +148,8 @@ function TimelineCard({
           </a>
         )}
       </div>
+      </>
+      )}
     </motion.article>
   );
 }

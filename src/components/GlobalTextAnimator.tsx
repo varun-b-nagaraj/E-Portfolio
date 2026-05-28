@@ -16,6 +16,7 @@ const TEXT_SELECTOR = [
   "a",
   "button",
   "label",
+  "div",
   "span"
 ].join(",");
 
@@ -46,8 +47,8 @@ const SKIP_SELECTOR = [
 
 const primaryHeadingTags = new Set(["H1", "H2", "H3"]);
 const subheadingTags = new Set(["H4", "H5", "H6"]);
-const subheadingDelayAfterHeading = 150;
-const bodyDelayAfterHeading = 250;
+const subheadingDelayAfterHeading = 90;
+const bodyDelayAfterHeading = 150;
 
 type TextPlan = {
   entries: Array<{ node: Text; text: string }>;
@@ -79,8 +80,8 @@ function getTypingMeta(element: HTMLElement) {
     ? Math.min(4200, Math.max(2600, textLength * 72))
     : isPrimaryHeading
     ? Math.min(1700, Math.max(620, textLength * 24))
-    : Math.min(980, Math.max(260, textLength * 8));
-  const delay = isPrimaryHeading ? 220 : isCompact ? 420 : 500;
+    : Math.min(620, Math.max(160, textLength * 5));
+  const delay = isPrimaryHeading ? 220 : isCompact ? 180 : 220;
   const steps = Math.max(12, Math.min(textLength, 90));
 
   return { duration, delay, steps, typeKind, isPrimaryHeading };
