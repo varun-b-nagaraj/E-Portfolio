@@ -124,7 +124,7 @@ export function StackingSection({ cards }: { cards: StackCard[] }) {
   }, [scrollYProgress, last]);
 
   return (
-    <section id="builder-profile" ref={containerRef} className="container-page py-20 md:py-0" style={{ minHeight: `${sections.length * 100}vh` }}>
+    <section id="builder-profile" ref={containerRef} data-no-type className="container-page py-20 md:py-0" style={{ minHeight: `${sections.length * 100}vh` }}>
       <div className="sticky top-0 h-screen flex items-center justify-center">
         <div className="grid h-full gap-10 lg:grid-cols-[0.3fr_0.7fr] w-full items-center">
           <div className="hidden md:flex md:items-center">
