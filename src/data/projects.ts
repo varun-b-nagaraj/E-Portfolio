@@ -33,7 +33,7 @@ export const projects: Project[] = [
     summary:
       "A full-stack platform centralizing HR, scheduling, finance, inventory, analytics, AI workflows, and employee coordination for a student-run organization.",
     problem:
-      "RRHS CO-OP relied on fragmented spreadsheets, manual scheduling, disconnected communication systems, and separate inventory, HR, finance, marketing, and executive workflows with limited visibility.",
+      "RRHS Co-Op relied on fragmented spreadsheets, manual scheduling, disconnected communication systems, and separate inventory, HR, finance, marketing, and executive workflows with limited visibility.",
     solution:
       "Designed a unified operations dashboard with role-based access, AI-powered analytics, automated scheduling, inventory synchronization, and department-level tooling across the organization.",
     impact:
@@ -255,7 +255,7 @@ export const projects: Project[] = [
     slug: "automatic-hr-scheduling-system",
     title: "Automatic HR Scheduling System",
     eyebrow: "Optimization engine",
-    summary: "An intelligent scheduling engine for RRHS CO-OP using optimization algorithms and operational constraints.",
+    summary: "An intelligent scheduling engine for RRHS Co-Op using optimization algorithms and operational constraints.",
     problem:
       "Manual shift construction was time-consuming and prone to coverage gaps, fairness issues, availability conflicts, and A/B day mistakes.",
     solution:
