@@ -47,8 +47,8 @@ const SKIP_SELECTOR = [
 
 const primaryHeadingTags = new Set(["H1", "H2", "H3"]);
 const subheadingTags = new Set(["H4", "H5", "H6"]);
-const subheadingDelayAfterHeading = 90;
-const bodyDelayAfterHeading = 150;
+const subheadingDelayAfterHeading = 45;
+const bodyDelayAfterHeading = 85;
 
 type TextPlan = {
   entries: Array<{ node: Text; text: string }>;
@@ -81,9 +81,9 @@ function getTypingMeta(element: HTMLElement) {
   const duration = isHeroName
     ? Math.min(4200, Math.max(2600, textLength * 72))
     : isPrimaryHeading
-    ? Math.min(1700, Math.max(620, textLength * 24))
-    : Math.min(620, Math.max(160, textLength * 5));
-  const delay = isPrimaryHeading ? 220 : isCompact ? 180 : 220;
+    ? Math.min(1150, Math.max(380, textLength * 15))
+    : Math.min(360, Math.max(90, textLength * 3));
+  const delay = isPrimaryHeading ? 120 : isCompact ? 70 : 90;
   const steps = Math.max(12, Math.min(textLength, 90));
 
   return { duration, delay, steps, typeKind, isPrimaryHeading };
