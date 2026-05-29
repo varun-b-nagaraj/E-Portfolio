@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Project } from "@/data/projects";
 
 const stackGroups = [
@@ -14,6 +14,41 @@ const stackGroups = [
 
 function SkeletonBlock({ className = "" }: { className?: string }) {
   return <div aria-hidden className={`skeleton-shimmer rounded-md ${className}`} />;
+}
+
+function TypedText({
+  text,
+  resetKey,
+  delay = 0,
+  step = 10
+}: {
+  text: string;
+  resetKey: string;
+  delay?: number;
+  step?: number;
+}) {
+  const [visibleCharacters, setVisibleCharacters] = useState(0);
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const characters = Array.from(text);
+
+    if (reducedMotion) {
+      setVisibleCharacters(characters.length);
+      return;
+    }
+
+    setVisibleCharacters(0);
+    const timers = characters.map((_, index) => window.setTimeout(() => setVisibleCharacters(index + 1), delay + index * step));
+
+    return () => timers.forEach((timer) => window.clearTimeout(timer));
+  }, [delay, resetKey, step, text]);
+
+  return (
+    <span aria-label={text}>
+      <span aria-hidden>{Array.from(text).slice(0, visibleCharacters).join("")}</span>
+    </span>
+  );
 }
 
 function FeaturedProjectSkeleton({ project }: { project: Project }) {
@@ -109,6 +144,8 @@ export function ProjectCard({ project, featured = false, revealContent }: { proj
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-18% 0px -18% 0px" });
   const shouldRevealContent = revealContent ?? isInView;
+  const renderText = (text: string, delay = 0, step = 10) =>
+    featured ? <TypedText text={text} resetKey={project.slug} delay={delay} step={step} /> : text;
 
   return (
     <article
@@ -128,9 +165,9 @@ export function ProjectCard({ project, featured = false, revealContent }: { proj
       <div className="relative flex h-full flex-col">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p className="section-kicker text-xs uppercase tracking-[0.28em]">{project.eyebrow}</p>
+            <p className="section-kicker min-h-4 text-xs uppercase tracking-[0.28em]">{renderText(project.eyebrow, 40, 18)}</p>
             <h3 className={`mt-3 font-semibold text-bone ${featured ? "text-2xl md:text-4xl" : "text-3xl md:text-5xl"}`}>
-              {project.title}
+              {renderText(project.title, 140, 18)}
             </h3>
           </div>
           <Link
@@ -141,30 +178,30 @@ export function ProjectCard({ project, featured = false, revealContent }: { proj
             <ArrowUpRight className="h-5 w-5" />
           </Link>
         </div>
-        <p className={`max-w-2xl leading-relaxed text-silver ${featured ? "mt-4 text-sm md:text-base" : "mt-5 text-lg"}`}>{project.summary}</p>
-        {featured && <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">{project.narrative}</p>}
+        <p className={`max-w-2xl leading-relaxed text-silver ${featured ? "mt-4 text-sm md:text-base" : "mt-5 text-lg"}`}>{renderText(project.summary, 300, 7)}</p>
+        {featured && <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">{renderText(project.narrative, 620, 6)}</p>}
         <div className={`grid md:grid-cols-3 ${featured ? "mt-6 gap-4" : "mt-8 gap-5"}`}>
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-teal-100/65">Problem</p>
-            <p className="mt-2 text-sm leading-relaxed text-silver">{project.problem}</p>
+            <p className="min-h-4 text-xs uppercase tracking-[0.2em] text-teal-100/65">{renderText("Problem", 980, 12)}</p>
+            <p className="mt-2 text-sm leading-relaxed text-silver">{renderText(project.problem, 1080, 6)}</p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-blue-100/65">Solution</p>
-            <p className="mt-2 text-sm leading-relaxed text-silver">{project.solution}</p>
+            <p className="min-h-4 text-xs uppercase tracking-[0.2em] text-blue-100/65">{renderText("Solution", 1220, 12)}</p>
+            <p className="mt-2 text-sm leading-relaxed text-silver">{renderText(project.solution, 1320, 6)}</p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-amber-100/70">Impact</p>
-            <p className="mt-2 text-sm leading-relaxed text-silver">{project.impact}</p>
+            <p className="min-h-4 text-xs uppercase tracking-[0.2em] text-amber-100/70">{renderText("Impact", 1460, 12)}</p>
+            <p className="mt-2 text-sm leading-relaxed text-silver">{renderText(project.impact, 1560, 6)}</p>
           </div>
         </div>
         <div className={`grid gap-3 md:grid-cols-3 ${featured ? "mt-6" : "mt-8"}`}>
-          {stackGroups.map(([label, key]) => (
+          {stackGroups.map(([label, key], groupIndex) => (
             <div key={key} className="rounded-md border border-white/10 bg-black/20 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
-              <p className="text-[10px] uppercase tracking-[0.22em] text-teal-100/65">{label}</p>
+              <p className="min-h-3 text-[10px] uppercase tracking-[0.22em] text-teal-100/65">{renderText(label, 1840 + groupIndex * 90, 12)}</p>
               <div className="mt-3 flex flex-wrap gap-2">
-                {project.stack[key].slice(0, 3).map((item) => (
+                {project.stack[key].slice(0, 3).map((item, itemIndex) => (
                   <span key={item} className="accent-chip rounded-full px-3 py-1 text-xs text-muted">
-                    {item}
+                    {renderText(item, 1960 + groupIndex * 120 + itemIndex * 70, 8)}
                   </span>
                 ))}
               </div>
@@ -172,9 +209,9 @@ export function ProjectCard({ project, featured = false, revealContent }: { proj
           ))}
         </div>
         <div className="mt-6 grid gap-3 sm:grid-cols-3">
-          {project.metrics.slice(0, 3).map((metric) => (
+          {project.metrics.slice(0, 3).map((metric, index) => (
             <div key={metric} className="rounded-md border border-amber-100/20 bg-[linear-gradient(135deg,rgba(240,195,106,0.10),rgba(141,223,213,0.055))] p-4 text-sm text-bone shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
-              {metric}
+              {renderText(metric, 2360 + index * 90, 8)}
             </div>
           ))}
         </div>
